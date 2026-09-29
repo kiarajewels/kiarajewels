@@ -1,0 +1,132 @@
+[
+  {
+    "_id": "6a9d916fc18e6952a6246721",
+    "name": "Prakash Lalchandani",
+    "email": "lalchandanip595@gmail.com",
+    "isAdmin": false,
+    "image": "https://lh3.googleusercontent.com/a/ACg8ocKY2rezhLMPcAB4NUceXk8b1iN8AE0-lJeMIpqjnS73_W2OPKZC=s96-c",
+    "phoneNumber": "9510676409",
+    "wishlist": [
+      "6a9fdc986ad2ee4fde30ef86"
+    ],
+    "cart": [
+      {
+        "id": "6ab3c03be059169971a86331",
+        "quantity": 1,
+        "_id": "6ababcc88d10d594e7ec3f18"
+      }
+    ],
+    "createdAt": "2026-09-06T16:14:39.565Z",
+    "updatedAt": "2026-09-28T19:15:20.529Z",
+    "__v": 660,
+    "addresses": [
+      {
+        "firstName": "Prakash",
+        "lastName": "Lalchandani",
+        "mobile": "9510676409",
+        "house": "46",
+        "floor": "",
+        "area": "46 Lalchandani Niwas, jawahar colony, evergreen school, Sardarnagar",
+        "landmark": "",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "pincode": "382475",
+        "type": "Home",
+        "_id": "6ab25195acd2471e14d05c9d"
+      }
+    ]
+  },
+  {
+    "_id": "6a9e47a5031f4ce370878ad7",
+    "name": "Prakash Lalchandani",
+    "email": "iamprakashlalchandani@gmail.com",
+    "password": "$2b$10$MB3svMWnBT.w0/pu6kOBpOijmRufbVyvDgUJrcbG4JVgtOtZUGrBe",
+    "isAdmin": false,
+    "phoneNumber": "9510676409",
+    "wishlist": [],
+    "cart": [
+      {
+        "id": "6ab6ce278b8e40ba96575da6",
+        "quantity": 1,
+        "_id": "6aba97f38d10d594e7ec3ec8"
+      }
+    ],
+    "createdAt": "2026-09-07T05:12:05.395Z",
+    "updatedAt": "2026-09-28T16:38:11.879Z",
+    "__v": 430,
+    "image": "https://lh3.googleusercontent.com/a/ACg8ocJHx1V7jyOdlkQt92EK5kE0xkV_nX7gh50L9TIGvuI8F0z7pCA=s96-c",
+    "addresses": []
+  },
+  {
+    "_id": "6a9e4823031f4ce370878b64",
+    "name": "YP Builds",
+    "email": "ypbuilds@gmail.com",
+    "isAdmin": false,
+    "image": "https://lh3.googleusercontent.com/a/ACg8ocLwXZ099QhbhiMDD9od7c0ArP0DR8s-fDn7vwPO4JAtJWHBVQ=s96-c",
+    "phoneNumber": "+91 9510676409",
+    "wishlist": [],
+    "cart": [],
+    "createdAt": "2026-09-07T05:14:11.243Z",
+    "updatedAt": "2026-09-07T05:14:19.564Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aa7bd39faa3388f8d76e27d",
+    "name": "Prakash Lalchandani",
+    "email": "p595lalchandani@gmail.com",
+    "password": "$2b$10$nUVSuDakU6gc8ocIYoZa8OxIDZr1iKa5YezI3SVc9Zfs.knU1KAoe",
+    "isAdmin": false,
+    "phoneNumber": "9484549007",
+    "wishlist": [
+      "6a9da73fb69ed6bd5cf059ab"
+    ],
+    "cart": [],
+    "createdAt": "2026-09-14T09:24:09.732Z",
+    "updatedAt": "2026-09-22T10:54:17.736Z",
+    "__v": 169,
+    "addresses": [
+      {
+        "firstName": "Mirchumal",
+        "lastName": "Patel",
+        "mobile": "9510676409",
+        "house": "1003 Lilamani Flats",
+        "floor": "10th",
+        "area": "ranmukteshwar",
+        "landmark": "brahmpuri",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "pincode": "382475",
+        "type": "Home",
+        "_id": "6ab2524dacd2471e14d05f55"
+      },
+      {
+        "firstName": "Viratchand",
+        "lastName": "kohli",
+        "mobile": "9634568520",
+        "house": "4105 Shivalik height ",
+        "floor": "41th",
+        "area": "vastrapur",
+        "landmark": "vastrapur lake",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "pincode": "384560",
+        "type": "Home",
+        "_id": "6ab25584acd2471e14d0667b"
+      }
+    ],
+    "image": "https://lh3.googleusercontent.com/a/ACg8ocLmvVJZljH7ZaBC0OknoyYymuruOgdqqL3O_ZdgOrPhUNAPfw=s96-c"
+  },
+  {
+    "_id": "6aa7c042faa3388f8d76e631",
+    "name": "Ashok Lalchandani",
+    "email": "kjyotisilver@gmail.com",
+    "password": "$2b$10$.OsNW3tP13eUwRbfN2bmWOEV.MBRrGtw289dxEgD/2HcptRGtngxe",
+    "isAdmin": false,
+    "phoneNumber": "6352418520",
+    "wishlist": [],
+    "cart": [],
+    "createdAt": "2026-09-14T09:37:06.901Z",
+    "updatedAt": "2026-09-15T07:40:51.675Z",
+    "__v": 114
+  }
+]
