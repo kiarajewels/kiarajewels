@@ -14,6 +14,10 @@ const Products = () => {
   const [activeProduct, setActiveProduct] = useState(null);
   const [stockAddAmount, setStockAddAmount] = useState('');
 
+  // Delete Popup State
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+
   const fetchProducts = async () => {
     try {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/products`);
@@ -66,16 +70,22 @@ const Products = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
-      try {
-        await axios.delete(`${import.meta.env.VITE_API_URL}/api/products/${id}`);
-        fetchProducts(); // Refresh list after delete
-        toast.success('Product deleted successfully');
-      } catch (error) {
-        console.error('Failed to delete product', error);
-        toast.error('Failed to delete product');
-      }
+  const handleDelete = (id) => {
+    setProductToDelete(id);
+    setShowDeletePopup(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!productToDelete) return;
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/products/${productToDelete}`);
+      fetchProducts(); // Refresh list after delete
+      toast.success('Product deleted successfully');
+      setShowDeletePopup(false);
+      setProductToDelete(null);
+    } catch (error) {
+      console.error('Failed to delete product', error);
+      toast.error('Failed to delete product');
     }
   };
 
@@ -305,6 +315,35 @@ const Products = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Popup */}
+      {showDeletePopup && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div style={{ background: 'white', padding: '24px', borderRadius: '12px', width: '90%', maxWidth: '400px', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
+            <h3 style={{ marginTop: 0, fontSize: '18px', fontWeight: 600, color: '#1f2937' }}>Delete Product</h3>
+            <p style={{ color: '#4b5563', marginBottom: '24px' }}>
+              Are you sure you want to permanently delete this product? This action cannot be undone.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+              <button 
+                onClick={() => {
+                  setShowDeletePopup(false);
+                  setProductToDelete(null);
+                }}
+                style={{ padding: '8px 16px', background: 'white', border: '1px solid #d1d5db', borderRadius: '6px', cursor: 'pointer', color: '#4b5563', fontWeight: 500 }}
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmDelete}
+                style={{ padding: '8px 16px', background: '#dc2626', border: 'none', color: 'white', borderRadius: '6px', cursor: 'pointer', fontWeight: 500 }}
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}
