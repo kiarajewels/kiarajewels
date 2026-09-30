@@ -1,10 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
 import CartSavingsProgress from '@/components/CartSavingsProgress';
 
 export default function CartPage() {
+  const { data: session } = useSession();
   const { cartItems, updateQuantity, removeFromCart, cartTotal, cartCount, subtotal, discountAmount, isFirstOrder } = useCart();
   const [mounted, setMounted] = useState(false);
 
@@ -97,7 +99,7 @@ export default function CartPage() {
                   <span>Rs. {cartTotal}</span>
                 </div>
                 
-                <Link href="/checkout" className="btn-proceed-checkout">
+                <Link href={session ? "/checkout" : "/login?callbackUrl=/checkout"} className="btn-proceed-checkout">
                   Proceed to Checkout
                 </Link>
               </div>

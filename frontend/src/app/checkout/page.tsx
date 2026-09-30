@@ -6,8 +6,10 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import Script from 'next/script';
 import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 export default function CheckoutPage() {
+  const router = useRouter();
   const { cartItems, cartTotal, subtotal, discountAmount, isFirstOrder, clearCart } = useCart();
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
@@ -50,9 +52,9 @@ export default function CheckoutPage() {
           setShowNewAddressForm(true);
         });
     } else if (status === 'unauthenticated') {
-      setShowNewAddressForm(true);
+      router.push('/login?callbackUrl=/checkout');
     }
-  }, [status, session]);
+  }, [status, session, router]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
