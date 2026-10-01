@@ -1,250 +1,136 @@
-'use client';
-import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import axios from 'axios';
-import { useCart } from '@/context/CartContext';
-import ProductCard from '@/components/ProductCard';
-
-import FAQSection from '@/components/FAQSection';
+import Image from 'next/image';
+import { ShieldCheck, Diamond, Sparkles, Truck, RefreshCcw } from 'lucide-react';
 import HeroVideo from '@/components/HeroVideo';
-import OfferSection from '@/components/OfferSection';
+import ProductCarousel from '@/components/ProductCarousel';
+import FAQSection from '@/components/FAQSection';
+import EmailCapture from '@/components/EmailCapture';
 
-export default function Home() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [products, setProducts] = useState<any[]>([]);
+async function getBestSellers() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?isBestSeller=true`, {
+      next: { revalidate: 3600 }
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    console.error("Failed to fetch best sellers", error);
+    return [];
+  }
+}
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16;
-  const { cartCount } = useCart();
+export default async function Home() {
+  const bestSellers = await getBestSellers();
 
-  // Simple auto-carousel logic
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1));
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Fetch live products from backend
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/products?isBestSeller=true`);
-        setProducts(res.data);
-      } catch (error) {
-        console.error('Failed to fetch products', error);
-      }
-    };
-    fetchProducts();
-  }, []);
-
-  // Scroll animation for homepage elements
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const blocks = document.querySelectorAll('.animate-up');
-    blocks.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+  const instaPosts = [
+    '/images/hero_videos/heroimage1.png',
+    '/images/hero_videos/heroimage2.png',
+    '/images/hero_videos/heroimage3.png',
+    '/images/hero_videos/heroimage4.png',
+    '/images/herorings.png',
+    '/images/herobracelet.png'
+  ];
 
   return (
-    <>
-      {/* ===== CINEMATIC HERO VIDEO ===== */}
+    <main>
       <HeroVideo />
 
-      {/* ===== EXCLUSIVE SAVINGS OFFER SECTION ===== */}
-      <OfferSection />
-
-      {/* ===== TRUST STRIP ===== */}
-      <section style={{ margin: '80px 0 60px' }}>
-        <h2 style={{ fontFamily: 'Times New Roman, serif', fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color: '#000000', textAlign: 'center', marginBottom: '48px', fontWeight: 'normal' }}>
-          Shop With Confidence
-        </h2>
-        <div style={{ padding: '0 24px', margin: '0 auto', maxWidth: '1200px', display: 'flex', justifyContent: 'center', gap: '24px', flexWrap: 'wrap' }}>
-        
-        {/* Claim 1 */}
-        <div className="animate-up" style={{ textAlign: 'center', flex: '1 1 260px', padding: '32px 24px', backgroundColor: '#eaeaeaae', borderRadius: '0' }}>
-          <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '64px', height: '64px', borderRadius: '50%', border: '1px solid #ffffffff', marginBottom: '20px', backgroundColor: 'white' }}>
-            <span className="material-symbols-outlined" style={{ color: '#27302E', fontSize: '2.2rem' }}>workspace_premium</span>
-          </div>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#27302E', marginBottom: '12px', fontFamily: 'Times New Roman, serif' }}>925 Sterling Silver</h3>
-          <p style={{ fontSize: '0.95rem', color: '#4b5563', lineHeight: '1.6' }}>Crafted with pure, hypoallergenic silver for flawless everyday wear.</p>
+      {/* Trust Strip */}
+      <section style={{ background: 'var(--stone)', padding: '24px 16px', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px' }}>
+          {[
+            { icon: <ShieldCheck size={20} strokeWidth={1.5} />, text: '925 sterling silver' },
+            { icon: <Sparkles size={20} strokeWidth={1.5} />, text: 'Rhodium + anti-tarnish finish' },
+            { icon: <Diamond size={20} strokeWidth={1.5} />, text: 'Premium CZ stones' },
+            { icon: <Truck size={20} strokeWidth={1.5} />, text: 'Free shipping across India' },
+            { icon: <RefreshCcw size={20} strokeWidth={1.5} />, text: '3-day returns' }
+          ].map((item, idx) => (
+            <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--ink)' }}>
+              {item.icon}
+              <span style={{ fontSize: '0.9rem', letterSpacing: '0.02em', fontWeight: 500 }}>{item.text}</span>
+            </div>
+          ))}
         </div>
-
-        {/* Claim 2 */}
-        <div className="animate-up delay-100" style={{ textAlign: 'center', flex: '1 1 260px', padding: '32px 24px', backgroundColor: '#eaeaeaae', borderRadius: '0' }}>
-          <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '64px', height: '64px', borderRadius: '50%', border: '1px solid #ffffffff', marginBottom: '20px', backgroundColor: 'white' }}>
-            <span className="material-symbols-outlined" style={{ color: '#27302E', fontSize: '2.2rem' }}>diamond</span>
-          </div>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#27302E', marginBottom: '12px', fontFamily: 'Times New Roman, serif' }}>Premium CZ Stones</h3>
-          <p style={{ fontSize: '0.95rem', color: '#4b5563', lineHeight: '1.6' }}>Handpicked stones that deliver exceptional brilliance and diamond-like sparkle.</p>
-        </div>
-
-        {/* Claim 3 */}
-        <div className="animate-up delay-200" style={{ textAlign: 'center', flex: '1 1 260px', padding: '32px 24px', backgroundColor: '#eaeaeaae', borderRadius: '0' }}>
-          <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '64px', height: '64px', borderRadius: '50%', border: '1px solid #ffffffff', marginBottom: '20px', backgroundColor: 'white' }}>
-            <span className="material-symbols-outlined" style={{ color: '#27302E', fontSize: '2.2rem' }}>water_drop</span>
-          </div>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#27302E', marginBottom: '12px', fontFamily: 'Times New Roman, serif' }}>Tarnish Resistant</h3>
-          <p style={{ fontSize: '0.95rem', color: '#4b5563', lineHeight: '1.6' }}>Advanced multi-layer plating ensures your jewellery stays brilliant for longer.</p>
-        </div>
-
-        {/* Claim 4 */}
-        <div className="animate-up delay-300" style={{ textAlign: 'center', flex: '1 1 260px', padding: '32px 24px', backgroundColor: '#eaeaeaae', borderRadius: '0' }}>
-          <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '64px', height: '64px', borderRadius: '50%', border: '1px solid #ffffffff', marginBottom: '20px', backgroundColor: 'white' }}>
-            <span className="material-symbols-outlined" style={{ color: '#27302E', fontSize: '2.2rem' }}>local_shipping</span>
-          </div>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#27302E', marginBottom: '12px', fontFamily: 'Times New Roman, serif' }}>Free Shipping</h3>
-          <p style={{ fontSize: '0.95rem', color: '#4b5563', lineHeight: '1.6' }}>Enjoy complimentary express delivery across India on all your orders.</p>
-        </div>
-
-      </div>
       </section>
 
-      {/* ===== MAIN CONTENT ===== */}
-      <main id="main-content">
-        {/* ===== CATEGORY SECTION ===== */}
-        <section id="categories" className="categories-minimal animate-up">
-          <h2 className="categories-minimal__heading" style={{ fontFamily: 'Times New Roman, serif', fontWeight: 'normal' }}>Our Collection</h2>
-          <div className="categories-minimal__container">
-            <Link href="/rings" className="category-row">
-              <h3 className="category-row__title" style={{ fontFamily: 'Times New Roman, serif', fontWeight: 'normal' }}>RINGS</h3>
-              <span className="material-symbols-outlined category-row__arrow">arrow_right_alt</span>
+      {/* Categories */}
+      <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+          {[
+            { name: 'Rings', image: '/images/herorings.png', link: '/rings' },
+            { name: 'Earrings', image: '/images/heroearrings.png', link: '/earrings' },
+            { name: 'Necklaces', image: '/images/heropendant.png', link: '/necklaces' },
+            { name: 'Bracelets', image: '/images/herobracelet.png', link: '/bracelets' },
+            { name: 'Sets', image: '/images/setsplaceholder.png', link: '/sets' }
+          ].map(cat => (
+            <Link key={cat.name} href={cat.link} style={{ display: 'block', position: 'relative', aspectRatio: '4/5', background: 'var(--stone)', overflow: 'hidden' }}>
+              {cat.image !== '/images/setsplaceholder.png' ? (
+                <Image src={cat.image} alt={cat.name} fill sizes="(max-width: 768px) 50vw, 20vw" style={{ objectFit: 'cover' }} className="hover-scale" />
+              ) : (
+                <div style={{ position: 'absolute', inset: 0, background: 'var(--stone)' }}></div>
+              )}
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 40%)' }}></div>
+              <h3 style={{ position: 'absolute', bottom: '16px', left: '16px', color: 'var(--white)', margin: 0, fontSize: '1.25rem', letterSpacing: '0.05em', fontWeight: 500 }}>{cat.name}</h3>
             </Link>
-            
-            <Link href="/earrings" className="category-row">
-              <h3 className="category-row__title" style={{ fontFamily: 'Times New Roman, serif', fontWeight: 'normal' }}>EARRINGS</h3>
-              <span className="material-symbols-outlined category-row__arrow">arrow_right_alt</span>
-            </Link>
-            
-            <Link href="/pendant" className="category-row">
-              <h3 className="category-row__title" style={{ fontFamily: 'Times New Roman, serif', fontWeight: 'normal' }}>NECKLACES</h3>
-              <span className="material-symbols-outlined category-row__arrow">arrow_right_alt</span>
-            </Link>
-            
-            <Link href="/bracelets" className="category-row">
-              <h3 className="category-row__title" style={{ fontFamily: 'Times New Roman, serif', fontWeight: 'normal' }}>BRACELETS</h3>
-              <span className="material-symbols-outlined category-row__arrow">arrow_right_alt</span>
-            </Link>
+          ))}
+        </div>
+      </section>
 
-            <Link href="/sets" className="category-row">
-              <h3 className="category-row__title" style={{ fontFamily: 'Times New Roman, serif', fontWeight: 'normal' }}>SETS</h3>
-              <span className="material-symbols-outlined category-row__arrow">arrow_right_alt</span>
-            </Link>
-          </div>
-        </section>
+      {/* Most Loved */}
+      {bestSellers && bestSellers.length > 0 && (
+        <ProductCarousel products={bestSellers} title="Most Loved" />
+      )}
 
-        {/* ===== BEST SELLER SECTION ===== */}
-        <section id="best-seller" className="best-seller animate-up">
-          <div className="best-seller__massive-text" style={{ fontFamily: 'Times New Roman, serif', fontWeight: 'normal' }}>
-            <div>OUR MOST</div>
-            <div>LOVED</div>
-            <div>CREATIONS</div>
-          </div>
-          <div className="best-seller__grid">
-            {products
-              .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-              .map((product) => (
-                <ProductCard key={product._id} product={product} />
+      {/* Gifting Teaser */}
+      <section style={{ padding: '80px 24px', background: 'var(--ink)', color: 'var(--ivory)', textAlign: 'center' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', margin: '0 0 16px', fontWeight: 500, fontFamily: 'var(--font-cormorant), serif' }}>Gifts, made to be remembered</h2>
+          <p style={{ fontSize: '1.1rem', margin: '0 0 40px', color: 'rgba(255,255,255,0.8)' }}>Exclusive designs for every occasion.</p>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            {['Birthday', 'Anniversary', 'Engagement & Wedding', 'Festive', 'Just because'].map(occasion => (
+              <Link key={occasion} href={`/gifting?occasion=${encodeURIComponent(occasion)}`} style={{ padding: '12px 24px', border: '1px solid var(--ivory)', color: 'var(--ivory)', borderRadius: '4px', textDecoration: 'none', fontSize: '0.9rem', letterSpacing: '0.05em' }}>
+                {occasion}
+              </Link>
             ))}
           </div>
-
-          {/* Pagination Controls */}
-          {products.length > itemsPerPage && (
-            <div className="pagination">
-              {Array.from({ length: Math.ceil(products.length / itemsPerPage) }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  className={`pagination__btn ${currentPage === page ? 'active' : ''}`}
-                  onClick={() => setCurrentPage(page)}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* ===== EDITORIAL SHOWCASE SECTION ===== */}
-        <section className="editorial-showcase">
-          {/* Block 1 - Rings */}
-          <div className="editorial-block editorial-block--img-left animate-up">
-            <div className="editorial-block__image">
-              <img src="/images/herorings.png" alt="Rings" />
-            </div>
-            <div className="editorial-block__content">
-              <span className="editorial-block__eyebrow">THE ART OF ADORNMENT</span>
-              <h2 className="editorial-block__heading" style={{ fontFamily: '"Freestyle Script", cursive' }}>Rings That Tell Your Story</h2>
-              <p className="editorial-block__description">
-                Designed to become part of your everyday moments, our rings bring together graceful forms, delicate details and timeless sparkle.
-              </p>
-              <Link href="/rings" className="editorial-block__btn">EXPLORE RINGS</Link>
-            </div>
-          </div>
-
-          {/* Block 2 - Bracelets */}
-          <div className="editorial-block editorial-block--img-right animate-up">
-            <div className="editorial-block__content">
-              <span className="editorial-block__eyebrow">EFFORTLESS ELEGANCE</span>
-              <h2 className="editorial-block__heading" style={{ fontFamily: '"Freestyle Script", cursive' }}>A Touch of Brilliance</h2>
-              <p className="editorial-block__description">
-                Delicate details meet effortless elegance in pieces designed to add a subtle sparkle to every moment.
-              </p>
-              <Link href="/bracelets" className="editorial-block__btn">EXPLORE BRACELETS</Link>
-            </div>
-            <div className="editorial-block__image">
-              <img src="/images/herobracelet.png" alt="Bracelets" />
-            </div>
-          </div>
-
-          {/* Block 3 - Earrings */}
-          <div className="editorial-block editorial-block--img-left animate-up">
-            <div className="editorial-block__image">
-              <img src="/images/heroearrings.png" alt="Earrings" />
-            </div>
-            <div className="editorial-block__content">
-              <span className="editorial-block__eyebrow">MAKE AN IMPRESSION</span>
-              <h2 className="editorial-block__heading" style={{ fontFamily: '"Freestyle Script", cursive' }}>Designed To Be Noticed</h2>
-              <p className="editorial-block__description">
-                From everyday elegance to unforgettable occasions, discover earrings created to frame every moment beautifully.
-              </p>
-              <Link href="/earrings" className="editorial-block__btn">EXPLORE EARRINGS</Link>
-            </div>
-          </div>
-
-          {/* Block 4 - Pendants */}
-          <div className="editorial-block editorial-block--img-right animate-up">
-            <div className="editorial-block__content">
-              <span className="editorial-block__eyebrow">CLOSE TO THE HEART</span>
-              <h2 className="editorial-block__heading" style={{ fontFamily: '"Freestyle Script", cursive' }}>Elegance, Worn Close</h2>
-              <p className="editorial-block__description">
-                Timeless silhouettes and refined sparkle come together in pendants designed to hold a special place in your story.
-              </p>
-              <Link href="/pendant" className="editorial-block__btn">EXPLORE PENDANTS</Link>
-            </div>
-            <div className="editorial-block__image">
-              <img src="/images/heropendant.png" alt="Pendants" />
-            </div>
-          </div>
-        </section>
-
-        {/* ===== FAQ SECTION ===== */}
-        <div className="animate-up">
-          <FAQSection />
         </div>
-      </main>
+      </section>
 
-      
-    </>
+      {/* Craft and Made to order */}
+      <section style={{ padding: '80px 24px', textAlign: 'center' }}>
+        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '2.5rem', margin: '0 0 24px', fontWeight: 500, fontFamily: 'var(--font-cormorant), serif' }}>Made by hand, to order.</h2>
+          <p style={{ fontSize: '1.1rem', lineHeight: 1.6, margin: '0 0 32px' }}>
+            Every piece is made in our own unit by artisans with over a decade of experience. Made in about 4 days, delivered in about 3 more.
+          </p>
+          <Link href="/custom-order" style={{ display: 'inline-block', background: 'var(--ink)', color: 'var(--ivory)', padding: '14px 32px', textDecoration: 'none', letterSpacing: '0.05em', fontSize: '1rem' }}>
+            Design your own piece
+          </Link>
+        </div>
+      </section>
+
+      {/* Meet the family */}
+      <section style={{ padding: '60px 24px', background: 'var(--stone)', textAlign: 'center' }}>
+        <Link href="/about" style={{ fontSize: '1.25rem', fontFamily: 'var(--font-cormorant), serif', color: 'var(--ink)', textDecoration: 'underline', textUnderlineOffset: '4px' }}>
+          Meet the family behind Kiara &rarr;
+        </Link>
+      </section>
+
+      {/* FAQ */}
+      <FAQSection />
+
+      {/* Instagram Strip */}
+      <section style={{ display: 'flex', overflowX: 'hidden' }}>
+        {instaPosts.map((img, idx) => (
+          <Link key={idx} href="https://www.instagram.com/kiarajewels.co" target="_blank" rel="noopener noreferrer" style={{ flex: 1, minWidth: '16.666%', aspectRatio: '1/1', position: 'relative', display: 'block' }}>
+            <Image src={img} alt="Kiara Jewels Instagram" fill sizes="16vw" style={{ objectFit: 'cover' }} className="hover-scale" />
+          </Link>
+        ))}
+      </section>
+
+      {/* Email Capture */}
+      <EmailCapture />
+
+    </main>
   );
 }

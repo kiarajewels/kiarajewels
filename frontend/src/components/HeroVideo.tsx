@@ -1,88 +1,37 @@
-'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import Link from 'next/link';
-
-const MEDIA = [
-  { src: '/images/hero_videos/heroimage1.png', type: 'image'},
-  { src: '/images/hero_videos/heroimage2.png', type: 'image'},
-  { src: '/images/hero_videos/heroimage3.png', type: 'image'},
-  { src: '/images/hero_videos/heroimage4.png', type: 'image'}
-];
+import Image from 'next/image';
 
 export default function HeroVideo() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-
-  useEffect(() => {
-    const currentMedia = MEDIA[activeIndex];
-    
-    if (currentMedia.type === 'video') {
-      const currentVideo = videoRefs.current[activeIndex];
-      if (currentVideo) {
-        currentVideo.currentTime = 0;
-        currentVideo.play().catch((err) => console.log('Autoplay prevented:', err));
-      }
-    } else if (currentMedia.type === 'image') {
-      // Display images for 4 seconds before transitioning
-      const timer = setTimeout(() => {
-        handleMediaEnd();
-      }, 4000);
-      return () => clearTimeout(timer);
-    }
-  }, [activeIndex]);
-
-  const handleMediaEnd = () => {
-    setActiveIndex((prev) => (prev + 1) % MEDIA.length);
-  };
-
   return (
-    <section className="hero-section">
-      <div className="hero-video-container">
-        {/* Media Layers */}
-      {MEDIA.map((item, index) => {
-        if (item.type === 'video') {
-          return (
-            <video
-              key={item.src}
-              ref={(el) => {
-                videoRefs.current[index] = el;
-              }}
-              src={item.src}
-              muted
-              playsInline
-              preload={index === 0 ? 'auto' : 'metadata'}
-              onEnded={index === activeIndex ? handleMediaEnd : undefined}
-              className={`hero-video-layer ${index === activeIndex ? 'active' : ''}`}
-            />
-          );
-        } else {
-          return (
-            <img
-              key={item.src}
-              src={item.src}
-              alt="Kiara Jewels Hero Feature"
-              className={`hero-video-layer ${index === activeIndex ? 'active' : ''}`}
-            />
-          );
-        }
-      })}
-
-      {/* Subtle Gradient Overlay to ensure text readability without darkening the whole video */}
-      <div className="hero-video-gradient"></div>
+    <section className="hero-section" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden' }}>
+      <div className="hero-video-container" style={{ position: 'absolute', inset: 0 }}>
+        <Image
+          src="/images/hero_videos/heroimage1.png"
+          alt="Kiara Jewels Hero Feature"
+          fill
+          priority
+          style={{ objectFit: 'cover' }}
+          sizes="100vw"
+        />
+        <div className="hero-video-gradient" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 50%)' }}></div>
       </div>
 
-      {/* Content Overlay */}
-      <div className="hero-content">
-        <div className="hero-text-wrapper">
-          <h1 className="hero-headline">EVERYDAY, ELEVATED.</h1>
-          <p className="hero-subheadline">
-            Premium jewellery designed for the moments that become memories.
+      <div className="hero-content" style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 24px', zIndex: 10 }}>
+        <div className="hero-text-wrapper" style={{ textAlign: 'center', color: 'var(--white)', maxWidth: '600px', marginTop: '10vh' }}>
+          <h1 className="hero-headline" style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(3rem, 6vw, 4.5rem)', fontWeight: 500, margin: '0 0 16px', letterSpacing: '0.02em', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
+            Everyday, elevated.
+          </h1>
+          <p className="hero-subheadline" style={{ fontFamily: 'var(--font-jost), sans-serif', fontSize: '1.1rem', margin: '0 0 32px', lineHeight: 1.5, textShadow: '0 1px 4px rgba(0,0,0,0.3)' }}>
+            925 silver jewellery with premium CZ sparkle, made to order for the way you work, meet and celebrate.
           </p>
-          <Link href="/#categories" className="hero-cta-btn">
-            SHOP COLLECTION
-          </Link>
-          <div className="hero-trust-line">
-            925 STERLING SILVER · TARNISH RESISTANT
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/rings" style={{ background: 'var(--ink)', color: 'var(--ivory)', padding: '12px 28px', textDecoration: 'none', letterSpacing: '0.05em', transition: 'background 0.2s', fontSize: '14px' }}>
+              Shop the collection
+            </Link>
+            <Link href="/gifting" style={{ background: 'transparent', color: 'var(--white)', border: '1px solid var(--white)', padding: '12px 28px', textDecoration: 'none', letterSpacing: '0.05em', transition: 'background 0.2s', fontSize: '14px', backdropFilter: 'blur(4px)' }}>
+              Explore gifting
+            </Link>
           </div>
         </div>
       </div>

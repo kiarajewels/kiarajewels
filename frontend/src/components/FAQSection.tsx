@@ -1,22 +1,31 @@
 'use client';
 import React, { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 const faqs = [
   {
-    question: "What material is your jewellery made of?",
-    answer: "Every piece is crafted from 925 Sterling Silver, ensuring premium quality, lasting beauty, and timeless elegance."
+    question: "What is it made of?",
+    answer: "Every piece is crafted from 925 sterling silver, set with premium CZ stones, and finished with a rhodium plating and anti-tarnish coating."
   },
   {
-    question: "Is the jewellery waterproof?",
-    answer: "Yes, our jewellery is designed to be waterproof, sweatproof, and tarnish-free, making it suitable for everyday wear."
+    question: "Will it tarnish, and can I wear it every day?",
+    answer: "Our pieces are everyday wear friendly! However, to keep the finish lasting longer, please remove before swimming or bathing and keep away from perfume and harsh chemicals."
   },
   {
-    question: "How long will my order take to arrive?",
-    answer: "Each piece is carefully prepared before dispatch. Orders typically take approximately 7 days, including around 4 days for product manufacturing and 3 days for delivery."
+    question: "How long does delivery take?",
+    answer: "Every piece is made in our own unit to order. It takes about 4 days to make, plus about 3 days for delivery (varies by pincode), so you can expect it in about 7 days total."
   },
   {
-    question: "Can I return my order?",
-    answer: "Yes. You can request a return within 2 days of delivery, subject to our product inspection and return conditions."
+    question: "What is your return policy?",
+    answer: "You can request a return within 3 days of delivery if the item is in good condition. Custom-designed pieces are non-returnable unless defective."
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer: "We accept UPI, net banking, and all major credit/debit cards."
+  },
+  {
+    question: "Can I get a custom design?",
+    answer: "Yes! We accept custom orders. It takes about 4 days to make plus delivery, longer for complex designs. We will confirm the exact timeline in your quote."
   }
 ];
 
@@ -28,39 +37,38 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="faq" id="faq-section">
-      <h2 className="faq__heading">Frequently Asked Questions</h2>
-      <div className="faq__container">
+    <section className="faq" id="faq-section" style={{ padding: '80px 24px', maxWidth: '800px', margin: '0 auto' }}>
+      <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', textAlign: 'center', margin: '0 0 40px', fontWeight: 500 }}>
+        Frequently Asked Questions
+      </h2>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {faqs.map((faq, index) => (
           <div
-            key={index} 
-            className={`faq__item ${openIndex === index ? 'active' : ''}`}
+            key={index}
+            style={{ borderBottom: '1px solid var(--stone)' }}
           >
             <button 
-              className="faq__question" 
               onClick={() => toggleFaq(index)}
               aria-expanded={openIndex === index}
-              style={{ width: '100%', border: 'none', background: 'transparent' }}
+              style={{ width: '100%', padding: '24px 0', border: 'none', background: 'transparent', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left', cursor: 'pointer', fontSize: '1.1rem', letterSpacing: '0.02em', color: 'var(--ink)' }}
             >
-              {faq.question}
-              <span className="faq__icon material-symbols-outlined" style={{ transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}>
-                expand_more
-              </span>
+              <span style={{ fontWeight: 500 }}>{faq.question}</span>
+              <ChevronDown 
+                size={20} 
+                style={{ transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }} 
+              />
             </button>
             <div 
               style={{
                 display: 'grid',
                 gridTemplateRows: openIndex === index ? '1fr' : '0fr',
-                transition: 'grid-template-rows 0.3s ease',
-                backgroundColor: '#c9c2b4'
+                transition: 'grid-template-rows 0.3s ease'
               }}
             >
               <div style={{ overflow: 'hidden' }}>
-                <div style={{ padding: '0 24px 24px 24px', margin: 0, color: '#ffffff', lineHeight: '1.6', fontFamily: "'Abyssinica SIL', serif", textAlign: 'right', fontSize: 'clamp(1.25rem, 3vw, 1.8rem)' }}>
-                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)', paddingTop: '16px' }}>
-                    {faq.answer}
-                  </div>
-                </div>
+                <p style={{ margin: '0 0 24px', lineHeight: 1.6, color: 'var(--ink)', opacity: 0.8 }}>
+                  {faq.answer}
+                </p>
               </div>
             </div>
           </div>

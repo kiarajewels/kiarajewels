@@ -3,6 +3,8 @@ import React from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
+import { Heart } from 'lucide-react';
+import Image from 'next/image';
 
 export default function ProductCard({ product }: { product: any }) {
   const { addToCart } = useCart();
@@ -27,9 +29,7 @@ export default function ProductCard({ product }: { product: any }) {
         }}
         title={inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
       >
-        <span className="material-symbols-outlined" style={{ fontVariationSettings: inWishlist ? "'FILL' 1" : "'FILL' 0", fontSize: '20px' }}>
-          favorite
-        </span>
+        <Heart size={20} fill={inWishlist ? "currentColor" : "none"} strokeWidth={1.5} />
       </button>
       
       <Link href={`/product/${product._id}`} style={{ display: 'block', textDecoration: 'none' }}>
@@ -39,22 +39,22 @@ export default function ProductCard({ product }: { product: any }) {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <img 
+          <Image 
             src={imageUrl} 
             alt={product.name} 
+            fill
+            sizes="(max-width: 768px) 50vw, 25vw"
+            style={{ objectFit: 'cover' }}
             className="product-card__image" 
           />
           {hoverImageUrl !== imageUrl && (
-            <img 
+            <Image 
               src={hoverImageUrl} 
               alt={`${product.name} alternate view`} 
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
               className="product-card__image"
               style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
                 objectFit: 'cover',
                 opacity: isHovered ? 1 : 0,
                 transform: isHovered ? 'scale(1.1)' : 'scale(1)',
