@@ -469,6 +469,18 @@ img {
   }
 }
 
+@media (max-width: 768px) {
+  .product-details-container {
+    padding: 0;
+  }
+  .product-info-section {
+    padding: 0 24px;
+  }
+  .product-thumbnails {
+    padding: 0 24px;
+  }
+}
+
 .product-gallery {
   display: flex;
   flex-direction: column;
@@ -491,8 +503,7 @@ img {
     padding: 0;
     border-radius: 0;
     border: none;
-    margin-left: -24px;
-    margin-right: -24px;
+    width: 100%;
   }
 }
 
