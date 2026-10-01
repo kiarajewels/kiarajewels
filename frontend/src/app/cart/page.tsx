@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
 import CartSavingsProgress from '@/components/CartSavingsProgress';
+import OffersBlock from '@/components/OffersBlock';
 import { ShoppingBag } from 'lucide-react';
 
 export default function CartPage() {
@@ -78,6 +79,8 @@ export default function CartPage() {
               <div className="cart-summary-container">
                 <h2 className="cart-summary-title">Order Summary</h2>
                 
+                <OffersBlock />
+
                 <div className="cart-summary-row">
                   <span>Subtotal ({cartCount} items)</span>
                   <span>Rs. {subtotal}</span>

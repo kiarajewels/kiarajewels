@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode, useRe
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
+import { OFFERS_CONFIG } from '@/config/offers';
 
 // Dynamically import Confetti to avoid SSR issues
 const Confetti = dynamic(() => import('react-confetti'), { ssr: false });
@@ -129,31 +130,32 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const prev = prevSubtotalRef.current;
     
-    // Check if we just crossed 3000
-    if (prev < 3000 && subtotal >= 3000 && subtotal < 6000 && !isFirstOrder) { // if it's first order, they already get 10%
-      setConfettiMessage("Congratulations! You unlocked a 5% discount!");
-      setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 5000);
-    }
-    // Check if we just crossed 6000
-    else if (prev < 6000 && subtotal >= 6000) {
-      setConfettiMessage("Amazing! You unlocked a 10% discount!");
-      setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 5000);
+    // Sort tiers ascending by minSpend to check threshold crossing
+    const sortedTiers = [...OFFERS_CONFIG.tiers].sort((a, b) => a.minSpend - b.minSpend);
+    
+    for (const tier of sortedTiers) {
+      if (prev < tier.minSpend && subtotal >= tier.minSpend && !isFirstOrder) {
+        setConfettiMessage(`Amazing! You unlocked a ${tier.discountPercent}% discount!`);
+        setShowConfetti(true);
+        setTimeout(() => setShowConfetti(false), 5000);
+      }
     }
     
     prevSubtotalRef.current = subtotal;
   }, [subtotal, isFirstOrder]);
 
-  // Calculate Discount (Max capped at 10%)
+  // Calculate Discount
   let discountPercentage = 0;
   
   if (isFirstOrder) {
-    discountPercentage = 0.10; // First order gets 10% max
-  } else if (subtotal >= 6000) {
-    discountPercentage = 0.10;
-  } else if (subtotal >= 3000) {
-    discountPercentage = 0.05;
+    discountPercentage = OFFERS_CONFIG.firstOrder.discountPercent / 100;
+  } else {
+    // Find the highest applicable tier
+    const applicableTiers = OFFERS_CONFIG.tiers.filter((t: any) => subtotal >= t.minSpend);
+    if (applicableTiers.length > 0) {
+      const bestTier = applicableTiers.reduce((prev: any, current: any) => (prev.discountPercent > current.discountPercent) ? prev : current);
+      discountPercentage = bestTier.discountPercent / 100;
+    }
   }
 
   const discountAmount = subtotal * discountPercentage;

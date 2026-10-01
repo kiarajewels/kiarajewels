@@ -8,6 +8,7 @@ import Script from 'next/script';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { CheckCircle2, Plus, ArrowLeft } from 'lucide-react';
+import OffersBlock from '@/components/OffersBlock';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -460,6 +461,7 @@ export default function CheckoutPage() {
           </div>
           
           <div className="checkout-summary-card">
+            <OffersBlock />
             {cartItems.length === 0 ? (
               <p style={{ color: '#6b7280', marginBottom: '24px' }}>Your cart is empty.</p>
             ) : (
