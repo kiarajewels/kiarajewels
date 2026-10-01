@@ -14,7 +14,7 @@ export default function HeroVideo() {
           style={{ objectFit: 'cover' }}
           sizes="100vw"
         />
-        <div className="hero-video-gradient" style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 50%)' }}></div>
+        <div className="hero-video-gradient" style={{ position: 'absolute', inset: 0, background: 'rgba(0, 0, 0, 0.35)' }}></div>
       </div>
 
       <div className="hero-content" style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 24px', zIndex: 10 }}>
