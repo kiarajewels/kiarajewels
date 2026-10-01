@@ -101,8 +101,8 @@ export default async function Home() {
       <HeroVideo />
 
       {/* Trust Strip */}
-      <section style={{ background: 'var(--stone)', padding: '24px 16px', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '32px' }}>
+      <section style={{ background: 'var(--stone)', padding: '24px 0', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }} className="trust-strip-grid">
           {[
             { icon: <ShieldCheck size={20} strokeWidth={1.5} />, text: '925 sterling silver' },
             { icon: <Sparkles size={20} strokeWidth={1.5} />, text: 'Rhodium + anti-tarnish finish' },
