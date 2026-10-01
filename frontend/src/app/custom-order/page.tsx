@@ -2,16 +2,40 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { UploadCloud, CheckCircle2 } from 'lucide-react';
+import axios from 'axios';
 
 export default function CustomOrderPage() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    description: '',
+    referenceImage: ''
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, referenceImage: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
-    setTimeout(() => {
+    
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/custom-orders`, formData);
       setStatus('success');
-    }, 1500);
+    } catch (error) {
+      console.error('Submission failed', error);
+      setStatus('error');
+    }
   };
 
   return (
@@ -38,12 +62,12 @@ export default function CustomOrderPage() {
               { step: '01', title: 'Share a reference', desc: 'Upload a reference photo, sketch, or detailed description.' },
               { step: '02', title: 'Get a quote', desc: 'We discuss design details, materials, and provide a final quote.' },
               { step: '03', title: 'Pay 50% advance', desc: 'Once approved, a 50% advance starts the crafting process.' },
-              { step: '04', title: 'Shipped in 7-10 days', desc: 'Your bespoke piece is handmade and securely shipped to your door.' }
+              { step: '04', title: 'Shipped to your door', desc: 'About 4 days to make plus delivery, longer for complex designs; we confirm the exact timeline in your quote.' }
             ].map((item, i) => (
               <div key={i} style={{ padding: '32px 24px', border: '1px solid var(--stone)', backgroundColor: 'white', textAlign: 'center' }}>
-                <div style={{ fontSize: '0.9rem', fontWeight: 600, letterSpacing: '0.1em', color: 'var(--rose-deep)', marginBottom: '16px' }}>{item.step}</div>
-                <h3 style={{ fontSize: '1.25rem', marginBottom: '16px', fontWeight: 500 }}>{item.title}</h3>
-                <p style={{ color: 'rgba(0,0,0,0.6)', lineHeight: 1.6, fontSize: '0.95rem' }}>{item.desc}</p>
+                <div style={{ fontSize: '0.9rem', fontWeight: 600, letterSpacing: '0.1em', color: 'var(--rose-deep)', margin: '0 0 16px' }}>{item.step}</div>
+                <h3 style={{ fontSize: '1.25rem', margin: '0 0 16px', fontWeight: 500 }}>{item.title}</h3>
+                <p style={{ color: 'rgba(0,0,0,0.6)', lineHeight: 1.6, fontSize: '0.95rem', margin: 0 }}>{item.desc}</p>
               </div>
             ))}
           </div>
@@ -68,32 +92,38 @@ export default function CustomOrderPage() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
                 <div>
                   <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: 500 }}>Name *</label>
-                  <input type="text" required style={{ width: '100%', padding: '12px', border: '1px solid var(--stone)', background: 'white', outline: 'none', fontFamily: 'inherit' }} />
+                  <input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '12px', border: '1px solid var(--stone)', background: 'white', outline: 'none', fontFamily: 'inherit' }} />
                 </div>
                 <div>
                   <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: 500 }}>Phone (WhatsApp) *</label>
-                  <input type="tel" required style={{ width: '100%', padding: '12px', border: '1px solid var(--stone)', background: 'white', outline: 'none', fontFamily: 'inherit' }} />
+                  <input type="tel" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '12px', border: '1px solid var(--stone)', background: 'white', outline: 'none', fontFamily: 'inherit' }} />
                 </div>
               </div>
               
               <div>
                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: 500 }}>Email Address</label>
-                <input type="email" style={{ width: '100%', padding: '12px', border: '1px solid var(--stone)', background: 'white', outline: 'none', fontFamily: 'inherit' }} />
+                <input type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} style={{ width: '100%', padding: '12px', border: '1px solid var(--stone)', background: 'white', outline: 'none', fontFamily: 'inherit' }} />
               </div>
 
               <div>
                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: 500 }}>Description *</label>
-                <textarea required rows={5} placeholder="Describe the piece you want us to create. Include sizes, style, or specific details." style={{ width: '100%', padding: '12px', border: '1px solid var(--stone)', background: 'white', outline: 'none', fontFamily: 'inherit', resize: 'vertical' }}></textarea>
+                <textarea required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} rows={5} placeholder="Describe the piece you want us to create. Include sizes, style, or specific details." style={{ width: '100%', padding: '12px', border: '1px solid var(--stone)', background: 'white', outline: 'none', fontFamily: 'inherit', resize: 'vertical' }}></textarea>
               </div>
 
               <div>
                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: 500 }}>Reference Image (Optional)</label>
                 <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px', border: '2px dashed var(--stone)', background: 'white', cursor: 'pointer', color: 'rgba(0,0,0,0.5)' }}>
-                  <UploadCloud size={32} style={{ marginBottom: '16px' }} />
-                  <span>Click to upload photo or sketch</span>
-                  <input type="file" accept="image/*" style={{ display: 'none' }} />
+                  {formData.referenceImage ? (
+                    <img src={formData.referenceImage} alt="Reference" style={{ maxHeight: '150px', objectFit: 'contain', marginBottom: '16px' }} />
+                  ) : (
+                    <UploadCloud size={32} style={{ marginBottom: '16px' }} />
+                  )}
+                  <span>{formData.referenceImage ? 'Click to change image' : 'Click to upload photo or sketch'}</span>
+                  <input type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
                 </label>
               </div>
+
+              {status === 'error' && <p style={{ color: 'red', margin: 0 }}>Something went wrong. Please try again.</p>}
 
               <button 
                 type="submit" 

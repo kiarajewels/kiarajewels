@@ -47,7 +47,7 @@ export default function EarringsPage() {
               ))
             ) : (
               <div style={{ textAlign: 'center', width: '100%', gridColumn: '1 / -1', padding: '40px', color: '#000000ff' }}>
-                <h2 style={{ fontSize: '3rem' }}>Coming Soon</h2>
+                <h2 style={{ fontSize: '2rem', fontWeight: 400 }}>New designs arriving soon</h2>
               </div>
             )}
           </div>

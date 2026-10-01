@@ -8,6 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AddProduct from './pages/AddProduct';
 import EditProduct from './pages/EditProduct';
 import Orders from './pages/Orders';
+import CustomOrders from './pages/CustomOrders';
 import Users from './pages/Users';
 import Customers from './pages/Customers';
 import Carts from './pages/Carts';
@@ -31,6 +32,7 @@ function App() {
           <Route path="products/new" element={<AddProduct />} />
           <Route path="products/edit/:id" element={<EditProduct />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="custom-orders" element={<CustomOrders />} />
           <Route path="orders-report" element={<OrdersReport />} />
           <Route path="users" element={<Users />} />
           <Route path="customers" element={<Customers />} />

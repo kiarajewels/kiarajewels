@@ -8,22 +8,22 @@ export default function AboutPage() {
       <section style={{ padding: '120px 24px 80px', textAlign: 'center', backgroundColor: 'var(--stone)' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', margin: '0 0 24px', fontWeight: 500, letterSpacing: '0.02em', color: 'var(--ink)' }}>
-            Our Story
+            Why Kiara Exists
           </h1>
           <p style={{ fontSize: '1.2rem', lineHeight: 1.6, color: 'rgba(0,0,0,0.7)', maxWidth: '600px', margin: '0 auto' }}>
-            Bridging the gap between mass-produced junk and overpriced luxury.
+            A family-run business crafting premium 925 silver jewellery in-house.
           </p>
         </div>
       </section>
 
-      {/* Content Section */}
+      {/* Content Section: Why Kiara exists & What we make */}
       <section style={{ padding: '80px 24px' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '64px', alignItems: 'center' }}>
           
           <div style={{ position: 'relative', aspectRatio: '4/5', width: '100%', background: 'var(--stone)' }}>
             <Image 
               src="/images/herorings.png" 
-              alt="Artisans at work in our Mumbai workshop"
+              alt="Artisans at work in our workshop"
               fill
               style={{ objectFit: 'cover' }}
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -31,16 +31,13 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '32px', fontWeight: 500 }}>A family legacy of craftsmanship</h2>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '32px', fontWeight: 500 }}>What we make and how</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', fontSize: '1.1rem', lineHeight: 1.7, color: 'rgba(0,0,0,0.8)' }}>
               <p>
-                Kiara Jewels started as a small, family-owned manufacturing unit in Mumbai. For over 10 years, we quietly crafted premium silver jewellery for luxury retailers across the globe, mastering the delicate balance of design and durability.
+                We believe that high-quality, elegant jewellery shouldn't be limited to special occasions or come with an exorbitant retail markup. Kiara Jewels was born out of a desire to bridge the gap between mass-produced fast fashion and unattainable luxury.
               </p>
               <p>
-                But as the market evolved, we saw a widening gap. On one end were mass-produced, low-quality pieces that tarnished in days. On the other end was inaccessible, overpriced luxury. 
-              </p>
-              <p>
-                We realized that true luxury shouldn't be defined by an exorbitant price tag, but by the quality of materials, ethical sourcing, and the hands that make it. That's why we started selling direct.
+                By keeping our operations family-run and our manufacturing strictly in-house, we control every detail of the process. We create premium 925 sterling silver pieces adorned with high-grade CZ stones, giving you the brilliance of diamonds with the everyday durability you need.
               </p>
             </div>
           </div>
@@ -48,60 +45,85 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* The 3 Steps Section */}
       <section style={{ padding: '80px 24px', backgroundColor: 'var(--ink)', color: 'var(--ivory)' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '64px', fontWeight: 500 }}>What we stand for</h2>
+          <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '64px', fontWeight: 500 }}>How It's Made: The 3 Steps</h2>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '48px', textAlign: 'center' }}>
             <div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px', fontWeight: 500, color: 'var(--rose)' }}>Handmade Quality</h3>
+              <div style={{ fontSize: '2rem', marginBottom: '16px', color: 'var(--rose)' }}>01</div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px', fontWeight: 500 }}>Design</h3>
               <p style={{ lineHeight: 1.6, color: 'rgba(255,255,255,0.7)' }}>
-                Every piece is made to order by artisans with over a decade of experience, ensuring meticulous attention to detail.
+                Every piece starts as an idea, sketched and refined by our in-house design team to balance modern aesthetics with timeless elegance.
               </p>
             </div>
             <div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px', fontWeight: 500, color: 'var(--rose)' }}>Ethical Sourcing</h3>
+              <div style={{ fontSize: '2rem', marginBottom: '16px', color: 'var(--rose)' }}>02</div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px', fontWeight: 500 }}>Setting</h3>
               <p style={{ lineHeight: 1.6, color: 'rgba(255,255,255,0.7)' }}>
-                We use responsibly sourced 925 sterling silver and conflict-free premium cubic zirconia stones.
+                Master artisans hand-set our premium CZ stones into the 925 silver base, ensuring maximum light reflection and secure placement.
               </p>
             </div>
             <div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px', fontWeight: 500, color: 'var(--rose)' }}>Lasting Finish</h3>
+              <div style={{ fontSize: '2rem', marginBottom: '16px', color: 'var(--rose)' }}>03</div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '16px', fontWeight: 500 }}>Finishing</h3>
               <p style={{ lineHeight: 1.6, color: 'rgba(255,255,255,0.7)' }}>
-                Our signature multi-layer rhodium plating and anti-tarnish coating keep your pieces shining for years.
+                We apply a multi-layer rhodium plating and a specialized anti-tarnish coating to give the piece its lasting, signature shine.
               </p>
             </div>
           </div>
         </div>
       </section>
       
-      {/* Workshop Section */}
-      <section style={{ padding: '80px 24px' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '64px', alignItems: 'center' }}>
+      {/* The Family Section */}
+      <section style={{ padding: '80px 24px', backgroundColor: 'var(--ivory)' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <h2 style={{ fontSize: '2.5rem', textAlign: 'center', marginBottom: '64px', fontWeight: 500, color: 'var(--ink)' }}>The Family</h2>
           
-          <div style={{ order: 2 }}>
-            <div style={{ position: 'relative', aspectRatio: '4/5', width: '100%', background: 'var(--stone)' }}>
-              <Image 
-                src="/images/heropendant.png" 
-                alt="Detailed view of our jewellery making process"
-                fill
-                style={{ objectFit: 'cover' }}
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '48px' }}>
+            
+            {/* Prakash */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ width: '100%', aspectRatio: '1/1', backgroundColor: '#e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', border: '1px solid #d1d5db' }}>
+                <span style={{ fontSize: '2rem', color: '#9ca3af', fontWeight: 500 }}>PL</span>
+                {/* TODO: replace with photo */}
+              </div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '8px', fontWeight: 500, color: 'var(--ink)' }}>Prakash Lalchandani</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--rose-deep)', fontWeight: 500, marginBottom: '16px' }}>Founder</p>
+              <p style={{ lineHeight: 1.6, color: 'rgba(0,0,0,0.7)' }}>Technology, packaging and deliveries.</p>
             </div>
-          </div>
 
-          <div style={{ order: 1 }}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '32px', fontWeight: 500 }}>From our workshop to you</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', fontSize: '1.1rem', lineHeight: 1.7, color: 'rgba(0,0,0,0.8)' }}>
-              <p>
-                By cutting out the middlemen, we bring our handcrafted designs straight from our Mumbai workshop to your door. This means you get uncompromising quality and craftsmanship without the traditional retail markups.
-              </p>
-              <p>
-                We believe everyday jewellery should elevate your daily moments. It should be beautiful, durable, and above all, accessible.
-              </p>
+            {/* Parmanand */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ width: '100%', aspectRatio: '1/1', backgroundColor: '#e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', border: '1px solid #d1d5db' }}>
+                <span style={{ fontSize: '2rem', color: '#9ca3af', fontWeight: 500 }}>PL</span>
+                {/* TODO: replace with photo */}
+              </div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '8px', fontWeight: 500, color: 'var(--ink)' }}>Parmanand Lalchandani</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--rose-deep)', fontWeight: 500, marginBottom: '16px' }}>Manufacturing & Design</p>
+              <p style={{ lineHeight: 1.6, color: 'rgba(0,0,0,0.7)' }}>Manufacturing and design.</p>
             </div>
+
+            {/* Yash */}
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ width: '100%', aspectRatio: '1/1', backgroundColor: '#e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', border: '1px solid #d1d5db' }}>
+                <span style={{ fontSize: '2rem', color: '#9ca3af', fontWeight: 500 }}>YL</span>
+                {/* TODO: replace with photo */}
+              </div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '8px', fontWeight: 500, color: 'var(--ink)' }}>Yash Lalchandani</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--rose-deep)', fontWeight: 500, marginBottom: '16px' }}>Online Presence & Marketing</p>
+              <p style={{ lineHeight: 1.6, color: 'rgba(0,0,0,0.7)' }}>Online presence and marketing.</p>
+            </div>
+            
+          </div>
+          
+          {/* Placeholder paragraph for owner to personalize */}
+          <div style={{ marginTop: '64px', padding: '32px', backgroundColor: 'var(--stone)', borderLeft: '4px solid var(--rose)' }}>
+            <p style={{ fontStyle: 'italic', fontSize: '1.1rem', lineHeight: 1.7, color: 'var(--ink)', margin: 0 }}>
+              "We built Kiara Jewels from the ground up in [CITY], driven by a passion for creating meaningful pieces that don't compromise on quality or ethics. Every day, our family works together to bring you the very best in silver jewellery." <br />
+              <span style={{ fontSize: '0.9rem', color: '#6b7280', display: 'block', marginTop: '16px' }}>(TODO: Owner to personalize this message and replace [CITY])</span>
+            </p>
           </div>
 
         </div>

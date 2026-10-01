@@ -43,7 +43,7 @@ export default function GiftingPage() {
               ))
             ) : (
               <div style={{ textAlign: 'center', width: '100%', gridColumn: '1 / -1', padding: '40px', color: '#6b7280' }}>
-                <p>Wait for some time, We are bringing the best gifts for you!</p>
+                <p style={{ fontSize: '1.5rem' }}>New designs arriving soon</p>
               </div>
             )}
           </div>
