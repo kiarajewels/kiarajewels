@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { Phone } from 'lucide-react';
 
 export default function CompleteProfilePage() {
   const { data: session, update } = useSession();
@@ -38,7 +39,7 @@ export default function CompleteProfilePage() {
     <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FBFAF7' }}>
       <div style={{ backgroundColor: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', maxWidth: '500px', width: '100%' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: '48px', color: '#000000' }}>contact_phone</span>
+          <Phone size={48} color="var(--ink)" />
           <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#27302E', marginTop: '16px', marginBottom: '8px' }}>Almost there!</h1>
           <p style={{ color: '#4b5563', lineHeight: '1.5' }}>
             Hi {session?.user?.name?.split(' ')[0]}! Google doesn't share your phone number with us for privacy reasons. We need it to send delivery updates for your orders.

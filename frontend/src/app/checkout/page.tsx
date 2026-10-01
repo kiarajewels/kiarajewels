@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import Script from 'next/script';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { CheckCircle2, Plus, ArrowLeft } from 'lucide-react';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -285,7 +286,7 @@ export default function CheckoutPage() {
                       </div>
                       {isSelected && (
                         <div style={{ color: '#000000', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', fontSize: '0.875rem', flexShrink: 0 }}>
-                          <span className="material-symbols-outlined" style={{ fontSize: '1.25rem' }}>check_circle</span>
+                          <CheckCircle2 size={20} />
                           <span style={{ display: 'inline-block' }}>Selected</span>
                         </div>
                       )}
@@ -325,7 +326,7 @@ export default function CheckoutPage() {
                 onClick={() => setShowNewAddressForm(true)}
                 style={{ padding: '16px', border: '2px dashed #d1d5db', borderRadius: '8px', backgroundColor: 'transparent', color: '#4b5563', fontSize: '1rem', fontWeight: '500', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
               >
-                <span className="material-symbols-outlined">add</span>
+                <Plus size={20} />
                 Add New Address
               </button>
             </div>
@@ -340,7 +341,7 @@ export default function CheckoutPage() {
                   onClick={() => setShowNewAddressForm(false)}
                   style={{ marginBottom: '24px', background: 'none', border: 'none', color: '#4b5563', fontWeight: '500', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
                 >
-                  <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>arrow_back</span>
+                  <ArrowLeft size={20} />
                   Back to saved addresses
                 </button>
               )}
@@ -442,7 +443,7 @@ export default function CheckoutPage() {
                 <button type="submit" className="btn-add-address">Save Address & Continue</button>
               ) : (
                 <div className="address-saved-msg">
-                  <span className="material-symbols-outlined">check_circle</span>
+                  <CheckCircle2 size={20} />
                   Address Saved successfully.
                   <button type="button" onClick={() => setAddressSaved(false)} className="btn-edit-address">Edit</button>
                 </div>

@@ -7,8 +7,8 @@ export default function ReturnPolicy() {
         <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#27302E', fontSize: '2.5rem', marginBottom: '32px', textAlign: 'center' }}>Return & Refund Policy</h1>
         <div style={{ color: '#4b5563', lineHeight: '1.8', fontSize: '1.05rem' }}>
           <p style={{ marginBottom: '1.25rem' }}>At Kiara Jewels, every piece undergoes careful quality checks before being dispatched. However, if you need to return an eligible product, please review the following policy carefully.</p>
-          <h3 style={{ color: '#27302E', fontFamily: 'Times New Roman, serif', fontSize: '1.5rem', marginTop: '2rem', marginBottom: '1rem' }}>2-Day Return Window</h3>
-          <p style={{ marginBottom: '1.25rem' }}>Unused and unworn jewellery may be returned within 2 days of delivery, subject to the conditions mentioned below.</p>
+          <h3 style={{ color: '#27302E', fontFamily: 'Times New Roman, serif', fontSize: '1.5rem', marginTop: '2rem', marginBottom: '1rem' }}>3-Day Return Window</h3>
+          <p style={{ marginBottom: '1.25rem' }}>Unused and unworn jewellery may be returned within 3 days of delivery, subject to the conditions mentioned below.</p>
           <p style={{ marginBottom: '1.25rem' }}>To be eligible for a return, the product must be:</p>
           <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
             <li style={{ marginBottom: '0.5rem' }}>Unused and unworn</li>
@@ -28,7 +28,7 @@ export default function ReturnPolicy() {
           </ul>
           <p style={{ marginBottom: '1.25rem' }}>Kiara Jewels reserves the right to reject a return if the returned product does not match the condition in which it was originally delivered.</p>
           <h3 style={{ color: '#27302E', fontFamily: 'Times New Roman, serif', fontSize: '1.5rem', marginTop: '2rem', marginBottom: '1rem' }}>How to Request a Return</h3>
-          <p style={{ marginBottom: '1.25rem' }}>To initiate a return, customers must submit a return request within 2 days of receiving the order through our website or by contacting our customer support team at support@kiarajewels.com.</p>
+          <p style={{ marginBottom: '1.25rem' }}>To initiate a return, customers must submit a return request within 3 days of receiving the order through our website or by contacting our customer support team at support@kiarajewels.com.</p>
           <h3 style={{ color: '#27302E', fontFamily: 'Times New Roman, serif', fontSize: '1.5rem', marginTop: '2rem', marginBottom: '1rem' }}>Refund Process</h3>
           <p style={{ marginBottom: '1.25rem' }}>Once the returned item reaches our facility, the product will undergo a quality inspection. If approved, the eligible refund will be processed to the original source account/payment method within 7 days.</p>
           <h3 style={{ color: '#27302E', fontFamily: 'Times New Roman, serif', fontSize: '1.5rem', marginTop: '2rem', marginBottom: '1rem' }}>No Exchange Policy</h3>

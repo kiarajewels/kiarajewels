@@ -7,6 +7,7 @@ import { useWishlist } from '@/context/WishlistContext';
 import { useParams } from 'next/navigation';
 import FAQSection from '@/components/FAQSection';
 import ProductOfferBox from '@/components/ProductOfferBox';
+import { Diamond, Droplets, Truck, Heart, ChevronDown, X } from 'lucide-react';
 
 export default function ProductDetailsPage() {
   const { id } = useParams();
@@ -106,10 +107,7 @@ export default function ProductDetailsPage() {
             <div style={{ marginBottom: '16px' }}>
               <span style={{ color: '#000000', fontSize: '0.875rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>{product.category}</span>
               <h1 className="product-title">{product.name}</h1>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-                <span style={{ color: '#f59e0b', fontSize: '1.2rem' }}>★★★★★</span>
-                <span style={{ color: '#4b5563', fontSize: '0.9rem', textDecoration: 'underline', cursor: 'pointer' }}>12 Reviews</span>
-              </div>
+
               <div className="product-price" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <span>Rs. {product.price}</span>
                 {product.originalPrice > product.price && (
@@ -123,16 +121,16 @@ export default function ProductDetailsPage() {
             {/* Trust Icons */}
             <div style={{ display: 'flex', gap: '16px', marginBottom: '32px', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span className="material-symbols-outlined" style={{ color: '#27302E', fontSize: '1.2rem' }}>diamond</span>
+                <Diamond size={18} strokeWidth={1.5} color="var(--ink)" />
                 <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '500' }}>925 Silver</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span className="material-symbols-outlined" style={{ color: '#27302E', fontSize: '1.2rem' }}>water_drop</span>
-                <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '500' }}>Tarnish Free</span>
+                <Droplets size={18} strokeWidth={1.5} color="var(--ink)" />
+                <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '500' }}>Anti-tarnish coating</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span className="material-symbols-outlined" style={{ color: '#27302E', fontSize: '1.2rem' }}>local_shipping</span>
-                <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '500' }}>Free Ship</span>
+                <Truck size={18} strokeWidth={1.5} color="var(--ink)" />
+                <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '500' }}>Free shipping</span>
               </div>
             </div>
 
@@ -190,9 +188,7 @@ export default function ProductDetailsPage() {
                   }}
                   title={inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
                 >
-                  <span className="material-symbols-outlined" style={{ fontVariationSettings: inWishlist ? "'FILL' 1" : "'FILL' 0" }}>
-                    favorite
-                  </span>
+                  <Heart size={22} fill={inWishlist ? 'currentColor' : 'none'} />
                 </button>
               </div>
               
@@ -209,9 +205,9 @@ export default function ProductDetailsPage() {
               </button>
             </div>
 
-            <p style={{ textAlign: 'center', fontSize: '0.9rem', color: '#4b5563', marginBottom: '32px' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '1rem', verticalAlign: 'middle', marginRight: '4px' }}>local_shipping</span>
-              Free Delivery across India.
+            <p style={{ textAlign: 'center', fontSize: '0.9rem', color: '#4b5563', marginBottom: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}>
+              <Truck size={16} strokeWidth={1.5} />
+              Free shipping across India.
             </p>
 
             {/* Accordions */}
@@ -222,7 +218,7 @@ export default function ProductDetailsPage() {
                   style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#27302E', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
                 >
                   Product Description
-                  <span className="material-symbols-outlined" style={{ transform: openAccordion === 'desc' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}>expand_more</span>
+                  <ChevronDown size={20} style={{ transform: openAccordion === 'desc' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }} />
                 </button>
                 <div style={{ display: 'grid', gridTemplateRows: openAccordion === 'desc' ? '1fr' : '0fr', transition: 'grid-template-rows 0.3s ease' }}>
                   <div style={{ overflow: 'hidden' }}>
@@ -237,7 +233,7 @@ export default function ProductDetailsPage() {
                   style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#27302E', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
                 >
                   Jewellery Care
-                  <span className="material-symbols-outlined" style={{ transform: openAccordion === 'care' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}>expand_more</span>
+                  <ChevronDown size={20} style={{ transform: openAccordion === 'care' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }} />
                 </button>
                 <div style={{ display: 'grid', gridTemplateRows: openAccordion === 'care' ? '1fr' : '0fr', transition: 'grid-template-rows 0.3s ease' }}>
                   <div style={{ overflow: 'hidden' }}>
@@ -256,12 +252,12 @@ export default function ProductDetailsPage() {
                   style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#27302E', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
                 >
                   Shipping & Returns
-                  <span className="material-symbols-outlined" style={{ transform: openAccordion === 'shipping' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }}>expand_more</span>
+                  <ChevronDown size={20} style={{ transform: openAccordion === 'shipping' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }} />
                 </button>
                 <div style={{ display: 'grid', gridTemplateRows: openAccordion === 'shipping' ? '1fr' : '0fr', transition: 'grid-template-rows 0.3s ease' }}>
                   <div style={{ overflow: 'hidden' }}>
                     <p style={{ paddingBottom: '16px', color: '#4b5563', lineHeight: '1.6', margin: 0 }}>
-                      Free shipping across India. Delivery takes approximately 7 days. Returns are accepted within 2 days of delivery subject to inspection.
+                      Free shipping across India. Delivery takes approximately 7 days. Returns are accepted within 3 days of delivery subject to inspection.
                     </p>
                   </div>
                 </div>
@@ -283,7 +279,7 @@ export default function ProductDetailsPage() {
               onMouseOver={(e) => (e.currentTarget.style.background = '#e5e7eb')}
               onMouseOut={(e) => (e.currentTarget.style.background = '#f3f4f6')}
             >
-              <span className="material-symbols-outlined">close</span>
+              <X size={20} />
             </button>
 
             <div style={{ padding: '40px' }}>

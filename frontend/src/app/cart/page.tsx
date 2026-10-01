@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
 import CartSavingsProgress from '@/components/CartSavingsProgress';
+import { ShoppingBag } from 'lucide-react';
 
 export default function CartPage() {
   const { data: session } = useSession();
@@ -26,7 +27,7 @@ export default function CartPage() {
           
           {cartItems.length === 0 ? (
             <div className="cart-empty-state">
-              <span className="material-symbols-outlined cart-empty-icon">shopping_bag</span>
+              <ShoppingBag size={64} color="#d1d5db" className="cart-empty-icon" />
               <h2 className="cart-empty-title">Your cart is empty</h2>
               <p className="cart-empty-text">Looks like you haven't added anything to your cart yet.</p>
               <Link href="/" className="btn-continue-shopping">

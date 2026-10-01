@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useWishlist } from '@/context/WishlistContext';
 import { useCart } from '@/context/CartContext';
+import { Heart } from 'lucide-react';
 
 export default function WishlistPage() {
   const { wishlistItems, toggleWishlist } = useWishlist();
@@ -25,7 +26,7 @@ export default function WishlistPage() {
           
           {wishlistItems.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '64px', backgroundColor: 'white', borderRadius: '12px' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '4rem', color: '#d1d5db', marginBottom: '16px' }}>favorite</span>
+              <Heart size={64} color="#d1d5db" style={{ marginBottom: '16px' }} />
               <h2 style={{ fontSize: '1.5rem', color: '#374151', marginBottom: '16px' }}>Your wishlist is empty</h2>
               <p style={{ color: '#6b7280', marginBottom: '24px' }}>Save items you love here and buy them later.</p>
               <Link href="/" style={{ display: 'inline-block', backgroundColor: '#000000', color: 'white', padding: '12px 24px', borderRadius: '6px', fontWeight: 'bold' }}>
@@ -40,7 +41,7 @@ export default function WishlistPage() {
                     onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
                     style={{ position: 'absolute', top: '12px', right: '12px', zIndex: 10, background: 'white', border: 'none', borderRadius: '50%', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#000000', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
                   >
-                    <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1", fontSize: '20px' }}>favorite</span>
+                    <Heart size={20} fill="currentColor" />
                   </button>
                   <Link href={`/product/${product._id}`} style={{ display: 'block', textDecoration: 'none' }}>
                     <div className="product-card__image-wrapper">

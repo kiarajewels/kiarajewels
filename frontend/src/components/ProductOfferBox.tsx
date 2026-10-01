@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { X } from 'lucide-react';
 
 export default function ProductOfferBox() {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +63,7 @@ export default function ProductOfferBox() {
               onClick={() => setIsOpen(false)}
               style={{ position: 'absolute', top: '16px', right: '16px', background: '#f3f4f6', border: 'none', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#4b5563' }}
             >
-              <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>close</span>
+              <X size={20} />
             </button>
 
             <h3 style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#27302E', marginBottom: '24px', textAlign: 'center', fontFamily: 'Times New Roman, serif' }}>

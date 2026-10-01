@@ -7,7 +7,7 @@ export default function JewelleryCare() {
         <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#27302E', fontSize: '2.5rem', marginBottom: '32px', textAlign: 'center' }}>Jewellery Care Guide</h1>
         <div style={{ color: '#4b5563', lineHeight: '1.8', fontSize: '1.05rem' }}>
           <p style={{ marginBottom: '1.25rem' }}>Every Kiara Jewels piece is crafted from 925 Sterling Silver and designed to accompany you through everyday moments.</p>
-          <p style={{ marginBottom: '1.25rem' }}>While our jewellery is designed to be waterproof, sweatproof, and tarnish-free, proper care will help preserve its shine and beauty for longer.</p>
+          <p style={{ marginBottom: '1.25rem' }}>Our jewellery is everyday wear friendly. To keep the finish lasting longer, remove before swimming or bathing and keep away from perfume and harsh chemicals.</p>
           <h3 style={{ color: '#27302E', fontFamily: 'Times New Roman, serif', fontSize: '1.5rem', marginTop: '2rem', marginBottom: '1rem' }}>Store With Care</h3>
           <p style={{ marginBottom: '1.25rem' }}>When not wearing your jewellery, store it in a clean, dry place. We recommend keeping each piece separately to minimise unnecessary scratching or friction.</p>
           <h3 style={{ color: '#27302E', fontFamily: 'Times New Roman, serif', fontSize: '1.5rem', marginTop: '2rem', marginBottom: '1rem' }}>Avoid Physical Damage</h3>
