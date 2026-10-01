@@ -3,12 +3,14 @@ const Product = require('../models/Product');
 const router = express.Router();
 
 // @route   GET /api/products
-// @desc    Get all products (with optional category filter)
+// @desc    Get all products (with optional category and search filters)
 router.get('/', async (req, res) => {
   try {
     const category = req.query.category;
     const isGifting = req.query.isGifting;
     const isBestSeller = req.query.isBestSeller;
+    const q = req.query.q;
+    
     let filter = {};
     if (category && category.toLowerCase() !== 'all') {
       filter.category = { $regex: new RegExp(`^${category}$`, 'i') };
@@ -18,6 +20,17 @@ router.get('/', async (req, res) => {
     }
     if (isBestSeller === 'true') {
       filter.isBestSeller = true;
+    }
+    if (q) {
+      // Basic text search on name or description
+      // Using regex for partial matches, in production a Text Index would be better
+      // Escape user input for regex
+      const escapedQ = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      filter.$or = [
+        { name: { $regex: escapedQ, $options: 'i' } },
+        { description: { $regex: escapedQ, $options: 'i' } },
+        { category: { $regex: escapedQ, $options: 'i' } }
+      ];
     }
     const products = await Product.find(filter);
     res.json(products);

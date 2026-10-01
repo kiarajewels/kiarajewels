@@ -1,4 +1,6 @@
 const express = require('express');
+const axios = require('axios');
+const crypto = require('crypto');
 const Order = require('../models/Order');
 const User = require('../models/User');
 const Product = require('../models/Product');
@@ -246,6 +248,35 @@ router.post('/', async (req, res) => {
       }
     } catch (emailError) {
       console.error("Failed to send order confirmation email:", emailError);
+    }
+
+    // Meta Conversions API
+    try {
+      if (process.env.META_PIXEL_ID && process.env.META_CAPI_TOKEN) {
+        const eventId = createdOrder._id.toString();
+        const emailToHash = shippingAddress.email || userEmail || '';
+        
+        await axios.post(`https://graph.facebook.com/v18.0/${process.env.META_PIXEL_ID}/events?access_token=${process.env.META_CAPI_TOKEN}`, {
+          data: [{
+            event_name: 'Purchase',
+            event_time: Math.floor(Date.now() / 1000),
+            event_id: eventId,
+            action_source: 'website',
+            user_data: {
+              em: emailToHash ? [crypto.createHash('sha256').update(emailToHash.toLowerCase().trim()).digest('hex')] : [],
+              ph: shippingAddress.mobile ? [crypto.createHash('sha256').update(shippingAddress.mobile.replace(/\D/g, '')).digest('hex')] : []
+            },
+            custom_data: {
+              currency: 'INR',
+              value: computedTotal,
+              content_ids: finalOrderItems.map(item => item.product.toString()),
+              content_type: 'product'
+            }
+          }]
+        });
+      }
+    } catch (capiErr) {
+      console.error("Meta CAPI Error:", capiErr.response?.data || capiErr.message);
     }
 
     res.status(201).json(createdOrder);

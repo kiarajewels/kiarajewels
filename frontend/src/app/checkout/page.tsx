@@ -9,6 +9,7 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { CheckCircle2, Plus, ArrowLeft } from 'lucide-react';
 import OffersBlock from '@/components/OffersBlock';
+import { trackEvent } from '@/components/Analytics';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -164,6 +165,18 @@ export default function CheckoutPage() {
         orderItems: cartItems.map(item => ({ product: item._id, qty: item.quantity })),
         currency: 'INR',
         receipt: `receipt_${new Date().getTime()}`
+      });
+
+      trackEvent('add_payment_info', {
+        currency: 'INR',
+        value: orderData.amount / 100,
+        payment_type: 'Razorpay',
+        items: cartItems.map((item: any) => ({
+          item_id: item.product,
+          item_name: item.name,
+          price: item.price,
+          quantity: item.qty
+        }))
       });
 
       // 2. Setup Razorpay options
@@ -466,11 +479,12 @@ export default function CheckoutPage() {
               <p style={{ color: '#6b7280', marginBottom: '24px' }}>Your cart is empty.</p>
             ) : (
               <div className="checkout-items">
-                {cartItems.map((item) => (
-                  <div key={item._id} className="checkout-item">
+                {cartItems.map((item, idx) => (
+                  <div key={`${item._id}-${item.size || 'default'}-${idx}`} className="checkout-item">
                     <img src={item.image} alt={item.name} className="checkout-item-img" />
                     <div className="checkout-item-details">
                       <h4>{item.name}</h4>
+                      {item.size && <p style={{ fontSize: '0.85rem', color: '#6b7280', margin: '2px 0' }}>Size: {item.size}</p>}
                       <p>Qty: {item.quantity}</p>
                     </div>
                     <div className="checkout-item-price">

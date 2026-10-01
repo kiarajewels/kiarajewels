@@ -229,20 +229,35 @@ const Orders = () => {
                     <th style={{ padding: '8px', borderBottom: '1px solid #e5e7eb' }}>Price</th>
                     <th style={{ padding: '8px', borderBottom: '1px solid #e5e7eb' }}>Qty</th>
                     <th style={{ padding: '8px', borderBottom: '1px solid #e5e7eb', textAlign: 'right' }}>Total</th>
+                    <th style={{ padding: '8px', borderBottom: '1px solid #e5e7eb', textAlign: 'right' }}>Review Link</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {selectedOrder.orderItems.map((item, idx) => (
-                    <tr key={idx} style={{ borderBottom: '1px solid #e5e7eb' }}>
-                      <td style={{ padding: '8px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                        <img src={item.image} alt={item.name} style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
-                        {item.name}
-                      </td>
-                      <td style={{ padding: '8px' }}>Rs. {item.price}</td>
-                      <td style={{ padding: '8px' }}>{item.qty}</td>
-                      <td style={{ padding: '8px', textAlign: 'right', fontWeight: '500' }}>Rs. {item.price * item.qty}</td>
-                    </tr>
-                  ))}
+                  {selectedOrder.orderItems.map((item, idx) => {
+                    const reviewLink = `https://www.kiarajewels.co/product/${item.product}?review=true&order=${selectedOrder._id}`;
+                    return (
+                      <tr key={idx} style={{ borderBottom: '1px solid #e5e7eb' }}>
+                        <td style={{ padding: '8px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                          <img src={item.image} alt={item.name} style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} />
+                          {item.name}
+                        </td>
+                        <td style={{ padding: '8px' }}>Rs. {item.price}</td>
+                        <td style={{ padding: '8px' }}>{item.qty}</td>
+                        <td style={{ padding: '8px', textAlign: 'right', fontWeight: '500' }}>Rs. {item.price * item.qty}</td>
+                        <td style={{ padding: '8px', textAlign: 'right' }}>
+                          <button 
+                            onClick={() => {
+                              navigator.clipboard.writeText(reviewLink);
+                              toast.success('Review link copied!');
+                            }}
+                            style={{ padding: '4px 8px', fontSize: '0.75rem', backgroundColor: '#f3f4f6', border: '1px solid #d1d5db', borderRadius: '4px', cursor: 'pointer' }}
+                          >
+                            Copy Link
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
                 <tfoot>
                   <tr>

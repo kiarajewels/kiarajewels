@@ -14,6 +14,7 @@ import Customers from './pages/Customers';
 import Carts from './pages/Carts';
 import Dashboard from './pages/Dashboard';
 import OrdersReport from './pages/OrdersReport';
+import Reviews from './pages/Reviews';
 
 // Placeholder components for other routes
 const Settings = () => <div><h2>Settings</h2></div>;
@@ -37,6 +38,7 @@ function App() {
           <Route path="users" element={<Users />} />
           <Route path="customers" element={<Customers />} />
           <Route path="carts" element={<Carts />} />
+          <Route path="reviews" element={<Reviews />} />
           <Route path="settings" element={<Settings />} />
           </Route>
         </Route>

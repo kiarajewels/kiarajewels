@@ -6,6 +6,7 @@ import { useCart } from '@/context/CartContext';
 import CartSavingsProgress from '@/components/CartSavingsProgress';
 import OffersBlock from '@/components/OffersBlock';
 import { ShoppingBag } from 'lucide-react';
+import { trackEvent } from '@/components/Analytics';
 
 export default function CartPage() {
   const { data: session } = useSession();
@@ -14,7 +15,19 @@ export default function CartPage() {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    if (cartItems.length > 0) {
+      trackEvent('view_cart', {
+        currency: 'INR',
+        value: cartTotal,
+        items: cartItems.map((item: any) => ({
+          item_id: item.product,
+          item_name: item.name,
+          price: item.price,
+          quantity: item.qty
+        }))
+      });
+    }
+  }, [cartItems]);
 
   if (!mounted) return null;
 
@@ -54,16 +67,17 @@ export default function CartPage() {
                         <img src={item.image} alt={item.name} className="cart-item-image" />
                         <div className="cart-item-info">
                           <Link href={`/product/${item._id}`} className="cart-item-name">{item.name}</Link>
+                          {item.size && <p className="cart-item-size" style={{ fontSize: '0.85rem', color: '#6b7280', margin: '4px 0' }}>Size: {item.size}</p>}
                           <p className="cart-item-price">Rs. {item.price}</p>
-                          <button onClick={() => removeFromCart(item._id)} className="btn-remove-item">Remove</button>
+                          <button onClick={() => removeFromCart(item._id, item.size)} className="btn-remove-item">Remove</button>
                         </div>
                       </div>
                       <div className="cart-item-controls">
                         <div className="cart-item-quantity">
                           <div className="quantity-control">
-                            <button onClick={() => updateQuantity(item._id, item.quantity - 1)}>-</button>
+                            <button onClick={() => updateQuantity(item._id, item.size, item.quantity - 1)}>-</button>
                             <span>{item.quantity}</span>
-                            <button onClick={() => updateQuantity(item._id, item.quantity + 1)}>+</button>
+                            <button onClick={() => updateQuantity(item._id, item.size, item.quantity + 1)}>+</button>
                           </div>
                         </div>
                         <div className="cart-item-total">
@@ -103,7 +117,22 @@ export default function CartPage() {
                   <span>Rs. {cartTotal}</span>
                 </div>
                 
-                <Link href={session ? "/checkout" : "/login?callbackUrl=/checkout"} className="btn-proceed-checkout">
+                <Link 
+                  href={session ? "/checkout" : "/login?callbackUrl=/checkout"} 
+                  className="btn-proceed-checkout"
+                  onClick={() => {
+                    trackEvent('begin_checkout', {
+                      currency: 'INR',
+                      value: cartTotal,
+                      items: cartItems.map((item: any) => ({
+                        item_id: item.product,
+                        item_name: item.name,
+                        price: item.price,
+                        quantity: item.qty
+                      }))
+                    });
+                  }}
+                >
                   Proceed to Checkout
                 </Link>
               </div>

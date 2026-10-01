@@ -4,19 +4,39 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import FAQSection from '@/components/FAQSection';
 import ProductOfferBox from '@/components/ProductOfferBox';
 import { Diamond, Droplets, Truck, Heart, ChevronDown, X } from 'lucide-react';
+import { trackEvent } from '@/components/Analytics';
+import { Suspense } from 'react';
 
-export default function ProductDetailsPage() {
+function ProductDetailsContent() {
   const { id } = useParams();
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [mainMedia, setMainMedia] = useState<any>({ url: '/images/placeholder.png', type: 'image' });
   const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState<string>('');
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const [pincode, setPincode] = useState('');
+  const [deliveryEstimate, setDeliveryEstimate] = useState<string | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<any[]>([]);
+
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviewStats, setReviewStats] = useState({ averageRating: 0, totalReviews: 0 });
+  
+  const searchParams = useSearchParams();
+  const [showReviewForm, setShowReviewForm] = useState(searchParams.get('review') === 'true');
+  const [newReview, setNewReview] = useState({ 
+    customerName: '', 
+    rating: 5, 
+    title: '', 
+    body: '',
+    order: searchParams.get('order') || ''
+  });
+  const [reviewSubmitStatus, setReviewSubmitStatus] = useState<string | null>(null);
   
   const toggleAccordion = (section: string) => {
     setOpenAccordion(openAccordion === section ? null : section);
@@ -33,6 +53,40 @@ export default function ProductDetailsPage() {
         if (res.data.media && res.data.media.length > 0) {
           setMainMedia(res.data.media[0]);
         }
+        
+        trackEvent('view_item', {
+          currency: 'INR',
+          value: res.data.price,
+          items: [{
+            item_id: res.data._id,
+            item_name: res.data.name,
+            affiliation: 'Kiara Jewels',
+            item_category: res.data.category,
+            price: res.data.price
+          }]
+        });
+
+        // Fetch related products
+        if (res.data.category) {
+          try {
+            const relRes = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/products?category=${encodeURIComponent(res.data.category)}`);
+            setRelatedProducts(relRes.data.filter((p: any) => p._id !== id).slice(0, 4));
+          } catch (err) {
+            console.error('Failed to fetch related products', err);
+          }
+        }
+        
+        // Fetch reviews
+        try {
+          const reviewRes = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews/product/${id}`);
+          setReviews(reviewRes.data.reviews || []);
+          setReviewStats({
+            averageRating: reviewRes.data.averageRating || 0,
+            totalReviews: reviewRes.data.totalReviews || 0
+          });
+        } catch (err) {
+          console.error('Failed to fetch reviews', err);
+        }
       } catch (error) {
         console.error('Failed to fetch product details', error);
       } finally {
@@ -43,6 +97,28 @@ export default function ProductDetailsPage() {
       fetchProduct();
     }
   }, [id]);
+
+  const handleReviewSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReview.customerName || !newReview.body) return;
+    
+    setReviewSubmitStatus('submitting');
+    try {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/reviews`, {
+        ...newReview,
+        product: id
+      });
+      setReviewSubmitStatus('success');
+      setNewReview({ customerName: '', rating: 5, title: '', body: '', order: searchParams.get('order') || '' });
+      setTimeout(() => {
+        setShowReviewForm(false);
+        setReviewSubmitStatus(null);
+      }, 3000);
+    } catch (err) {
+      console.error('Failed to submit review', err);
+      setReviewSubmitStatus('error');
+    }
+  };
 
   if (loading) {
     return (
@@ -71,11 +147,24 @@ export default function ProductDetailsPage() {
           
           {/* Image Gallery */}
           <div className="product-gallery">
-            <div className="product-main-image">
+            <div className="product-main-image" style={{ overflow: 'hidden', cursor: 'zoom-in' }}>
               {mainMedia.type === 'video' ? (
                 <video src={mainMedia.url} controls className="product-main-media-item" />
               ) : (
-                <img src={mainMedia.url} alt={product.name} className="product-main-media-item" />
+                <img 
+                  src={mainMedia.url} 
+                  alt={product.name} 
+                  className="product-main-media-item" 
+                  style={{ transition: 'transform 0.4s ease' }}
+                  onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.5)')}
+                  onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                  onMouseMove={(e) => {
+                    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+                    const x = ((e.clientX - left) / width) * 100;
+                    const y = ((e.clientY - top) / height) * 100;
+                    e.currentTarget.style.transformOrigin = `${x}% ${y}%`;
+                  }}
+                />
               )}
             </div>
             
@@ -105,7 +194,16 @@ export default function ProductDetailsPage() {
           {/* Product Info */}
           <div className="product-info-section">
             <div style={{ marginBottom: '16px' }}>
-              <span style={{ color: '#000000', fontSize: '0.875rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>{product.category}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ color: '#000000', fontSize: '0.875rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>{product.category}</span>
+                {reviewStats.totalReviews > 0 && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#f59e0b', fontSize: '0.9rem' }}>
+                    <span>★</span>
+                    <span style={{ fontWeight: 'bold', color: '#374151' }}>{reviewStats.averageRating}</span>
+                    <span style={{ color: '#6b7280' }}>({reviewStats.totalReviews})</span>
+                  </div>
+                )}
+              </div>
               <h1 className="product-title">{product.name}</h1>
 
               <div className="product-price" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -136,14 +234,25 @@ export default function ProductDetailsPage() {
 
             {product?.category?.toLowerCase() === 'rings' && (
               <div style={{ marginBottom: '24px' }}>
-                <button 
-                  onClick={() => setIsSizeGuideOpen(true)}
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FBFAF7', border: '1px solid #d1d5db', borderRadius: '6px', padding: '10px 16px', cursor: 'pointer', fontSize: '0.95rem', color: '#27302E', transition: 'all 0.2s', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}
-                  onMouseOver={(e) => (e.currentTarget.style.borderColor = '#000')}
-                  onMouseOut={(e) => (e.currentTarget.style.borderColor = '#d1d5db')}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <label style={{ fontSize: '0.875rem', fontWeight: 'bold', color: '#374151' }}>RING SIZE (Indian) *</label>
+                  <button 
+                    onClick={() => setIsSizeGuideOpen(true)}
+                    style={{ background: 'none', border: 'none', color: '#4b5563', textDecoration: 'underline', cursor: 'pointer', fontSize: '0.85rem' }}
+                  >
+                    Size Guide
+                  </button>
+                </div>
+                <select 
+                  value={selectedSize} 
+                  onChange={(e) => setSelectedSize(e.target.value)}
+                  style={{ width: '100%', padding: '12px', borderRadius: '6px', border: '1px solid #d1d5db', backgroundColor: 'white', fontSize: '1rem', outline: 'none' }}
                 >
-                  <span style={{ fontWeight: '600', textDecoration: 'underline', textUnderlineOffset: '4px' }}>Find Your Ring Size</span>
-                </button>
+                  <option value="" disabled>Select your size</option>
+                  {[...Array(21)].map((_, i) => (
+                    <option key={i+5} value={i+5}>{i+5}</option>
+                  ))}
+                </select>
               </div>
             )}
 
@@ -165,13 +274,64 @@ export default function ProductDetailsPage() {
               </p>
             </div>
 
+            {/* Pincode Checker */}
+            <div style={{ marginBottom: '32px', backgroundColor: '#FBFAF7', border: '1px solid #e5e7eb', borderRadius: '8px', padding: '20px' }}>
+              <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 'bold', color: '#27302E', marginBottom: '12px' }}>
+                <Truck size={16} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} /> 
+                CHECK DELIVERY ESTIMATE
+              </label>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <input 
+                  type="text" 
+                  maxLength={6}
+                  placeholder="Enter 6 digit pincode" 
+                  value={pincode}
+                  onChange={(e) => setPincode(e.target.value.replace(/\D/g, ''))}
+                  style={{ flex: 1, padding: '12px', borderRadius: '6px', border: '1px solid #d1d5db', fontSize: '1rem', outline: 'none' }}
+                />
+                <button 
+                  onClick={() => {
+                    if (pincode.length === 6) {
+                      setDeliveryEstimate("Estimated delivery in 7 days (4 days to make + 3 days shipping)");
+                    } else {
+                      setDeliveryEstimate("Please enter a valid 6-digit pincode");
+                    }
+                  }}
+                  style={{ backgroundColor: '#27302E', color: 'white', border: 'none', borderRadius: '6px', padding: '0 24px', fontWeight: '600', cursor: 'pointer' }}
+                >
+                  Check
+                </button>
+              </div>
+              {deliveryEstimate && (
+                <p style={{ marginTop: '12px', fontSize: '0.9rem', color: deliveryEstimate.includes('7 days') ? '#10b981' : '#ef4444' }}>
+                  {deliveryEstimate}
+                </p>
+              )}
+            </div>
+
             <ProductOfferBox />
 
             <div className="product-actions">
               <div style={{ display: 'flex', gap: '12px' }}>
                 <button 
                   onClick={() => {
-                    addToCart(product, quantity);
+                    if (product?.category?.toLowerCase() === 'rings' && !selectedSize) {
+                      alert('Please select a ring size before adding to cart.');
+                      return;
+                    }
+                    addToCart(product, quantity, selectedSize);
+                    trackEvent('add_to_cart', {
+                      currency: 'INR',
+                      value: product.price * quantity,
+                      items: [{
+                        item_id: product._id,
+                        item_name: product.name,
+                        affiliation: 'Kiara Jewels',
+                        item_category: product.category,
+                        price: product.price,
+                        quantity: quantity
+                      }]
+                    });
                   }}
                   disabled={product.countInStock < 1}
                   className="btn-add-cart"
@@ -180,7 +340,16 @@ export default function ProductDetailsPage() {
                   ADD TO CART
                 </button>
                 <button 
-                  onClick={() => toggleWishlist(product)}
+                  onClick={() => {
+                    toggleWishlist(product);
+                    if (!inWishlist) {
+                      trackEvent('add_to_wishlist', {
+                        currency: 'INR',
+                        value: product.price,
+                        items: [{ item_id: product._id, item_name: product.name, item_category: product.category }]
+                      });
+                    }
+                  }}
                   style={{ 
                     width: '56px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
                     border: '1px solid #e5e7eb', borderRadius: '6px', backgroundColor: 'white', cursor: 'pointer',
@@ -194,7 +363,23 @@ export default function ProductDetailsPage() {
               
               <button 
                 onClick={() => {
-                  addToCart(product, quantity);
+                  if (product?.category?.toLowerCase() === 'rings' && !selectedSize) {
+                    alert('Please select a ring size before purchasing.');
+                    return;
+                  }
+                  addToCart(product, quantity, selectedSize);
+                  trackEvent('add_to_cart', {
+                    currency: 'INR',
+                    value: product.price * quantity,
+                    items: [{
+                      item_id: product._id,
+                      item_name: product.name,
+                      affiliation: 'Kiara Jewels',
+                      item_category: product.category,
+                      price: product.price,
+                      quantity: quantity
+                    }]
+                  });
                   window.location.href = '/checkout';
                 }}
                 disabled={product.countInStock < 1}
@@ -217,12 +402,17 @@ export default function ProductDetailsPage() {
                   onClick={() => toggleAccordion('desc')}
                   style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#27302E', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
                 >
-                  Product Description
+                  Product Details
                   <ChevronDown size={20} style={{ transform: openAccordion === 'desc' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }} />
                 </button>
                 <div style={{ display: 'grid', gridTemplateRows: openAccordion === 'desc' ? '1fr' : '0fr', transition: 'grid-template-rows 0.3s ease' }}>
                   <div style={{ overflow: 'hidden' }}>
-                    <p style={{ paddingBottom: '16px', color: '#4b5563', lineHeight: '1.6', margin: 0 }}>{product.description}</p>
+                    <p style={{ paddingBottom: '12px', color: '#4b5563', lineHeight: '1.6', margin: 0 }}>{product.description}</p>
+                    <ul style={{ paddingBottom: '16px', color: '#4b5563', lineHeight: '1.6', paddingLeft: '20px', margin: 0 }}>
+                      <li><strong>Material:</strong> 925 Sterling Silver</li>
+                      <li><strong>Stones:</strong> Premium Cubic Zirconia (CZ)</li>
+                      <li><strong>Finish:</strong> Rhodium plated with anti-tarnish coating</li>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -256,16 +446,154 @@ export default function ProductDetailsPage() {
                 </button>
                 <div style={{ display: 'grid', gridTemplateRows: openAccordion === 'shipping' ? '1fr' : '0fr', transition: 'grid-template-rows 0.3s ease' }}>
                   <div style={{ overflow: 'hidden' }}>
-                    <p style={{ paddingBottom: '16px', color: '#4b5563', lineHeight: '1.6', margin: 0 }}>
-                      Free shipping across India. Delivery takes approximately 7 days. Returns are accepted within 3 days of delivery subject to inspection.
-                    </p>
+                    <ul style={{ paddingBottom: '16px', color: '#4b5563', lineHeight: '1.6', paddingLeft: '20px', margin: 0 }}>
+                      <li>Free shipping across India. Delivery takes approximately 7 days.</li>
+                      <li>Returns accepted within 3 days of delivery (subject to inspection).</li>
+                      <li>No exchanges.</li>
+                      <li>Custom-designed pieces are non-returnable unless defective.</li>
+                    </ul>
                   </div>
                 </div>
               </div>
             </div>
+            {/* End Accordions */}
+            
+            {/* Reviews Section */}
+            <div style={{ marginTop: '48px', borderTop: '1px solid #e5e7eb', paddingTop: '32px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+                <h2 style={{ fontSize: '1.5rem', fontFamily: 'Times New Roman, serif', color: '#27302E' }}>Customer Reviews</h2>
+                {!showReviewForm && (
+                  <button 
+                    onClick={() => setShowReviewForm(true)}
+                    style={{ background: 'none', border: '1px solid #27302E', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                  >
+                    Write a Review
+                  </button>
+                )}
+              </div>
+
+              {showReviewForm && (
+                <form onSubmit={handleReviewSubmit} style={{ backgroundColor: '#fff', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb', marginBottom: '32px' }}>
+                  <h3 style={{ fontSize: '1.2rem', marginBottom: '16px' }}>Write your review</h3>
+                  {reviewSubmitStatus === 'success' && <p style={{ color: '#10b981', marginBottom: '16px' }}>Review submitted successfully! It will appear once approved.</p>}
+                  {reviewSubmitStatus === 'error' && <p style={{ color: '#ef4444', marginBottom: '16px' }}>Failed to submit review. Please try again.</p>}
+                  
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Name *</label>
+                    <input 
+                      type="text" 
+                      value={newReview.customerName}
+                      onChange={(e) => setNewReview({...newReview, customerName: e.target.value})}
+                      required
+                      style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '4px' }}
+                    />
+                  </div>
+                  
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Rating *</label>
+                    <select 
+                      value={newReview.rating}
+                      onChange={(e) => setNewReview({...newReview, rating: Number(e.target.value)})}
+                      style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '4px' }}
+                    >
+                      <option value={5}>5 - Excellent</option>
+                      <option value={4}>4 - Good</option>
+                      <option value={3}>3 - Average</option>
+                      <option value={2}>2 - Poor</option>
+                      <option value={1}>1 - Terrible</option>
+                    </select>
+                  </div>
+                  
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Title (optional)</label>
+                    <input 
+                      type="text" 
+                      value={newReview.title}
+                      onChange={(e) => setNewReview({...newReview, title: e.target.value})}
+                      style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '4px' }}
+                    />
+                  </div>
+                  
+                  <div style={{ marginBottom: '16px' }}>
+                    <label style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}>Review *</label>
+                    <textarea 
+                      value={newReview.body}
+                      onChange={(e) => setNewReview({...newReview, body: e.target.value})}
+                      required
+                      rows={4}
+                      style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '4px' }}
+                    />
+                  </div>
+                  
+                  <div style={{ display: 'flex', gap: '12px' }}>
+                    <button 
+                      type="submit" 
+                      disabled={reviewSubmitStatus === 'submitting'}
+                      style={{ backgroundColor: '#27302E', color: 'white', padding: '10px 24px', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                    >
+                      {reviewSubmitStatus === 'submitting' ? 'Submitting...' : 'Submit Review'}
+                    </button>
+                    <button 
+                      type="button" 
+                      onClick={() => setShowReviewForm(false)}
+                      style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', textDecoration: 'underline' }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {reviews.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '40px', backgroundColor: '#fff', borderRadius: '8px', border: '1px dashed #d1d5db' }}>
+                  <p style={{ color: '#6b7280', marginBottom: '16px' }}>No reviews yet.</p>
+                  {!showReviewForm && (
+                    <button onClick={() => setShowReviewForm(true)} style={{ background: 'none', border: 'none', color: '#27302E', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold' }}>
+                      Be the first to review
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  {reviews.map(review => (
+                    <div key={review._id} style={{ borderBottom: '1px solid #f3f4f6', paddingBottom: '24px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                        <div>
+                          <p style={{ fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            {review.customerName} 
+                            {review.verifiedPurchase && <span style={{ fontSize: '0.75rem', backgroundColor: '#dcfce7', color: '#166534', padding: '2px 6px', borderRadius: '4px' }}>Verified</span>}
+                          </p>
+                          <div style={{ color: '#f59e0b', fontSize: '0.9rem', marginTop: '4px' }}>
+                            {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                          </div>
+                        </div>
+                        <span style={{ fontSize: '0.85rem', color: '#9ca3af' }}>
+                          {new Date(review.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                      {review.title && <h4 style={{ margin: '8px 0', fontSize: '1.05rem' }}>{review.title}</h4>}
+                      <p style={{ color: '#4b5563', lineHeight: '1.6' }}>{review.body}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
           </div>
         </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <div style={{ maxWidth: '1200px', margin: '80px auto 0', padding: '0 24px' }}>
+            <h2 style={{ fontSize: '2rem', fontFamily: 'Times New Roman, serif', color: '#27302E', marginBottom: '32px', textAlign: 'center' }}>You May Also Like</h2>
+            <div className="best-seller__grid">
+              {relatedProducts.map(p => {
+                const ProductCard = require('@/components/ProductCard').default;
+                return <ProductCard key={p._id} product={p} />;
+              })}
+            </div>
+          </div>
+        )}
       </main>
       
       {/* Ring Size Guide Modal */}
@@ -275,118 +603,100 @@ export default function ProductDetailsPage() {
             
             <button 
               onClick={() => setIsSizeGuideOpen(false)}
-              style={{ position: 'absolute', top: '24px', right: '24px', background: '#f3f4f6', border: 'none', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#4b5563', transition: 'all 0.2s' }}
+              style={{ position: 'absolute', top: '16px', right: '16px', background: '#f3f4f6', border: 'none', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#4b5563', transition: 'all 0.2s', zIndex: 10 }}
               onMouseOver={(e) => (e.currentTarget.style.background = '#e5e7eb')}
               onMouseOut={(e) => (e.currentTarget.style.background = '#f3f4f6')}
             >
               <X size={20} />
             </button>
 
-            <div style={{ padding: '40px' }}>
-              <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                <h2 style={{ fontFamily: '"Abyssinica SIL", serif', fontSize: '2rem', color: '#27302E', marginBottom: '8px' }}>💍 Find Your Ring Size</h2>
-                <p style={{ color: '#6b7280', fontSize: '1.05rem', maxWidth: '500px', margin: '0 auto' }}>Not sure about your ring size? Find your perfect fit in just a few easy steps.</p>
-              </div>
-
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px', marginBottom: '48px' }}>
-                {/* Method 1 */}
-                <div style={{ flex: '1 1 300px', backgroundColor: '#FBFAF7', padding: '32px', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#27302E', marginBottom: '16px', borderBottom: '1px solid #d1d5db', paddingBottom: '12px' }}>Method 1: Measure Your Finger</h3>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px', backgroundColor: '#ffffff', padding: '16px', borderRadius: '8px', border: '1px dashed #d1d5db' }}>
-                    <div style={{ fontSize: '2.5rem' }}>👇</div>
-                    <div style={{ fontSize: '1.5rem', color: '#9ca3af' }}>➔</div>
-                    <div style={{ fontSize: '2.5rem' }}>🧵</div>
-                    <div style={{ fontSize: '1.5rem', color: '#9ca3af' }}>➔</div>
-                    <div style={{ fontSize: '2.5rem' }}>📏</div>
-                  </div>
-                  <ol style={{ paddingLeft: '20px', color: '#4b5563', lineHeight: '1.7', margin: 0 }}>
-                    <li style={{ marginBottom: '8px' }}>Take a thin strip of paper or a piece of thread.</li>
-                    <li style={{ marginBottom: '8px' }}>Wrap it around the finger where you want to wear the ring.</li>
-                    <li style={{ marginBottom: '8px' }}>Make a small mark where the paper or thread meets.</li>
-                    <li style={{ marginBottom: '8px' }}>Lay it flat and measure the length with a ruler in millimetres (mm).</li>
-                    <li>Use the measurement to find your ring size in the size chart below.</li>
-                  </ol>
-                </div>
-
-                {/* Method 2 */}
-                <div style={{ flex: '1 1 300px', backgroundColor: '#FBFAF7', padding: '32px', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#27302E', marginBottom: '16px', borderBottom: '1px solid #d1d5db', paddingBottom: '12px' }}>Method 2: Measure Your Existing Ring</h3>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px', backgroundColor: '#ffffff', padding: '16px', borderRadius: '8px', border: '1px dashed #d1d5db' }}>
-                    <div style={{ fontSize: '2.5rem' }}>💍</div>
-                    <div style={{ fontSize: '1.5rem', color: '#9ca3af' }}>➔</div>
-                    <div style={{ fontSize: '2.5rem' }}>📏</div>
-                  </div>
-                  <ol style={{ paddingLeft: '20px', color: '#4b5563', lineHeight: '1.7', margin: 0 }}>
-                    <li style={{ marginBottom: '8px' }}>Take a ring that already fits you well.</li>
-                    <li style={{ marginBottom: '8px' }}>Place it on a flat surface.</li>
-                    <li style={{ marginBottom: '8px' }}>Measure the inside width of the ring from one inner edge to the other.</li>
-                    <li style={{ marginBottom: '8px' }}>Measure in millimetres (mm).</li>
-                    <li>Use the measurement to find your ring size in the size chart below.</li>
-                  </ol>
-                </div>
-              </div>
-
-              {/* Size Chart */}
-              <div>
-                <h3 style={{ fontSize: '1.3rem', fontWeight: 'bold', color: '#27302E', marginBottom: '16px', textAlign: 'center' }}>Indian Ring Size Chart</h3>
-                <div style={{ overflowX: 'auto' }}>
-                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '500px' }}>
-                    <thead>
-                      <tr style={{ backgroundColor: '#f3f4f6', borderBottom: '2px solid #d1d5db' }}>
-                        <th style={{ padding: '12px 16px', color: '#374151', fontWeight: 'bold' }}>Indian Size</th>
-                        <th style={{ padding: '12px 16px', color: '#374151', fontWeight: 'bold' }}>Inside Diameter (mm)</th>
-                        <th style={{ padding: '12px 16px', color: '#374151', fontWeight: 'bold' }}>Circumference (mm)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        { size: 5, dia: 14.3, circ: 45 },
-                        { size: 6, dia: 14.6, circ: 46 },
-                        { size: 7, dia: 14.9, circ: 47 },
-                        { size: 8, dia: 15.3, circ: 48 },
-                        { size: 9, dia: 15.6, circ: 49 },
-                        { size: 10, dia: 15.9, circ: 50 },
-                        { size: 11, dia: 16.2, circ: 51 },
-                        { size: 12, dia: 16.5, circ: 52 },
-                        { size: 13, dia: 16.8, circ: 53 },
-                        { size: 14, dia: 17.1, circ: 54 },
-                        { size: 15, dia: 17.5, circ: 55 },
-                        { size: 16, dia: 17.8, circ: 56 },
-                        { size: 17, dia: 18.1, circ: 57 },
-                        { size: 18, dia: 18.4, circ: 58 },
-                        { size: 19, dia: 18.7, circ: 59 },
-                        { size: 20, dia: 19.1, circ: 60 },
-                        { size: 21, dia: 19.4, circ: 61 },
-                        { size: 22, dia: 19.7, circ: 62 },
-                        { size: 23, dia: 20.0, circ: 63 },
-                        { size: 24, dia: 20.3, circ: 64 },
-                        { size: 25, dia: 20.6, circ: 65 }
-                      ].map((row, i) => (
-                        <tr key={row.size} style={{ borderBottom: '1px solid #e5e7eb', backgroundColor: i % 2 === 0 ? '#ffffff' : '#FBFAF7' }}>
-                          <td style={{ padding: '10px 16px', fontWeight: 'bold', color: '#27302E' }}>{row.size}</td>
-                          <td style={{ padding: '10px 16px', color: '#4b5563' }}>{row.dia}</td>
-                          <td style={{ padding: '10px 16px', color: '#4b5563' }}>{row.circ}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              {/* Notes */}
-              <div style={{ marginTop: '32px', backgroundColor: '#eff6ff', borderLeft: '4px solid #3b82f6', padding: '16px 20px', borderRadius: '4px' }}>
-                <ul style={{ margin: 0, paddingLeft: '20px', color: '#1e3a8a', lineHeight: '1.6' }}>
-                  <li style={{ marginBottom: '8px' }}><strong>Tip:</strong> Measure your finger at the end of the day when your fingers are at their normal size.</li>
-                  <li style={{ marginBottom: '8px' }}>If you are between two sizes, choose the <strong>larger size</strong>.</li>
-                  <li>For the best fit, measure 2–3 times.</li>
-                </ul>
-              </div>
-
+            <div style={{ padding: '0', display: 'flex', justifyContent: 'center' }}>
+              <img 
+                src="/size-guide/ring-size-guide.jpg" 
+                alt="Ring Size Guide" 
+                style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '16px' }}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><rect fill="%23f3f4f6" width="800" height="600"/><text fill="%239ca3af" font-family="sans-serif" font-size="24" dy="10.5" font-weight="bold" x="50%" y="50%" text-anchor="middle">TODO: Drop ring-size-guide.jpg into /public/size-guide/</text></svg>';
+                }}
+              />
             </div>
           </div>
         </div>
       )}
       <FAQSection />
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.kiarajewels.co/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": product.category || "Jewellery",
+            "item": `https://www.kiarajewels.co/${product.category?.toLowerCase() || ''}`
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": product.name,
+            "item": `https://www.kiarajewels.co/product/${product._id}`
+          }
+        ]
+      }) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": product.name,
+            "image": product.media?.map((m: any) => m.url) || [],
+            "description": product.description,
+            "offers": {
+              "@type": "Offer",
+              "url": `https://kiarajewels.co/product/${product._id}`,
+              "priceCurrency": "INR",
+              "price": product.price,
+              "availability": product.countInStock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            },
+            ...(reviewStats.totalReviews > 0 ? {
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": reviewStats.averageRating,
+                "reviewCount": reviewStats.totalReviews
+              },
+              "review": reviews.map(r => ({
+                "@type": "Review",
+                "reviewRating": {
+                  "@type": "Rating",
+                  "ratingValue": r.rating,
+                  "bestRating": "5"
+                },
+                "author": {
+                  "@type": "Person",
+                  "name": r.customerName
+                },
+                "reviewBody": r.body
+              }))
+            } : {})
+          })
+        }}
+      />
     </>
+  );
+}
+
+export default function ProductDetailsPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>}>
+      <ProductDetailsContent />
+    </Suspense>
   );
 }

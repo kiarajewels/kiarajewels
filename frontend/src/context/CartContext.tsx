@@ -14,13 +14,14 @@ export interface CartItem {
   price: number;
   image: string;
   quantity: number;
+  size?: string;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (product: any, quantity?: number) => void;
-  removeFromCart: (id: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
+  addToCart: (product: any, quantity?: number, size?: string) => void;
+  removeFromCart: (id: string, size?: string) => void;
+  updateQuantity: (id: string, size: string | undefined, quantity: number) => void;
   clearCart: () => void;
   cartCount: number;
   subtotal: number;
@@ -35,7 +36,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cartData, setCartData] = useState<{id: string, quantity: number}[]>([]);
+  const [cartData, setCartData] = useState<{id: string, quantity: number, size?: string}[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [isClient, setIsClient] = useState(false);
   const { data: session, status } = useSession();
@@ -88,25 +89,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [cartData, isClient, status, session]);
 
-  const addToCart = (product: any, quantity = 1) => {
+  const addToCart = (product: any, quantity = 1, size?: string) => {
     setCartData(prev => {
-      const existing = prev.find(item => item.id === product._id);
+      const existing = prev.find(item => item.id === product._id && item.size === size);
       if (existing) {
         return prev.map(item => 
-          item.id === product._id 
+          item.id === product._id && item.size === size
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...prev, { id: product._id, quantity }];
+      return [...prev, { id: product._id, quantity, size }];
     });
   };
 
-  const removeFromCart = (id: string) => setCartData(prev => prev.filter(item => item.id !== id));
+  const removeFromCart = (id: string, size?: string) => setCartData(prev => prev.filter(item => !(item.id === id && item.size === size)));
   
-  const updateQuantity = (id: string, quantity: number) => {
+  const updateQuantity = (id: string, size: string | undefined, quantity: number) => {
     if (quantity < 1) return;
-    setCartData(prev => prev.map(item => item.id === id ? { ...item, quantity } : item));
+    setCartData(prev => prev.map(item => (item.id === id && item.size === size) ? { ...item, quantity } : item));
   };
 
   const clearCart = () => setCartData([]);
@@ -119,7 +120,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
       name: p.name,
       price: p.price,
       image: p.media && p.media.length > 0 ? p.media[0].url : '/images/placeholder.png',
-      quantity: cData.quantity
+      quantity: cData.quantity,
+      size: cData.size
     };
   }).filter(Boolean) as CartItem[];
 

@@ -9,9 +9,13 @@ import AnnouncementBar from '@/components/AnnouncementBar'
 import { Toaster } from 'react-hot-toast'
 import WhatsAppButton from '@/components/WhatsAppButton'
 
+import Analytics from '@/components/Analytics'
+import CookieConsent from '@/components/CookieConsent'
+
 export const metadata = {
-  title: 'Kiara Jewels | Silver CZ Jewellery, Made to Order',
-  description: '925 silver jewellery with premium cubic zirconia (CZ) stones, rhodium-plated with an anti-tarnish coating. Free shipping across India.',
+  title: 'Kiara Jewels | 925 Silver Jewellery Online India',
+  description: 'Shop premium 925 silver jewellery online in India. Discover anti-tarnish rhodium plated silver rings, American Diamond (CZ) jewellery, and perfect gifts for her.',
+  keywords: ['925 silver jewellery online India', 'American Diamond (CZ) jewellery', 'anti-tarnish silver jewellery', 'rhodium plated silver rings', 'gifts for her'],
 }
 
 export default function RootLayout({
@@ -25,6 +29,29 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://www.kiarajewels.co/#organization",
+              "name": "Kiara Jewels",
+              "url": "https://www.kiarajewels.co",
+              "logo": "https://www.kiarajewels.co/logo.png"
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.kiarajewels.co/#website",
+              "url": "https://www.kiarajewels.co",
+              "name": "Kiara Jewels",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://www.kiarajewels.co/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            }
+          ]
+        })}} />
       </head>
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}>
         <AuthProvider>
@@ -38,6 +65,8 @@ export default function RootLayout({
               </div>
               <WhatsAppButton />
               <Footer />
+              <CookieConsent />
+              <Analytics />
               
               {/* Razorpay Script for Client Side Checkout */}
               <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />

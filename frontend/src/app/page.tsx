@@ -126,7 +126,7 @@ export default async function Home() {
             { name: 'Earrings', image: '/images/heroearrings.png', link: '/earrings' },
             { name: 'Necklaces', image: '/images/heropendant.png', link: '/necklaces' },
             { name: 'Bracelets', image: '/images/herobracelet.png', link: '/bracelets' },
-            { name: 'Sets', image: '/images/setsplaceholder.png', link: '/sets' }
+            { name: 'Sets', image: '/images/herosets.png', link: '/sets' }
           ].map(cat => {
             const catKey = cat.name.toLowerCase();
             const minPrice = minPrices[catKey];
@@ -189,15 +189,6 @@ export default async function Home() {
 
       {/* FAQ */}
       <FAQSection />
-
-      {/* Instagram Strip */}
-      <section style={{ display: 'flex', overflowX: 'hidden' }}>
-        {instaPosts.map((img, idx) => (
-          <Link key={idx} href="https://www.instagram.com/kiarajewels.co" target="_blank" rel="noopener noreferrer" style={{ flex: 1, minWidth: '16.666%', aspectRatio: '1/1', position: 'relative', display: 'block' }}>
-            <Image src={img} alt="Kiara Jewels Instagram" fill sizes="16vw" style={{ objectFit: 'cover' }} className="hover-scale" />
-          </Link>
-        ))}
-      </section>
 
       {/* Email Capture */}
       <EmailCapture />

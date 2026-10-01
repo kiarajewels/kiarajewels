@@ -36,8 +36,22 @@ export default function FAQSection() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   return (
     <section className="faq" id="faq-section" style={{ padding: '80px 24px', maxWidth: '800px', margin: '0 auto' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', textAlign: 'center', margin: '0 0 40px', fontWeight: 500 }}>
         Frequently Asked Questions
       </h2>

@@ -20,6 +20,7 @@ const DashboardLayout = () => {
     { name: 'Custom Orders', href: '/custom-orders', icon: ShoppingCart },
     { name: 'Orders Report', href: '/orders-report', icon: BarChart },
     { name: 'Active Carts', href: '/carts', icon: ShoppingCart },
+    { name: 'Reviews', href: '/reviews', icon: Package },
     { name: 'Users', href: '/users', icon: Users },
     { name: 'Customers', href: '/customers', icon: Users },
     { name: 'Settings', href: '/settings', icon: Settings },

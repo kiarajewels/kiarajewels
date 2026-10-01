@@ -16,6 +16,9 @@ const productSchema = new mongoose.Schema(
     countInStock: { type: Number, required: true, default: 0 },
     isGifting: { type: Boolean, default: false },
     isBestSeller: { type: Boolean, default: false },
+    subType: { type: String, required: false },
+    occasion: { type: String, required: false },
+    stoneColour: { type: String, required: false },
   },
   { timestamps: true }
 );

@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
 import { Search, Heart, User, ShoppingBag, Menu, X } from 'lucide-react';
 import Logo from '@/components/Logo';
+import HeaderSearch from '@/components/HeaderSearch';
 
 export default function Navbar() {
   const { cartCount } = useCart();
@@ -31,9 +32,8 @@ export default function Navbar() {
           <li className="navbar__item"><Link href="/about" className="navbar__link" onClick={() => setIsMenuOpen(false)}>About</Link></li>
         </ul>
         <div className="navbar__icons" id="nav-icons" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <button className="navbar__icon-link" aria-label="Search" onClick={() => { /* phase 3 */ }}>
-            <Search size={22} strokeWidth={1.5} color="var(--ink)" />
-          </button>
+          
+          <HeaderSearch />
           
           <Link href={status === 'authenticated' ? "/profile" : "/login"} className="navbar__icon-link" title="Profile">
             <User size={22} strokeWidth={1.5} color="var(--ink)" />
@@ -52,7 +52,7 @@ export default function Navbar() {
             className="navbar__hamburger" 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0', display: 'flex', alignItems: 'center' }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0', alignItems: 'center' }}
           >
             {isMenuOpen ? <X size={24} color="var(--ink)" /> : <Menu size={24} color="var(--ink)" />}
           </button>
