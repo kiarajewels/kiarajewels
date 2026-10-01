@@ -6,6 +6,34 @@ import ProductCarousel from '@/components/ProductCarousel';
 import FAQSection from '@/components/FAQSection';
 import EmailCapture from '@/components/EmailCapture';
 
+export const metadata = {
+  title: 'Kiara Jewels | Silver CZ Jewellery, Made to Order',
+  description: '925 silver jewellery with premium CZ/American Diamond style stones. Made to order with free shipping across India.',
+  openGraph: {
+    title: 'Kiara Jewels | Silver CZ Jewellery, Made to Order',
+    description: '925 silver jewellery with premium CZ/American Diamond style stones. Made to order with free shipping across India.',
+    url: 'https://www.kiarajewels.co',
+    siteName: 'Kiara Jewels',
+    images: [
+      {
+        url: 'https://www.kiarajewels.co/images/hero_videos/heroimage1.png',
+        width: 1200,
+        height: 630,
+      }
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kiara Jewels | Silver CZ Jewellery, Made to Order',
+    description: '925 silver jewellery with premium CZ/American Diamond style stones. Made to order with free shipping across India.',
+    images: ['https://www.kiarajewels.co/images/hero_videos/heroimage1.png'],
+  },
+  alternates: {
+    canonical: 'https://www.kiarajewels.co',
+  }
+}
+
 async function getBestSellers() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?isBestSeller=true`, {
@@ -19,8 +47,30 @@ async function getBestSellers() {
   }
 }
 
+async function getCategoryMinPrices() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
+      next: { revalidate: 3600 }
+    });
+    if (!res.ok) return {};
+    const products = await res.json();
+    const minPrices: Record<string, number> = {};
+    products.forEach((p: any) => {
+      const cat = (p.category || '').toLowerCase();
+      if (!minPrices[cat] || p.price < minPrices[cat]) {
+        minPrices[cat] = p.price;
+      }
+    });
+    return minPrices;
+  } catch (error) {
+    console.error("Failed to fetch min prices", error);
+    return {};
+  }
+}
+
 export default async function Home() {
   const bestSellers = await getBestSellers();
+  const minPrices = await getCategoryMinPrices();
 
   const instaPosts = [
     '/images/hero_videos/heroimage1.png',
@@ -31,8 +81,23 @@ export default async function Home() {
     '/images/herobracelet.png'
   ];
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Kiara Jewels",
+    "url": "https://www.kiarajewels.co",
+    "logo": "https://www.kiarajewels.co/logo.png",
+    "sameAs": [
+      "https://www.instagram.com/kiarajewels.co"
+    ]
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <HeroVideo />
 
       {/* Trust Strip */}
@@ -62,17 +127,23 @@ export default async function Home() {
             { name: 'Necklaces', image: '/images/heropendant.png', link: '/necklaces' },
             { name: 'Bracelets', image: '/images/herobracelet.png', link: '/bracelets' },
             { name: 'Sets', image: '/images/setsplaceholder.png', link: '/sets' }
-          ].map(cat => (
+          ].map(cat => {
+            const catKey = cat.name.toLowerCase();
+            const minPrice = minPrices[catKey];
+            return (
             <Link key={cat.name} href={cat.link} style={{ display: 'block', position: 'relative', aspectRatio: '4/5', background: 'var(--stone)', overflow: 'hidden' }}>
               {cat.image !== '/images/setsplaceholder.png' ? (
                 <Image src={cat.image} alt={cat.name} fill sizes="(max-width: 768px) 50vw, 20vw" style={{ objectFit: 'cover' }} className="hover-scale" />
               ) : (
                 <div style={{ position: 'absolute', inset: 0, background: 'var(--stone)' }}></div>
               )}
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 40%)' }}></div>
-              <h3 style={{ position: 'absolute', bottom: '16px', left: '16px', color: 'var(--white)', margin: 0, fontSize: '1.25rem', letterSpacing: '0.05em', fontWeight: 500 }}>{cat.name}</h3>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)' }}></div>
+              <div style={{ position: 'absolute', bottom: '16px', left: '16px', color: 'var(--white)' }}>
+                <h3 style={{ margin: 0, fontSize: '1.25rem', letterSpacing: '0.05em', fontWeight: 500 }}>{cat.name}</h3>
+                {minPrice && <p style={{ margin: '4px 0 0', fontSize: '0.9rem', opacity: 0.9 }}>From Rs. {minPrice}</p>}
+              </div>
             </Link>
-          ))}
+          )})}
         </div>
       </section>
 
