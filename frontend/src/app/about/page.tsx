@@ -19,16 +19,6 @@ export default function AboutPage() {
       {/* Content Section: Why Kiara exists & What we make */}
       <section style={{ padding: '80px 24px' }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '64px', alignItems: 'center' }}>
-          
-          <div style={{ position: 'relative', aspectRatio: '4/5', width: '100%', background: 'var(--stone)' }}>
-            <Image 
-              src="/images/herorings.png" 
-              alt="Artisans at work in our workshop"
-              fill
-              style={{ objectFit: 'cover' }}
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
 
           <div>
             <h2 style={{ fontSize: '2.5rem', marginBottom: '32px', fontWeight: 500 }}>What we make and how</h2>

@@ -325,32 +325,34 @@ img {
   z-index: 4;
   display: flex;
   align-items: center;
-  padding: 0 5%;
+  justify-content: center;
+  padding: 0 24px;
   pointer-events: none;
 }
 
 .hero-text-wrapper {
-  max-width: 40%;
+  max-width: 600px;
+  text-align: center;
   color: #ffffff;
   pointer-events: auto;
+  margin-top: 10vh;
 }
 
 .hero-headline {
-  font-family: 'Times New Roman', serif;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 300;
+  font-family: var(--font-cormorant), serif;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 500;
   line-height: 1.1;
-  margin-bottom: 24px;
-  letter-spacing: 1px;
+  margin: 0 0 16px 0;
+  letter-spacing: 0.02em;
 }
 
 .hero-subheadline {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-jost), sans-serif;
   font-size: 1.1rem;
   line-height: 1.5;
-  margin-bottom: 32px;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 32px 0;
+  color: #ffffff;
 }
 
 .hero-cta-btn {
@@ -386,10 +388,14 @@ img {
   .hero-section {
     display: flex;
     flex-direction: column;
+    height: auto;
+    min-height: 0;
   }
 
   .hero-video-container {
-    aspect-ratio: 16/9;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
     height: auto;
     min-height: unset;
   }
@@ -399,39 +405,45 @@ img {
   }
 
   .hero-content {
-    display: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px 24px 0px;
+    height: auto;
+    background: #ffffff;
   }
 
   .hero-text-wrapper {
     max-width: 100%;
     text-align: center;
-    color: #27302E;
+    color: #000000;
+    margin-top: 0;
   }
 
   .hero-headline {
-    font-size: 2.2rem;
-    margin-bottom: 16px;
-    color: #27302E;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    color: #000000;
   }
 
   .hero-subheadline {
     font-size: 1rem;
     margin-bottom: 24px;
-    color: #4b5563;
+    color: #333333;
   }
 
-  .hero-cta-btn {
-    padding: 14px 28px;
-    background-color: #27302E;
-    color: #ffffff;
+  .hero-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
   }
-
-  .hero-cta-btn:hover {
-    background-color: #000000;
-  }
-
-  .hero-trust-line {
-    color: #4b5563;
+  
+  .hero-buttons a {
+    width: 100%;
+    text-align: center;
   }
 }
 
