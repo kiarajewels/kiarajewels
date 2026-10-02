@@ -36,7 +36,7 @@ export const metadata = {
 
 async function getBestSellers() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?isBestSeller=true`, {
-    next: { revalidate: 3600 }
+    cache: 'no-store'
   });
   if (!res.ok) {
     console.error("Failed to fetch best sellers, status:", res.status);
@@ -46,12 +46,14 @@ async function getBestSellers() {
 }
 
 async function getCategoryMinPrices() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
-      next: { revalidate: 3600 }
-    });
-    if (!res.ok) return {};
-    const products = await res.json();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
+    cache: 'no-store'
+  });
+  if (!res.ok) {
+    console.error("Failed to fetch min prices, status:", res.status);
+    return {};
+  }
+  const products = await res.json();
     const minPrices: Record<string, number> = {};
     products.forEach((p: any) => {
       const cat = (p.category || '').toLowerCase();
@@ -60,10 +62,6 @@ async function getCategoryMinPrices() {
       }
     });
     return minPrices;
-  } catch (error) {
-    console.error("Failed to fetch min prices", error);
-    return {};
-  }
 }
 
 export default async function Home() {
