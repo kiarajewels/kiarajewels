@@ -3,10 +3,10 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: '#c9c2b4', color: '#ffffff', padding: '60px 40px 40px', marginTop: 'auto', overflow: 'hidden' }}>
+    <footer style={{ backgroundColor: '--ivory', color: '#ffffff', padding: '60px 40px 40px', marginTop: 'auto', overflow: 'hidden' }}>
       <style>{`
         .footer-link-elegant {
-          color: #ffffff;
+          color: #000000ff;
           text-decoration: none;
           text-transform: uppercase;
           font-size: 0.9rem;
@@ -17,7 +17,7 @@ export default function Footer() {
           opacity: 0.7;
         }
         .footer-link-small {
-          color: #ffffff;
+          color: #000000ff;
           text-decoration: none;
           font-size: 0.85rem;
           transition: opacity 0.3s ease;
@@ -26,10 +26,10 @@ export default function Footer() {
           opacity: 0.7;
         }
         .footer-massive-text {
-          font-family: 'Abyssinica SIL', serif;
+          font-family: 'Arial';
           font-size: clamp(4rem, 20vw, 22rem);
           line-height: 1;
-          color: #ffffff;
+          color: #000000ff;
           text-align: center;
           margin: 40px 0;
           letter-spacing: 2px;
