@@ -35,16 +35,14 @@ export const metadata = {
 }
 
 async function getBestSellers() {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?isBestSeller=true`, {
-      next: { revalidate: 3600 }
-    });
-    if (!res.ok) return [];
-    return res.json();
-  } catch (error) {
-    console.error("Failed to fetch best sellers", error);
-    return [];
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?isBestSeller=true`, {
+    next: { revalidate: 3600 }
+  });
+  if (!res.ok) {
+    console.error("Failed to fetch best sellers, status:", res.status);
+    return []; // Fallback to empty only if not throwing
   }
+  return res.json();
 }
 
 async function getCategoryMinPrices() {
