@@ -118,18 +118,18 @@ export default async function Home() {
       <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
           {[
-            { name: 'Rings', image: '/images/herorings.png', link: '/rings' },
-            { name: 'Earrings', image: '/images/heroearrings.png', link: '/earrings' },
-            { name: 'Necklaces', image: '/images/heropendant.png', link: '/necklaces' },
-            { name: 'Bracelets', image: '/images/herobracelet.png', link: '/bracelets' },
-            { name: 'Sets', image: '/images/herosets.png', link: '/sets' }
+            { name: 'Rings', image: '/images/herorings-v2.png', link: '/rings' },
+            { name: 'Earrings', image: '/images/heroearrings-v2.png', link: '/earrings' },
+            { name: 'Necklaces', image: '/images/heropendants-v2.png', link: '/necklaces' },
+            { name: 'Bracelets', image: '/images/herobracelets-v2.png', link: '/bracelets' },
+            { name: 'Sets', image: '/images/herosets-v2.png', link: '/sets' }
           ].map(cat => {
             const catKey = cat.name.toLowerCase();
             const minPrice = minPrices[catKey];
             return (
             <Link key={cat.name} href={cat.link} style={{ display: 'block', position: 'relative', aspectRatio: '4/5', background: 'var(--stone)', overflow: 'hidden' }}>
               {cat.image !== '/images/setsplaceholder.png' ? (
-                <Image src={cat.image} alt={cat.name} fill sizes="(max-width: 768px) 50vw, 20vw" style={{ objectFit: 'cover' }} className="hover-scale" />
+                <Image src={cat.image} alt={cat.name} fill sizes="(max-width: 768px) 50vw, 20vw" style={{ objectFit: 'cover' }} className="hover-scale" priority={cat.name === 'Rings'} />
               ) : (
                 <div style={{ position: 'absolute', inset: 0, background: 'var(--stone)' }}></div>
               )}
