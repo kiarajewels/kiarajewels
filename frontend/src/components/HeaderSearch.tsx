@@ -59,7 +59,7 @@ export default function HeaderSearch() {
   };
 
   return (
-    <div ref={searchRef} style={{ position: 'relative' }}>
+    <div ref={searchRef} className="header-search-wrapper">
       <button 
         className="navbar__icon-link" 
         aria-label="Search" 

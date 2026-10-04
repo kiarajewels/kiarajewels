@@ -272,6 +272,10 @@ img {
 }
 
 /* Header Search Popover */
+.header-search-wrapper {
+  position: relative;
+}
+
 .header-search-popover {
   position: absolute;
   top: 120%;
@@ -286,12 +290,19 @@ img {
 }
 
 @media (max-width: 768px) {
+  .header-search-wrapper {
+    position: static;
+  }
+  
   .header-search-popover {
-    position: fixed;
-    top: 70px;
-    left: 16px;
-    right: 16px;
-    width: auto;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+    border-left: none;
+    border-right: none;
   }
 }
 
