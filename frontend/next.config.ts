@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/pendant',
-        destination: '/necklaces',
+        destination: '/pendants',
         permanent: true,
       },
     ]

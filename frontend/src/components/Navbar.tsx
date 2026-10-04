@@ -22,9 +22,10 @@ export default function Navbar() {
           <Logo width={100} height={45} />
         </Link>
         <ul className={`navbar__links ${isMenuOpen ? 'open' : ''}`} id="nav-links">
+          <li className="navbar__item"><Link href="/all" className="navbar__link" onClick={() => setIsMenuOpen(false)}>All</Link></li>
           <li className="navbar__item"><Link href="/rings" className="navbar__link" onClick={() => setIsMenuOpen(false)}>Rings</Link></li>
           <li className="navbar__item"><Link href="/earrings" className="navbar__link" onClick={() => setIsMenuOpen(false)}>Earrings</Link></li>
-          <li className="navbar__item"><Link href="/necklaces" className="navbar__link" onClick={() => setIsMenuOpen(false)}>Necklaces</Link></li>
+          <li className="navbar__item"><Link href="/pendants" className="navbar__link" onClick={() => setIsMenuOpen(false)}>Pendants</Link></li>
           <li className="navbar__item"><Link href="/bracelets" className="navbar__link" onClick={() => setIsMenuOpen(false)}>Bracelets</Link></li>
           <li className="navbar__item"><Link href="/sets" className="navbar__link" onClick={() => setIsMenuOpen(false)}>Sets</Link></li>
           <li className="navbar__item"><Link href="/gifting" className="navbar__link" onClick={() => setIsMenuOpen(false)}>Gifting</Link></li>

@@ -67,7 +67,7 @@ export default function Footer() {
           <div className="footer-top-nav-links" style={{ display: 'flex', gap: '32px' }}>
             <Link href="/rings" className="footer-link-elegant">Rings</Link>
             <Link href="/earrings" className="footer-link-elegant">Earrings</Link>
-            <Link href="/necklaces" className="footer-link-elegant">Necklaces</Link>
+            <Link href="/pendants" className="footer-link-elegant">Pendants</Link>
             <Link href="/bracelets" className="footer-link-elegant">Bracelets</Link>
             <Link href="/sets" className="footer-link-elegant">Sets</Link>
           </div>

@@ -25,7 +25,7 @@ export default function HeroVideo() {
             925 silver jewellery with premium CZ sparkle, made to order for the way you work, meet and celebrate.
           </p>
           <div className="hero-buttons">
-            <Link href="/rings" style={{ background: 'var(--ink)', color: 'var(--ivory)', padding: '12px 28px', textDecoration: 'none', letterSpacing: '0.05em', transition: 'background 0.2s', fontSize: '14px' }}>
+            <Link href="/all" style={{ background: 'var(--ink)', color: 'var(--ivory)', padding: '12px 28px', textDecoration: 'none', letterSpacing: '0.05em', transition: 'background 0.2s', fontSize: '14px' }}>
               Shop the collection
             </Link>
             <Link href="/gifting" style={{ background: 'transparent', color: '#000000ff', border: '1px solid #000000ff', padding: '12px 28px', textDecoration: 'none', letterSpacing: '0.05em', transition: 'background 0.2s', fontSize: '14px', backdropFilter: 'blur(4px)' }}>
