@@ -501,7 +501,7 @@ export default function CheckoutPage() {
           </div>
           
           <div className="checkout-summary-card">
-            <OffersBlock />
+            {/* Offers temporarily disabled */}
             {cartItems.length === 0 ? (
               <p style={{ color: '#6b7280', marginBottom: '24px' }}>Your cart is empty.</p>
             ) : (

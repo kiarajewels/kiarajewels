@@ -309,7 +309,7 @@ function ProductDetailsContent() {
               )}
             </div>
 
-            <ProductOfferBox />
+            {/* Offers temporarily disabled */}
 
             <div className="product-actions">
               <div style={{ display: 'flex', gap: '12px' }}>

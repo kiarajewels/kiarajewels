@@ -31,8 +31,8 @@ export default function EmailCapture() {
   return (
     <section style={{ padding: '80px 24px', background: 'var(--stone)', textAlign: 'center' }}>
       <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', margin: '0 0 16px', fontWeight: 500 }}>Get 10% off your first order</h2>
-        <p style={{ fontSize: '1.1rem', margin: '0 0 32px' }}>Join our community for early access to new collections and exclusive offers.</p>
+        <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.5rem)', margin: '0 0 16px', fontWeight: 500 }}>Subscribe to Kiara Jewels</h2>
+        <p style={{ fontSize: '1.1rem', margin: '0 0 32px' }}>Join our community for early access to new collections and exclusive updates.</p>
         
         {status === 'success' ? (
           <div style={{ padding: '16px', background: 'var(--ivory)', border: '1px solid var(--rose)', color: 'var(--rose-deep)' }}>

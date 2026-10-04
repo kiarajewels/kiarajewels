@@ -93,7 +93,7 @@ export default function CartPage() {
               <div className="cart-summary-container">
                 <h2 className="cart-summary-title">Order Summary</h2>
                 
-                <OffersBlock />
+                {/* Offers temporarily disabled */}
 
                 <div className="cart-summary-row">
                   <span>Subtotal ({cartCount} items)</span>
