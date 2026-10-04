@@ -1,19 +1,43 @@
-import React from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+const heroImages = [
+  "/images/hero_videos/heroimage1.png",
+  "/images/hero_videos/heroimage4.png",
+  "/images/hero_videos/heroimage6.png"
+];
+
 export default function HeroVideo() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 3000); // 3 seconds
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="hero-section">
       <div className="hero-video-container">
-        <Image
-          src="/images/hero_videos/heroimage3.png"
-          alt="Kiara Jewels Hero Feature"
-          fill
-          priority
-          style={{ objectFit: 'cover' }}
-          sizes="100vw"
-        />
+        {heroImages.map((src, index) => (
+          <Image
+            key={src}
+            src={src}
+            alt="Kiara Jewels Hero Feature"
+            fill
+            priority={index === 0}
+            style={{ 
+              objectFit: 'cover',
+              opacity: index === currentImageIndex ? 1 : 0,
+              transition: 'opacity 1.2s ease-in-out'
+            }}
+            sizes="100vw"
+          />
+        ))}
       </div>
 
       <div className="hero-content">
