@@ -120,7 +120,7 @@ export default async function Home() {
           {[
             { name: 'Rings', image: '/images/herorings-v2.png', link: '/rings' },
             { name: 'Earrings', image: '/images/heroearrings-v2.png', link: '/earrings' },
-            { name: 'Necklaces', image: '/images/heropendants-v2.png', link: '/necklaces' },
+            { name: 'Pendants', image: '/images/heropendants-v2.png', link: '/pendants' },
             { name: 'Bracelets', image: '/images/herobracelets-v2.png', link: '/bracelets' },
             { name: 'Sets', image: '/images/herosets-v2.png', link: '/sets' }
           ].map(cat => {
