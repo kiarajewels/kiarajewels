@@ -70,18 +70,7 @@ export default function HeaderSearch() {
       </button>
 
       {isOpen && (
-        <div style={{
-          position: 'absolute',
-          top: '120%',
-          right: 0,
-          width: '320px',
-          backgroundColor: '#fff',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-          borderRadius: '8px',
-          overflow: 'hidden',
-          zIndex: 1000,
-          border: '1px solid #e5e7eb'
-        }}>
+        <div className="header-search-popover">
           <form onSubmit={handleSubmit} style={{ display: 'flex', borderBottom: '1px solid #e5e7eb' }}>
             <input 
               type="text"

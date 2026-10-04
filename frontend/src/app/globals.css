@@ -271,6 +271,30 @@ img {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* Header Search Popover */
+.header-search-popover {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  width: 320px;
+  background-color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1000;
+  border: 1px solid #e5e7eb;
+}
+
+@media (max-width: 768px) {
+  .header-search-popover {
+    position: fixed;
+    top: 70px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+}
+
 /* ---------- CINEMATIC HERO VIDEO ---------- */
 .hero-section {
   position: relative;
