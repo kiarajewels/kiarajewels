@@ -7,7 +7,6 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import AnnouncementBar from '@/components/AnnouncementBar'
 import { Toaster } from 'react-hot-toast'
-import WhatsAppButton from '@/components/WhatsAppButton'
 
 import Analytics from '@/components/Analytics'
 import CookieConsent from '@/components/CookieConsent'
@@ -63,7 +62,6 @@ export default function RootLayout({
               <div style={{ flex: 1 }}>
                 {children}
               </div>
-              <WhatsAppButton />
               <Footer />
               <CookieConsent />
               <Analytics />
