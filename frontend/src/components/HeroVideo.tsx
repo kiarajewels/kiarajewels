@@ -6,7 +6,7 @@ import Image from 'next/image';
 const heroImages = [
   "/images/hero_videos/heroimage1.png",
   "/images/hero_videos/heroimage4.png",
-  "/images/hero_videos/heroimage6.png",
+  "/images/hero_videos/heroimage2.png",
   "/images/hero_videos/heroimage4.png"
 ];
 
