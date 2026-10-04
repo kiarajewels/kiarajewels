@@ -6,7 +6,8 @@ import Image from 'next/image';
 const heroImages = [
   "/images/hero_videos/heroimage1.png",
   "/images/hero_videos/heroimage4.png",
-  "/images/hero_videos/heroimage6.png"
+  "/images/hero_videos/heroimage6.png",
+  "/images/hero_videos/heroimage4.png"
 ];
 
 export default function HeroVideo() {
@@ -25,7 +26,7 @@ export default function HeroVideo() {
       <div className="hero-video-container">
         {heroImages.map((src, index) => (
           <Image
-            key={src}
+            key={`${src}-${index}`}
             src={src}
             alt="Kiara Jewels Hero Feature"
             fill
