@@ -59,12 +59,12 @@ export default function FAQSection() {
         {faqs.map((faq, index) => (
           <div
             key={index}
-            style={{ borderBottom: '1px solid var(--stone)' }}
+            style={{ borderBottom: '1px solid var(--light-grey)' }}
           >
             <button 
               onClick={() => toggleFaq(index)}
               aria-expanded={openIndex === index}
-              style={{ width: '100%', padding: '24px 0', border: 'none', background: 'transparent', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left', cursor: 'pointer', fontSize: '1.1rem', letterSpacing: '0.02em', color: 'var(--ink)' }}
+              style={{ width: '100%', padding: '24px 0', border: 'none', background: 'transparent', display: 'flex', justifyContent: 'space-between', alignItems: 'center', textAlign: 'left', cursor: 'pointer', fontSize: '1.1rem', letterSpacing: '0.02em', color: 'var(--pure-black)' }}
             >
               <span style={{ fontWeight: 500 }}>{faq.question}</span>
               <ChevronDown 
@@ -80,7 +80,7 @@ export default function FAQSection() {
               }}
             >
               <div style={{ overflow: 'hidden' }}>
-                <p style={{ margin: '0 0 24px', lineHeight: 1.6, color: 'var(--ink)', opacity: 0.8 }}>
+                <p style={{ margin: '0 0 24px', lineHeight: 1.6, color: 'var(--pure-black)', opacity: 0.8 }}>
                   {faq.answer}
                 </p>
               </div>

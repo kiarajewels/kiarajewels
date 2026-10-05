@@ -20,7 +20,7 @@ export default function WishlistPage() {
     <>
       
 
-      <main style={{ paddingTop: '120px', minHeight: '80vh', backgroundColor: '#FBFAF7', paddingBottom: '80px' }}>
+      <main style={{ paddingTop: '120px', minHeight: '80vh', backgroundColor: '#F7F7F5', paddingBottom: '80px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
           <h1 style={{ fontSize: '2.5rem', color: '#000000', marginBottom: '32px', fontFamily: 'Times New Roman, serif' }}>Your Wishlist</h1>
           

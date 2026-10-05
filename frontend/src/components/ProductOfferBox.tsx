@@ -14,14 +14,14 @@ export default function ProductOfferBox() {
         backgroundColor: '#FFFFFF',
         boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
       }}>
-        <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#27302E', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
+        <h4 style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#000000', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>
           Exclusive Savings
         </h4>
         
         <div style={{ marginBottom: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <span style={{ fontSize: '1.2rem', color: '#3A1C1D' }}>✧</span>
-            <span style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#27302E' }}>10% OFF your first order</span>
+            <span style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#000000' }}>10% OFF your first order</span>
           </div>
           <span style={{ fontSize: '0.85rem', color: '#6b7280', paddingLeft: '26px' }}>No minimum purchase</span>
         </div>
@@ -29,11 +29,11 @@ export default function ProductOfferBox() {
         <div style={{ marginBottom: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <span style={{ fontSize: '1.2rem', color: '#3A1C1D' }}>✧</span>
-            <span style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#27302E' }}>₹3,000+ → 5% OFF</span>
+            <span style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#000000' }}>₹3,000+ → 5% OFF</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <span style={{ fontSize: '1.2rem', color: '#3A1C1D' }}>✧</span>
-            <span style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#27302E' }}>₹6,000+ → 10% OFF</span>
+            <span style={{ fontSize: '0.95rem', fontWeight: 'bold', color: '#000000' }}>₹6,000+ → 10% OFF</span>
           </div>
           <span style={{ fontSize: '0.85rem', color: '#6b7280', paddingLeft: '26px' }}>On subsequent orders</span>
         </div>
@@ -66,19 +66,19 @@ export default function ProductOfferBox() {
               <X size={20} />
             </button>
 
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#27302E', marginBottom: '24px', textAlign: 'center', fontFamily: 'Times New Roman, serif' }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#000000', marginBottom: '24px', textAlign: 'center', fontFamily: 'Times New Roman, serif' }}>
               Offer Details
             </h3>
 
             <div style={{ marginBottom: '24px' }}>
-              <h4 style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#27302E', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>First Order</h4>
+              <h4 style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#000000', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>First Order</h4>
               <p style={{ fontSize: '0.95rem', color: '#4b5563', lineHeight: '1.5', margin: 0 }}>
                 Get 10% OFF your first order with no minimum purchase.
               </p>
             </div>
 
             <div style={{ marginBottom: '24px' }}>
-              <h4 style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#27302E', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>Subsequent Orders</h4>
+              <h4 style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#000000', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>Subsequent Orders</h4>
               <p style={{ fontSize: '0.95rem', color: '#4b5563', lineHeight: '1.5', margin: 0, marginBottom: '8px' }}>
                 Spend ₹3,000 or more and receive 5% OFF.
               </p>
@@ -89,7 +89,7 @@ export default function ProductOfferBox() {
 
             <button 
               onClick={() => setIsOpen(false)}
-              style={{ width: '100%', padding: '12px', backgroundColor: '#27302E', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.95rem' }}
+              style={{ width: '100%', padding: '12px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.95rem' }}
             >
               Close
             </button>

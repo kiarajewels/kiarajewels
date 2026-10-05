@@ -66,7 +66,7 @@ export default function HeaderSearch() {
         onClick={() => setIsOpen(!isOpen)}
         style={{ position: 'relative', zIndex: 1001 }}
       >
-        {isOpen ? <X size={22} strokeWidth={1.5} color="var(--ink)" /> : <Search size={22} strokeWidth={1.5} color="var(--ink)" />}
+        {isOpen ? <X size={22} strokeWidth={1.5} color="var(--pure-black)" /> : <Search size={22} strokeWidth={1.5} color="var(--pure-black)" />}
       </button>
 
       {isOpen && (

@@ -15,7 +15,7 @@ export default function CartSavingsProgress() {
         boxShadow: '0 4px 12px rgba(0,0,0,0.02)',
         textAlign: 'center'
       }}>
-        <h3 style={{ fontSize: '1.2rem', fontFamily: 'Times New Roman, serif', color: '#27302E', marginBottom: '8px' }}>
+        <h3 style={{ fontSize: '1.2rem', fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '8px' }}>
           ✨ Welcome to Kiara Jewels
         </h3>
         <p style={{ fontSize: '0.95rem', color: '#4b5563', margin: 0 }}>
@@ -54,7 +54,7 @@ export default function CartSavingsProgress() {
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '16px' }}>
         <div>
-          <h3 style={{ fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 'bold', color: '#27302E', marginBottom: '4px' }}>
+          <h3 style={{ fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 'bold', color: '#000000', marginBottom: '4px' }}>
             {getStatusMessage()}
           </h3>
           <p style={{ fontSize: '0.95rem', color: '#4b5563', margin: 0 }}>

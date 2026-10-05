@@ -34,7 +34,8 @@ export default function HeroVideo() {
             style={{ 
               objectFit: 'cover',
               opacity: index === currentImageIndex ? 1 : 0,
-              transition: 'opacity 1.2s ease-in-out'
+              transition: 'opacity 1.2s ease-in-out',
+              filter: 'grayscale(100%) contrast(1.1) brightness(1.05)'
             }}
             sizes="100vw"
           />
@@ -42,19 +43,20 @@ export default function HeroVideo() {
       </div>
 
       <div className="hero-content">
-        <div className="hero-text-wrapper">
-          <h1 className="hero-headline">
-            Everyday, elevated.
+        <div className="hero-text-wrapper" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '16px' }}>
+          <span style={{ fontSize: '0.85rem', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 500, color: '#000000' }}>KIARA JEWELS</span>
+          <h1 className="hero-headline" style={{ textTransform: 'uppercase', lineHeight: '1.1', fontSize: 'clamp(3rem, 6vw, 5rem)', margin: 0, fontWeight: 400, color: '#000000' }}>
+            EVERYDAY,<br />ELEVATED.
           </h1>
-          <p className="hero-subheadline">
+          <p className="hero-subheadline" style={{ color: '#2A2A2A', maxWidth: '400px', margin: '0 0 24px 0', fontSize: '1rem', lineHeight: '1.6' }}>
             925 silver jewellery with premium CZ sparkle, made to order for the way you work, meet and celebrate.
           </p>
-          <div className="hero-buttons">
-            <Link href="/all" style={{ background: 'var(--ink)', color: 'var(--ivory)', padding: '12px 28px', textDecoration: 'none', letterSpacing: '0.05em', transition: 'background 0.2s', fontSize: '14px' }}>
-              Shop the collection
+          <div className="hero-buttons" style={{ display: 'flex', gap: '16px' }}>
+            <Link href="/all" style={{ background: '#000000', color: '#FFFFFF', padding: '14px 32px', textDecoration: 'none', letterSpacing: '0.1em', transition: 'background 0.2s, color 0.2s', fontSize: '0.85rem', textTransform: 'uppercase', border: '1px solid #000000' }}>
+              SHOP THE COLLECTION
             </Link>
-            <Link href="/gifting" style={{ background: 'transparent', color: '#000000ff', border: '1px solid #000000ff', padding: '12px 28px', textDecoration: 'none', letterSpacing: '0.05em', transition: 'background 0.2s', fontSize: '14px', backdropFilter: 'blur(4px)' }}>
-              Explore gifting
+            <Link href="/gifting" style={{ background: '#FFFFFF', color: '#000000', border: '1px solid #000000', padding: '14px 32px', textDecoration: 'none', letterSpacing: '0.1em', transition: 'background 0.2s, color 0.2s', fontSize: '0.85rem', textTransform: 'uppercase' }}>
+              EXPLORE GIFTING
             </Link>
           </div>
         </div>

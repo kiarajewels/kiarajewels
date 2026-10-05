@@ -122,7 +122,7 @@ function ProductDetailsContent() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FBFAF7' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F7F7F5' }}>
         <p style={{ color: '#000000', fontSize: '1.25rem' }}>Loading product details...</p>
       </div>
     );
@@ -130,7 +130,7 @@ function ProductDetailsContent() {
 
   if (!product) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FBFAF7' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F7F7F5' }}>
         <p style={{ color: '#000000', fontSize: '1.25rem' }}>Product not found.</p>
       </div>
     );
@@ -142,7 +142,7 @@ function ProductDetailsContent() {
     <>
       
 
-      <main style={{ paddingTop: '120px', minHeight: '80vh', backgroundColor: '#FBFAF7', paddingBottom: '80px', overflowX: 'hidden' }}>
+      <main style={{ paddingTop: '120px', minHeight: '80vh', backgroundColor: '#F7F7F5', paddingBottom: '80px', overflowX: 'hidden' }}>
         <div className="product-details-container">
           
           {/* Image Gallery */}
@@ -219,15 +219,15 @@ function ProductDetailsContent() {
             {/* Trust Icons */}
             <div style={{ display: 'flex', gap: '16px', marginBottom: '32px', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Diamond size={18} strokeWidth={1.5} color="var(--ink)" />
+                <Diamond size={18} strokeWidth={1.5} color="var(--pure-black)" />
                 <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '500' }}>925 Silver</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Droplets size={18} strokeWidth={1.5} color="var(--ink)" />
+                <Droplets size={18} strokeWidth={1.5} color="var(--pure-black)" />
                 <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '500' }}>Anti-tarnish coating</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Truck size={18} strokeWidth={1.5} color="var(--ink)" />
+                <Truck size={18} strokeWidth={1.5} color="var(--pure-black)" />
                 <span style={{ fontSize: '0.85rem', color: '#4b5563', fontWeight: '500' }}>Free shipping</span>
               </div>
             </div>
@@ -235,10 +235,10 @@ function ProductDetailsContent() {
             {product?.category?.toLowerCase() === 'rings' && (
               <div style={{ marginBottom: '24px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                  <label style={{ fontSize: '0.875rem', fontWeight: 'bold', color: '#374151' }}>RING SIZE (Indian) *</label>
+                  <label style={{ fontSize: '0.85rem', fontWeight: 500, color: '#000000', letterSpacing: '0.1em' }}>RING SIZE (INDIAN) *</label>
                   <button 
                     onClick={() => setIsSizeGuideOpen(true)}
-                    style={{ background: 'none', border: 'none', color: '#4b5563', textDecoration: 'underline', cursor: 'pointer', fontSize: '0.85rem' }}
+                    style={{ background: 'none', border: 'none', color: '#000000', textDecoration: 'underline', cursor: 'pointer', fontSize: '0.85rem', letterSpacing: '0.05em' }}
                   >
                     Size Guide
                   </button>
@@ -246,7 +246,7 @@ function ProductDetailsContent() {
                 <select 
                   value={selectedSize} 
                   onChange={(e) => setSelectedSize(e.target.value)}
-                  style={{ width: '100%', padding: '12px', borderRadius: '6px', border: '1px solid #d1d5db', backgroundColor: 'white', fontSize: '1rem', outline: 'none' }}
+                  style={{ width: '100%', padding: '14px', borderRadius: '0', border: '1px solid #E5E5E5', backgroundColor: '#FFFFFF', fontSize: '1rem', outline: 'none' }}
                 >
                   <option value="" disabled>Select your size</option>
                   {[...Array(21)].map((_, i) => (
@@ -256,27 +256,27 @@ function ProductDetailsContent() {
               </div>
             )}
 
-            <div style={{ marginBottom: '32px' }}>
-              <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 'bold', color: '#374151', marginBottom: '8px' }}>QUANTITY</label>
-              <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #d1d5db', borderRadius: '6px', width: 'fit-content', backgroundColor: 'white' }}>
+            <div style={{ marginBottom: '40px' }}>
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 500, color: '#000000', marginBottom: '8px', letterSpacing: '0.1em' }}>QUANTITY</label>
+              <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #E5E5E5', borderRadius: '0', width: 'fit-content', backgroundColor: '#FFFFFF' }}>
                 <button 
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  style={{ padding: '12px 16px', fontSize: '1.2rem', color: '#374151', borderRight: '1px solid #d1d5db', cursor: 'pointer', background: 'transparent', borderTop: 'none', borderBottom: 'none', borderLeft: 'none' }}
+                  style={{ padding: '12px 20px', fontSize: '1.2rem', color: '#000000', borderRight: '1px solid #E5E5E5', cursor: 'pointer', background: 'transparent', borderTop: 'none', borderBottom: 'none', borderLeft: 'none' }}
                 >-</button>
-                <span style={{ padding: '0 20px', fontSize: '1.1rem', fontWeight: '500', color: '#27302E' }}>{quantity}</span>
+                <span style={{ padding: '0 24px', fontSize: '1.1rem', fontWeight: 400, color: '#000000' }}>{quantity}</span>
                 <button 
                   onClick={() => setQuantity(quantity + 1)}
-                  style={{ padding: '12px 16px', fontSize: '1.2rem', color: '#374151', borderLeft: '1px solid #d1d5db', cursor: 'pointer', background: 'transparent', borderTop: 'none', borderBottom: 'none', borderRight: 'none' }}
+                  style={{ padding: '12px 20px', fontSize: '1.2rem', color: '#000000', borderLeft: '1px solid #E5E5E5', cursor: 'pointer', background: 'transparent', borderTop: 'none', borderBottom: 'none', borderRight: 'none' }}
                 >+</button>
               </div>
-              <p style={{ marginTop: '8px', fontSize: '0.875rem', color: product.countInStock > 0 ? '#10b981' : '#ef4444' }}>
+              <p style={{ marginTop: '12px', fontSize: '0.85rem', letterSpacing: '0.05em', textTransform: 'uppercase', color: product.countInStock > 0 ? '#000000' : '#ff3333' }}>
                 {product.countInStock > 0 ? 'In stock' : 'Out of stock'}
               </p>
             </div>
 
             {/* Pincode Checker */}
-            <div style={{ marginBottom: '32px', backgroundColor: '#FBFAF7', border: '1px solid #e5e7eb', borderRadius: '8px', padding: '20px' }}>
-              <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 'bold', color: '#27302E', marginBottom: '12px' }}>
+            <div style={{ marginBottom: '32px', backgroundColor: '#F7F7F5', border: '1px solid #e5e7eb', borderRadius: '8px', padding: '20px' }}>
+              <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 'bold', color: '#000000', marginBottom: '12px' }}>
                 <Truck size={16} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} /> 
                 CHECK DELIVERY ESTIMATE
               </label>
@@ -297,7 +297,7 @@ function ProductDetailsContent() {
                       setDeliveryEstimate("Please enter a valid 6-digit pincode");
                     }
                   }}
-                  style={{ backgroundColor: '#27302E', color: 'white', border: 'none', borderRadius: '6px', padding: '0 24px', fontWeight: '600', cursor: 'pointer' }}
+                  style={{ backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '6px', padding: '0 24px', fontWeight: '600', cursor: 'pointer' }}
                 >
                   Check
                 </button>
@@ -400,7 +400,7 @@ function ProductDetailsContent() {
               <div style={{ borderBottom: '1px solid #e5e7eb' }}>
                 <button 
                   onClick={() => toggleAccordion('desc')}
-                  style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#27302E', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
+                  style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#000000', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
                 >
                   Product Details
                   <ChevronDown size={20} style={{ transform: openAccordion === 'desc' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }} />
@@ -420,7 +420,7 @@ function ProductDetailsContent() {
               <div style={{ borderBottom: '1px solid #e5e7eb' }}>
                 <button 
                   onClick={() => toggleAccordion('care')}
-                  style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#27302E', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
+                  style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#000000', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
                 >
                   Jewellery Care
                   <ChevronDown size={20} style={{ transform: openAccordion === 'care' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }} />
@@ -439,7 +439,7 @@ function ProductDetailsContent() {
               <div style={{ borderBottom: '1px solid #e5e7eb' }}>
                 <button 
                   onClick={() => toggleAccordion('shipping')}
-                  style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#27302E', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
+                  style={{ width: '100%', display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontWeight: 'bold', color: '#000000', backgroundColor: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', alignItems: 'center' }}
                 >
                   Shipping & Returns
                   <ChevronDown size={20} style={{ transform: openAccordion === 'shipping' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ease' }} />
@@ -461,11 +461,11 @@ function ProductDetailsContent() {
             {/* Reviews Section */}
             <div style={{ marginTop: '48px', borderTop: '1px solid #e5e7eb', paddingTop: '32px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                <h2 style={{ fontSize: '1.5rem', fontFamily: 'Times New Roman, serif', color: '#27302E' }}>Customer Reviews</h2>
+                <h2 style={{ fontSize: '1.5rem', fontFamily: 'Times New Roman, serif', color: '#000000' }}>Customer Reviews</h2>
                 {!showReviewForm && (
                   <button 
                     onClick={() => setShowReviewForm(true)}
-                    style={{ background: 'none', border: '1px solid #27302E', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                    style={{ background: 'none', border: '1px solid #000000', padding: '8px 16px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
                   >
                     Write a Review
                   </button>
@@ -529,7 +529,7 @@ function ProductDetailsContent() {
                     <button 
                       type="submit" 
                       disabled={reviewSubmitStatus === 'submitting'}
-                      style={{ backgroundColor: '#27302E', color: 'white', padding: '10px 24px', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                      style={{ backgroundColor: '#000000', color: 'white', padding: '10px 24px', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
                     >
                       {reviewSubmitStatus === 'submitting' ? 'Submitting...' : 'Submit Review'}
                     </button>
@@ -548,7 +548,7 @@ function ProductDetailsContent() {
                 <div style={{ textAlign: 'center', padding: '40px', backgroundColor: '#fff', borderRadius: '8px', border: '1px dashed #d1d5db' }}>
                   <p style={{ color: '#6b7280', marginBottom: '16px' }}>No reviews yet.</p>
                   {!showReviewForm && (
-                    <button onClick={() => setShowReviewForm(true)} style={{ background: 'none', border: 'none', color: '#27302E', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold' }}>
+                    <button onClick={() => setShowReviewForm(true)} style={{ background: 'none', border: 'none', color: '#000000', textDecoration: 'underline', cursor: 'pointer', fontWeight: 'bold' }}>
                       Be the first to review
                     </button>
                   )}
@@ -585,7 +585,7 @@ function ProductDetailsContent() {
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div style={{ maxWidth: '1200px', margin: '80px auto 0', padding: '0 24px' }}>
-            <h2 style={{ fontSize: '2rem', fontFamily: 'Times New Roman, serif', color: '#27302E', marginBottom: '32px', textAlign: 'center' }}>You May Also Like</h2>
+            <h2 style={{ fontSize: '2rem', fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '32px', textAlign: 'center' }}>You May Also Like</h2>
             <div className="best-seller__grid">
               {relatedProducts.map(p => {
                 const ProductCard = require('@/components/ProductCard').default;

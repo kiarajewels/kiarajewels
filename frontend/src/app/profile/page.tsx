@@ -48,7 +48,7 @@ export default function ProfilePage() {
         <p style={{ margin: '0 0 10px', fontSize: '15px', fontWeight: 'bold' }}>Are you sure you want to delete this address?</p>
         <div style={{ display: 'flex', gap: '10px' }}>
           <button 
-            style={{ padding: '6px 12px', background: '#27302E', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            style={{ padding: '6px 12px', background: '#000000', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
             onClick={async () => {
               toast.dismiss(t.id);
               try {
@@ -71,7 +71,7 @@ export default function ProfilePage() {
           </button>
         </div>
       </div>
-    ), { duration: Infinity, style: { border: '1px solid #27302E', padding: '16px' } });
+    ), { duration: Infinity, style: { border: '1px solid #000000', padding: '16px' } });
   };
 
   if (status === 'loading') {
@@ -105,12 +105,12 @@ export default function ProfilePage() {
   const purchasedProducts = Array.from(purchasedProductsMap.values());
 
   return (
-    <div style={{ minHeight: '80vh', backgroundColor: '#FBFAF7', padding: '120px 16px 60px' }}>
+    <div style={{ minHeight: '80vh', backgroundColor: '#F7F7F5', padding: '120px 16px 60px' }}>
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         
         {/* Profile Info Section */}
         <div style={{ backgroundColor: 'white', padding: '24px 16px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', maxWidth: '600px', margin: '0 auto 32px', textAlign: 'center' }}>
-          <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#27302E', marginBottom: '24px' }}>My Profile</h1>
+          <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '24px' }}>My Profile</h1>
           
           <img 
             src={user.image || '/images/placeholder.png'} 
@@ -121,18 +121,18 @@ export default function ProfilePage() {
           <div style={{ textAlign: 'left', marginTop: '24px' }}>
             <div style={{ marginBottom: '16px' }}>
               <label style={{ color: '#4b5563', fontSize: '0.875rem', fontWeight: 'bold' }}>Name</label>
-              <p style={{ color: '#27302E', fontSize: '1.125rem', marginTop: '4px', wordBreak: 'break-word' }}>{user.name}</p>
+              <p style={{ color: '#000000', fontSize: '1.125rem', marginTop: '4px', wordBreak: 'break-word' }}>{user.name}</p>
             </div>
             
             <div style={{ marginBottom: '16px' }}>
               <label style={{ color: '#4b5563', fontSize: '0.875rem', fontWeight: 'bold' }}>Email</label>
-              <p style={{ color: '#27302E', fontSize: '1.125rem', marginTop: '4px', wordBreak: 'break-all' }}>{user.email}</p>
+              <p style={{ color: '#000000', fontSize: '1.125rem', marginTop: '4px', wordBreak: 'break-all' }}>{user.email}</p>
             </div>
             
             <div style={{ marginBottom: '32px' }}>
               <label style={{ color: '#4b5563', fontSize: '0.875rem', fontWeight: 'bold' }}>Phone Number</label>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px', flexWrap: 'wrap', gap: '8px' }}>
-                <p style={{ color: '#27302E', fontSize: '1.125rem', wordBreak: 'break-all' }}>{user.phoneNumber || 'Not provided'}</p>
+                <p style={{ color: '#000000', fontSize: '1.125rem', wordBreak: 'break-all' }}>{user.phoneNumber || 'Not provided'}</p>
                 <Link href="/complete-profile" style={{ color: '#000000', textDecoration: 'none', fontWeight: '500', padding: '6px 12px', border: '1px solid #000', borderRadius: '4px' }}>Edit</Link>
               </div>
             </div>
@@ -153,7 +153,7 @@ export default function ProfilePage() {
 
         {/* Saved Addresses Section */}
         <div style={{ marginBottom: '48px', backgroundColor: 'white', padding: '24px 16px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-          <h2 style={{ fontFamily: 'Times New Roman, serif', color: '#27302E', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>SAVED ADDRESSES</h2>
+          <h2 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>SAVED ADDRESSES</h2>
           
           {loadingAddresses ? (
             <div style={{ textAlign: 'center', padding: '20px', color: '#6b7280' }}>Loading addresses...</div>
@@ -169,7 +169,7 @@ export default function ProfilePage() {
                     <span style={{ backgroundColor: '#f3f4f6', padding: '4px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', color: '#4b5563' }}>
                       {addr.type || 'Home'}
                     </span>
-                    <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#27302E' }}>{addr.firstName} {addr.lastName}</h3>
+                    <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#000000' }}>{addr.firstName} {addr.lastName}</h3>
                   </div>
                   
                   <p style={{ margin: '0 0 4px 0', color: '#4b5563', lineHeight: '1.5' }}>
@@ -196,7 +196,7 @@ export default function ProfilePage() {
 
         {/* Order Status Section */}
         <div style={{ marginBottom: '48px', backgroundColor: 'white', padding: '24px 16px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-          <h2 style={{ fontFamily: 'Times New Roman, serif', color: '#27302E', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>ORDER STATUS</h2>
+          <h2 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>ORDER STATUS</h2>
           
           {loadingOrders ? (
             <div style={{ textAlign: 'center', padding: '20px', color: '#6b7280' }}>Loading orders...</div>
@@ -217,7 +217,7 @@ export default function ProfilePage() {
                       <p style={{ color: '#6b7280', fontSize: '0.85rem', marginTop: '4px' }}>{new Date(order.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                     </div>
                     <div style={{ textAlign: 'right' }}>
-                      <p style={{ fontWeight: 'bold', color: '#27302E' }}>₹{order.totalPrice.toLocaleString('en-IN')}</p>
+                      <p style={{ fontWeight: 'bold', color: '#000000' }}>₹{order.totalPrice.toLocaleString('en-IN')}</p>
                     </div>
                   </div>
                   
@@ -269,7 +269,7 @@ export default function ProfilePage() {
         {/* Purchased Products Section */}
         {orders.length > 0 && purchasedProducts.length > 0 && (
           <div style={{ backgroundColor: 'white', padding: '24px 16px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h2 style={{ fontFamily: 'Times New Roman, serif', color: '#27302E', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>MY ORDERS</h2>
+            <h2 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>MY ORDERS</h2>
             
             <div style={{ 
               display: 'grid', 

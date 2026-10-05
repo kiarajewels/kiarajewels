@@ -27,7 +27,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
           "@context": "https://schema.org",
           "@graph": [
@@ -56,7 +56,7 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             <WishlistProvider>
-              <Toaster position="bottom-center" toastOptions={{ style: { background: 'var(--ink)', color: 'var(--ivory)' } }} />
+              <Toaster position="bottom-center" toastOptions={{ style: { background: 'var(--pure-black)', color: 'var(--off-white)' } }} />
               <AnnouncementBar />
               <Navbar />
               <div style={{ flex: 1 }}>

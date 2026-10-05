@@ -58,7 +58,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '85vh', backgroundColor: '#FBFAF7', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
+    <div style={{ display: 'flex', minHeight: '85vh', backgroundColor: '#F7F7F5', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
       <div style={{ maxWidth: '440px', width: '100%', backgroundColor: '#ffffff', padding: '48px', borderRadius: '16px', boxShadow: '0 10px 40px rgba(0,0,0,0.05)' }}>
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', fontSize: '2.5rem', marginBottom: '12px' }}>Join Us</h1>
@@ -86,11 +86,11 @@ export default function SignupPage() {
               type="submit"
               disabled={loading}
               style={{
-                width: '100%', padding: '14px', backgroundColor: '#27302E', color: 'white', border: 'none', borderRadius: '8px',
+                width: '100%', padding: '14px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '8px',
                 fontSize: '1rem', fontWeight: '500', cursor: loading ? 'not-allowed' : 'pointer', transition: 'background 0.2s', marginTop: '8px', opacity: loading ? 0.7 : 1
               }}
               onMouseOver={(e) => !loading && (e.currentTarget.style.backgroundColor = '#374151')}
-              onMouseOut={(e) => !loading && (e.currentTarget.style.backgroundColor = '#27302E')}
+              onMouseOut={(e) => !loading && (e.currentTarget.style.backgroundColor = '#000000')}
             >
               {loading ? 'Sending...' : 'Continue with Email'}
             </button>
@@ -115,11 +115,11 @@ export default function SignupPage() {
               type="submit"
               disabled={loading}
               style={{
-                width: '100%', padding: '14px', backgroundColor: '#27302E', color: 'white', border: 'none', borderRadius: '8px',
+                width: '100%', padding: '14px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '8px',
                 fontSize: '1rem', fontWeight: '500', cursor: loading ? 'not-allowed' : 'pointer', transition: 'background 0.2s', marginTop: '8px', opacity: loading ? 0.7 : 1
               }}
               onMouseOver={(e) => !loading && (e.currentTarget.style.backgroundColor = '#374151')}
-              onMouseOut={(e) => !loading && (e.currentTarget.style.backgroundColor = '#27302E')}
+              onMouseOut={(e) => !loading && (e.currentTarget.style.backgroundColor = '#000000')}
             >
               {loading ? 'Verifying...' : 'Verify & Signup'}
             </button>

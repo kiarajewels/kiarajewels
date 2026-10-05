@@ -34,9 +34,9 @@ export default function ContactPage() {
   };
 
   return (
-    <main style={{ minHeight: '80vh', backgroundColor: '#FBFAF7' }}>
+    <main style={{ minHeight: '80vh', backgroundColor: '#F7F7F5' }}>
       {/* Header */}
-      <section style={{ backgroundColor: '#27302E', color: '#c9c2b4', padding: '60px 24px', textAlign: 'center' }}>
+      <section style={{ backgroundColor: '#000000', color: '#777777', padding: '60px 24px', textAlign: 'center' }}>
         <h1 style={{ fontFamily: 'Times New Roman, serif', fontSize: '3rem', margin: '0 0 16px 0', fontWeight: 'normal' }}>Contact Us</h1>
         <p style={{ fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto', color: '#f3f4f6' }}>
           We would love to hear from you. Whether you have a question about our jewelry, an existing order, or a custom request, our team is ready to answer all your questions.
@@ -47,7 +47,7 @@ export default function ContactPage() {
         
         {/* Left Side: Contact Information */}
         <div style={{ flex: '1 1 350px' }}>
-          <h2 style={{ fontFamily: 'Times New Roman, serif', fontSize: '2rem', color: '#27302E', marginBottom: '32px' }}>Get In Touch</h2>
+          <h2 style={{ fontFamily: 'Times New Roman, serif', fontSize: '2rem', color: '#000000', marginBottom: '32px' }}>Get In Touch</h2>
           
           <div style={{ marginBottom: '32px' }}>
             <h3 style={{ fontSize: '1.1rem', color: '#000000', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>Customer Support</h3>
@@ -83,7 +83,7 @@ export default function ContactPage() {
 
         {/* Right Side: Contact Form */}
         <div style={{ flex: '2 1 500px', backgroundColor: '#ffffff', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
-          <h2 style={{ fontFamily: 'Times New Roman, serif', fontSize: '1.8rem', color: '#27302E', marginBottom: '24px' }}>Send a Message</h2>
+          <h2 style={{ fontFamily: 'Times New Roman, serif', fontSize: '1.8rem', color: '#000000', marginBottom: '24px' }}>Send a Message</h2>
           
           {status === 'success' ? (
             <div style={{ backgroundColor: '#ecfdf5', border: '1px solid #10b981', padding: '24px', borderRadius: '8px', textAlign: 'center' }}>
@@ -154,7 +154,7 @@ export default function ContactPage() {
                 disabled={status === 'loading'}
                 style={{
                   padding: '14px 24px',
-                  backgroundColor: '#27302E',
+                  backgroundColor: '#000000',
                   color: '#fff',
                   border: 'none',
                   borderRadius: '8px',

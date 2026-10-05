@@ -79,7 +79,7 @@ export default function CheckoutPage() {
         <p style={{ margin: '0 0 10px', fontSize: '15px', fontWeight: 'bold' }}>Are you sure you want to delete this address?</p>
         <div style={{ display: 'flex', gap: '10px' }}>
           <button 
-            style={{ padding: '6px 12px', background: '#27302E', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+            style={{ padding: '6px 12px', background: '#000000', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
             onClick={async () => {
               toast.dismiss(t.id);
               try {
@@ -106,7 +106,7 @@ export default function CheckoutPage() {
           </button>
         </div>
       </div>
-    ), { duration: Infinity, style: { border: '1px solid #27302E', padding: '16px' } });
+    ), { duration: Infinity, style: { border: '1px solid #000000', padding: '16px' } });
   };
 
   const loadRazorpay = async () => {
@@ -283,7 +283,7 @@ export default function CheckoutPage() {
                       padding: '20px', 
                       border: isSelected ? '2px solid #000000' : '1px solid #e5e7eb',
                       borderRadius: '8px',
-                      backgroundColor: isSelected ? '#FBFAF7' : '#ffffff',
+                      backgroundColor: isSelected ? '#F7F7F5' : '#ffffff',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
                       display: 'flex',
@@ -296,7 +296,7 @@ export default function CheckoutPage() {
                         <span style={{ backgroundColor: '#f3f4f6', padding: '4px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold', color: '#4b5563' }}>
                           {addr.type || 'Home'}
                         </span>
-                        <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#27302E', wordBreak: 'break-word' }}>{addr.firstName} {addr.lastName}</h3>
+                        <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#000000', wordBreak: 'break-word' }}>{addr.firstName} {addr.lastName}</h3>
                       </div>
                       {isSelected && (
                         <div style={{ color: '#000000', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold', fontSize: '0.875rem', flexShrink: 0 }}>

@@ -153,9 +153,9 @@ function CatalogPageContent({ category, title, apiQuery }: CatalogPageProps) {
   );
 
   return (
-    <main style={{ backgroundColor: '#FBFAF7', minHeight: '100vh', padding: '120px 24px 80px' }}>
+    <main style={{ backgroundColor: '#F7F7F5', minHeight: '100vh', padding: '120px 24px 80px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '2.5rem', fontFamily: 'Times New Roman, serif', color: '#27302E', marginBottom: '24px', textAlign: 'center' }}>
+        <h1 style={{ fontSize: '2.5rem', fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '24px', textAlign: 'center' }}>
           {title}
         </h1>
 
@@ -310,7 +310,7 @@ function CatalogPageContent({ category, title, apiQuery }: CatalogPageProps) {
             ))
           ) : (
             <div style={{ textAlign: 'center', width: '100%', gridColumn: '1 / -1', padding: '80px 24px', backgroundColor: 'white', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
-              <h2 style={{ fontSize: '1.8rem', fontFamily: 'Times New Roman, serif', color: '#27302E', marginBottom: '12px' }}>No matches found</h2>
+              <h2 style={{ fontSize: '1.8rem', fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '12px' }}>No matches found</h2>
               <p style={{ color: '#4b5563' }}>Try adjusting your filters to see more products.</p>
               <button onClick={() => router.push('?')} style={{ marginTop: '24px', padding: '10px 24px', backgroundColor: '#f3f4f6', border: '1px solid #d1d5db', borderRadius: '6px', cursor: 'pointer', fontWeight: 500 }}>
                 Clear Filters

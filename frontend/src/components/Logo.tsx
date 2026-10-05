@@ -17,7 +17,7 @@ export default function Logo({ className = '', width = 120, height = 54 }: LogoP
       xmlns="http://www.w3.org/2000/svg"
     >
       {/* Small rose-gold outlined diamond shape centred above */}
-      <path d="M60 2 L64 7 L60 12 L56 7 Z" stroke="var(--rose)" strokeWidth="1" fill="none" />
+      <path d="M60 2 L64 7 L60 12 L56 7 Z" stroke="var(--dark-grey)" strokeWidth="1" fill="none" />
       
       {/* Wordmark KIARA */}
       <text 
@@ -34,13 +34,13 @@ export default function Logo({ className = '', width = 120, height = 54 }: LogoP
       </text>
 
       {/* Thin rose line */}
-      <line x1="40" y1="40" x2="80" y2="40" stroke="var(--rose)" strokeWidth="0.5" />
+      <line x1="40" y1="40" x2="80" y2="40" stroke="var(--dark-grey)" strokeWidth="0.5" />
 
       {/* JEWELS beneath */}
       <text 
         x="60" 
         y="50" 
-        fontFamily="var(--font-jost), sans-serif" 
+        fontFamily="'Inter', sans-serif" 
         fontSize="8" 
         fontWeight="400" 
         letterSpacing="0.3em"

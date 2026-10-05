@@ -1,14 +1,16 @@
 /* ============================================================
    JEWELS PALACE — Global Stylesheet
-   Background: #FBFAF7  |  Text accent: #000000  |  Font: Times New Roman
+   Background: #F7F7F5  |  Text accent: #000000  |  Font: Times New Roman
    ============================================================ */
 
 :root {
-  --ink: #121214;
-  --ivory: #FAF7F2;
-  --stone: #EDE7DE;
-  --rose: #B76E79;
-  --rose-deep: #8F4F5A;
+  --pure-black: #000000;
+  --soft-black: #0A0A0A;
+  --charcoal: #161616;
+  --dark-grey: #2A2A2A;
+  --mid-grey: #777777;
+  --light-grey: #D9D9D9;
+  --off-white: #F7F7F5;
   --white: #FFFFFF;
 }
 
@@ -24,9 +26,9 @@ html {
 }
 
 body {
-  font-family: 'Jost', system-ui, -apple-system, sans-serif;
-  background-color: var(--ivory);
-  color: var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--off-white);
+  color: var(--pure-black);
   min-height: 100vh;
   overflow-x: clip;
   font-size: 16px;
@@ -60,7 +62,7 @@ img {
 
 /* ---------- Accessibility ---------- */
 :focus-visible {
-  outline: 2px solid var(--rose);
+  outline: 2px solid var(--dark-grey);
   outline-offset: 2px;
 }
 
@@ -89,8 +91,8 @@ img {
 /* ---------- ANNOUNCEMENT MARQUEE ---------- */
 .announcement-bar {
   width: 100%;
-  background-color: var(--ink);
-  color: var(--ivory);
+  background-color: var(--pure-black);
+  color: var(--off-white);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,7 +126,7 @@ img {
 
 .announcement-bar__separator {
   font-size: 0.85rem;
-  color: #c9c2b4;
+  color: #777777;
 }
 
 /* ---------- NAVBAR ---------- */
@@ -139,8 +141,8 @@ img {
   justify-content: space-between;
   padding: 8px 48px;
   min-height: 75px;
-  background: var(--ivory);
-  border-bottom: 1px solid var(--stone);
+  background: var(--off-white);
+  border-bottom: 1px solid var(--light-grey);
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -310,7 +312,7 @@ img {
 .hero-section {
   position: relative;
   width: 100%;
-  background: #FBFAF7;
+  background: #F7F7F5;
 }
 
 .hero-video-container {
@@ -383,7 +385,7 @@ img {
 }
 
 .hero-subheadline {
-  font-family: var(--font-jost), sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.1rem;
   line-height: 1.5;
   margin: 0 0 32px 0;
@@ -579,7 +581,7 @@ img {
 
 .product-title {
   font-size: clamp(2rem, 4vw, 3rem);
-  color: #27302E;
+  color: #000000;
   margin: 8px 0;
   font-family: 'Times New Roman', serif;
   word-break: break-word;
@@ -617,9 +619,10 @@ img {
   color: white;
   padding: 16px 12px;
   font-size: 0.95rem;
-  font-weight: bold;
-  border: 2px solid #000000;
-  border-radius: 6px;
+  font-weight: 500;
+  border: 1px solid #000000;
+  border-radius: 0;
+  letter-spacing: 0.1em;
   cursor: pointer;
   transition: all 0.2s;
   box-sizing: border-box;
@@ -636,9 +639,10 @@ img {
   color: white;
   padding: 16px 12px;
   font-size: 1rem;
-  font-weight: bold;
-  border: 2px solid #000000;
-  border-radius: 6px;
+  font-weight: 500;
+  border: 1px solid #000000;
+  border-radius: 0;
+  letter-spacing: 0.1em;
   cursor: pointer;
   transition: background 0.2s;
   box-sizing: border-box;
@@ -652,7 +656,7 @@ img {
 /* ---------- CATEGORIES SECTION ---------- */
 .categories {
   padding: 48px 24px;
-  background-color: #FBFAF7;
+  background-color: #F7F7F5;
   text-align: center;
 }
 
@@ -696,7 +700,7 @@ img {
   aspect-ratio: 32/9;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #FBFAF7;
+  background-color: #F7F7F5;
   position: relative;
   z-index: 1;
 }
@@ -711,7 +715,7 @@ img {
 /* ---------- BEST SELLER SECTION ---------- */
 .best-seller {
   padding: 64px 24px;
-  background-color: #FBFAF7;
+  background-color: #F7F7F5;
   text-align: center;
 }
 
@@ -751,7 +755,8 @@ img {
 }
 
 .product-card {
-  background: transparent;
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
   border-radius: 0;
   text-align: left;
   display: flex;
@@ -765,9 +770,10 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f9f9f9;
+  background-color: #FFFFFF;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid #E5E5E5;
 }
 
 .product-card__image {
@@ -775,12 +781,12 @@ img {
   height: 100%;
   object-fit: cover;
   padding: 0;
-  transition: transform 0.4s ease;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .product-card__info {
   background-color: transparent;
-  padding: 12px 0 0 0;
+  padding: 16px;
   text-align: left;
   flex-grow: 1;
   display: flex;
@@ -789,7 +795,7 @@ img {
 }
 
 .product-card__title {
-  font-family: 'Jost', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.95rem;
   color: #333;
   margin-bottom: 8px;
@@ -848,14 +854,14 @@ img {
   justify-content: space-between;
   align-items: center;
   padding: 32px 24px;
-  border-top: 1px solid #c9c2b4;
+  border-top: 1px solid #777777;
   text-decoration: none;
   transition: opacity 0.3s ease;
   cursor: pointer;
 }
 
 .category-row:last-child {
-  border-bottom: 1px solid #c9c2b4;
+  border-bottom: 1px solid #777777;
 }
 
 .category-row:hover {
@@ -865,19 +871,19 @@ img {
 .category-row__title {
   font-family: 'Abyssinica SIL', serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
-  color: #c9c2b4;
+  color: #777777;
   letter-spacing: 2px;
   margin: 0;
 }
 
 .category-row__arrow {
-  color: #c9c2b4;
+  color: #777777;
   font-size: clamp(2.5rem, 6vw, 4rem);
 }
 
 /* ---------- BEST SELLER SECTION ---------- */
 .best-seller {
-  background-color: #c9c2b4;
+  background-color: #777777;
   padding: 80px 24px 120px;
 }
 
@@ -955,7 +961,7 @@ img {
 
 /* ---------- EDITORIAL SHOWCASE SECTION ---------- */
 .editorial-showcase {
-  background-color: #FBFAF7;
+  background-color: #F7F7F5;
   padding: 100px 24px;
   display: flex;
   flex-direction: column;
@@ -1091,7 +1097,7 @@ img {
 /* ---------- FAQ SECTION ---------- */
 .faq {
   padding: 80px 24px 120px 24px;
-  background-color: #FBFAF7;
+  background-color: #F7F7F5;
 }
 
 .faq__heading {
@@ -1109,13 +1115,13 @@ img {
 }
 
 .faq__item {
-  border-top: 1px solid #c9c2b4;
+  border-top: 1px solid #777777;
   overflow: hidden;
   transition: opacity 0.3s ease;
 }
 
 .faq__item:last-child {
-  border-bottom: 1px solid #c9c2b4;
+  border-bottom: 1px solid #777777;
 }
 
 .faq__item:hover {
@@ -1135,13 +1141,13 @@ img {
   cursor: pointer;
   font-family: 'Abyssinica SIL', serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
-  color: #c9c2b4;
+  color: #777777;
   letter-spacing: 2px;
   margin: 0;
 }
 
 .faq__icon {
-  color: #c9c2b4;
+  color: #777777;
   font-size: clamp(2.5rem, 6vw, 4rem);
   transition: transform 0.3s ease;
 }
@@ -1193,9 +1199,9 @@ img {
 
 /* ---------- FOOTER ---------- */
 .footer {
-  background-color: var(--stone);
+  background-color: var(--light-grey);
   padding: 80px 24px 24px;
-  color: var(--ink);
+  color: var(--pure-black);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -1216,14 +1222,14 @@ img {
 .footer__brand {
   font-family: var(--font-cormorant), 'Times New Roman', serif;
   font-size: 1.8rem;
-  color: var(--ink);
+  color: var(--pure-black);
   margin-bottom: 16px;
 }
 
 .footer__text {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: var(--ink);
+  color: var(--pure-black);
   opacity: 0.8;
   margin-bottom: 24px;
 }
@@ -1233,14 +1239,14 @@ img {
   align-items: center;
   gap: 12px;
   font-size: 0.95rem;
-  color: var(--ink);
+  color: var(--pure-black);
   opacity: 0.9;
   margin-bottom: 12px;
 }
 
 .footer__contact .material-symbols-outlined {
   font-size: 1.1rem;
-  color: var(--ink);
+  color: var(--pure-black);
 }
 
 .footer__socials {
@@ -1250,7 +1256,7 @@ img {
 }
 
 .social-icon {
-  color: var(--ink);
+  color: var(--pure-black);
   transition: transform 0.2s, opacity 0.2s;
 }
 
@@ -1262,7 +1268,7 @@ img {
 .footer__heading {
   font-family: var(--font-cormorant), 'Times New Roman', serif;
   font-size: 1.25rem;
-  color: var(--ink);
+  color: var(--pure-black);
   margin-bottom: 24px;
   position: relative;
   display: inline-block;
@@ -1275,7 +1281,7 @@ img {
   bottom: -8px;
   width: 30px;
   height: 2px;
-  background-color: var(--ink);
+  background-color: var(--pure-black);
 }
 
 .footer__links {
@@ -1286,7 +1292,7 @@ img {
 
 .footer__links a {
   font-size: 0.95rem;
-  color: var(--ink);
+  color: var(--pure-black);
   opacity: 0.8;
   transition: opacity 0.2s, padding-left 0.2s;
 }
@@ -1424,7 +1430,7 @@ img {
   
   .navbar {
     padding: 0 20px;
-    background: #FBFAF7;
+    background: #F7F7F5;
     backdrop-filter: none;
     display: flex;
     justify-content: space-between;
@@ -1432,7 +1438,7 @@ img {
   }
 
   .navbar.scrolled {
-    background: #FBFAF7;
+    background: #F7F7F5;
   }
 
   .navbar__brand {
@@ -1488,7 +1494,7 @@ img {
     max-width: none;
     height: calc(100vh - 90px);
     flex-direction: column;
-    background: #FBFAF7;
+    background: #F7F7F5;
     backdrop-filter: none;
     padding: 40px 24px;
     gap: 24px;
@@ -2051,7 +2057,7 @@ img {
 
 .cart-item-name {
   font-weight: bold;
-  color: #27302E;
+  color: #000000;
   text-decoration: none;
   font-size: 1rem;
   overflow-wrap: anywhere;
@@ -2107,7 +2113,7 @@ img {
 .cart-item-total {
   text-align: right;
   font-weight: bold;
-  color: #27302E;
+  color: #000000;
 }
 
 .cart-summary-container {
@@ -2121,7 +2127,7 @@ img {
 
 .cart-summary-title {
   font-size: 1.25rem;
-  color: #27302E;
+  color: #000000;
   margin-bottom: 24px;
   font-weight: bold;
 }
@@ -2142,7 +2148,7 @@ img {
   display: flex;
   justify-content: space-between;
   margin-bottom: 32px;
-  color: #27302E;
+  color: #000000;
   font-size: 1.25rem;
   font-weight: bold;
 }
@@ -2283,7 +2289,7 @@ img {
 .checkout-section-header h2 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #27302E;
+  color: #000000;
   margin: 0;
 }
 
@@ -2435,7 +2441,7 @@ img {
 .checkout-item-details h4 {
   margin: 0 0 4px 0;
   font-size: 1rem;
-  color: #27302E;
+  color: #000000;
 }
 
 .checkout-item-details p {
@@ -2446,7 +2452,7 @@ img {
 
 .checkout-item-price {
   font-weight: 600;
-  color: #27302E;
+  color: #000000;
 }
 
 .checkout-totals {

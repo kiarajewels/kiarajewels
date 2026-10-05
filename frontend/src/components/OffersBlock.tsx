@@ -14,20 +14,20 @@ export default function OffersBlock() {
       <h3 style={{ 
         fontSize: '1.2rem', 
         fontWeight: '600', 
-        color: '#27302E', 
+        color: '#000000', 
         marginBottom: '16px',
         display: 'flex',
         alignItems: 'center',
         gap: '8px'
       }}>
-        <Tag size={20} color="var(--rose-deep)" />
+        <Tag size={20} color="var(--soft-black)" />
         Available Offers
       </h3>
       
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
           <div style={{ 
-            backgroundColor: 'var(--rose-deep)', 
+            backgroundColor: 'var(--soft-black)', 
             color: 'white', 
             padding: '4px 8px', 
             borderRadius: '4px', 

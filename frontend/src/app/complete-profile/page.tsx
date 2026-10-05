@@ -36,11 +36,11 @@ export default function CompleteProfilePage() {
   };
 
   return (
-    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FBFAF7' }}>
+    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#F7F7F5' }}>
       <div style={{ backgroundColor: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', maxWidth: '500px', width: '100%' }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <Phone size={48} color="var(--ink)" />
-          <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#27302E', marginTop: '16px', marginBottom: '8px' }}>Almost there!</h1>
+          <Phone size={48} color="var(--pure-black)" />
+          <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', marginTop: '16px', marginBottom: '8px' }}>Almost there!</h1>
           <p style={{ color: '#4b5563', lineHeight: '1.5' }}>
             Hi {session?.user?.name?.split(' ')[0]}! Google doesn't share your phone number with us for privacy reasons. We need it to send delivery updates for your orders.
           </p>

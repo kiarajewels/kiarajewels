@@ -176,7 +176,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             background: 'white', padding: '24px 40px', borderRadius: '12px', boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
             textAlign: 'center', border: '2px solid #000'
           }}>
-            <h2 style={{ margin: 0, fontSize: '1.8rem', color: '#27302E', fontFamily: 'Times New Roman, serif' }}>Yay! 🎉</h2>
+            <h2 style={{ margin: 0, fontSize: '1.8rem', color: '#000000', fontFamily: 'Times New Roman, serif' }}>Yay! 🎉</h2>
             <p style={{ margin: '12px 0 0', fontSize: '1.1rem', color: '#4b5563', fontWeight: '500' }}>{confettiMessage}</p>
           </div>
         </div>
