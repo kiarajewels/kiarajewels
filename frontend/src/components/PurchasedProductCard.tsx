@@ -48,8 +48,8 @@ export default function PurchasedProductCard({ product }: { product: any }) {
               fontSize: '14px',
               transition: 'background-color 0.2s ease',
             }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#770523')}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#53131e')}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#fc128bff')}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#f01385ff')}
           >
             Buy Again
           </button>

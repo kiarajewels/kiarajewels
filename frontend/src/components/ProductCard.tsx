@@ -16,29 +16,28 @@ export default function ProductCard({ product }: { product: any }) {
   const hoverImageUrl = product.media && product.media.length > 1 ? product.media[1].url : imageUrl;
 
   return (
-    <div className="product-card" style={{ position: 'relative' }}>
+    <div className="product-card">
       <button 
         onClick={(e) => { e.preventDefault(); toggleWishlist(product); }}
         style={{ 
           position: 'absolute', top: '12px', right: '12px', zIndex: 10, 
-          background: 'white', border: 'none', borderRadius: '50%', 
-          width: '36px', height: '36px', display: 'flex', alignItems: 'center', 
+          background: 'transparent', border: 'none', 
+          width: '32px', height: '32px', display: 'flex', alignItems: 'center', 
           justifyContent: 'center', cursor: 'pointer', 
-          color: inWishlist ? '#000000' : '#9ca3af', 
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)', transition: 'all 0.2s'
+          color: inWishlist ? '#000000' : '#4b5563', 
+          transition: 'color 0.2s'
         }}
         title={inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
       >
-        <Heart size={20} fill={inWishlist ? "currentColor" : "none"} strokeWidth={1.5} />
+        <Heart size={18} fill={inWishlist ? "currentColor" : "none"} strokeWidth={1} />
       </button>
       
-      <Link href={`/product/${product._id}`} style={{ display: 'block', textDecoration: 'none' }}>
-        <div 
-          className="product-card__image-wrapper"
-          style={{ position: 'relative', overflow: 'hidden' }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
+      <div 
+        className="product-card__image-wrapper"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <Link href={`/product/${product._id}`} style={{ display: 'block', width: '100%', height: '100%' }}>
           <Image 
             src={imageUrl} 
             alt={product.name} 
@@ -57,33 +56,36 @@ export default function ProductCard({ product }: { product: any }) {
               style={{
                 objectFit: 'cover',
                 opacity: isHovered ? 1 : 0,
-                transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-                transition: 'opacity 0.4s ease, transform 1s ease-out'
+                transition: 'opacity 0.4s ease'
               }}
             />
           )}
-        </div>
+        </Link>
+        <button 
+          className="product-card__add-btn"
+          onClick={(e) => {
+            e.preventDefault();
+            addToCart(product, 1);
+          }}
+        >
+          ADD +
+        </button>
+      </div>
+      
+      <Link href={`/product/${product._id}`} style={{ display: 'block', textDecoration: 'none' }}>
         <div className="product-card__info">
           <h3 className="product-card__title">{product.name}</h3>
-          <div className="product-card__price" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span>Rs. {product.price}</span>
+          <div className="product-card__price">
+            Rs. {product.price}
             {product.originalPrice > product.price && (
-              <span style={{ textDecoration: 'line-through', color: '#9ca3af', fontSize: '0.85em' }}>
+              <span style={{ textDecoration: 'line-through', color: '#9ca3af', marginLeft: '8px', fontSize: '0.9em', fontWeight: 400 }}>
                 Rs. {product.originalPrice}
               </span>
             )}
           </div>
+          <div className="product-card__material">{product.category || 'Sterling Silver'}</div>
         </div>
       </Link>
-      
-      <button 
-        className="product-card__btn" 
-        onClick={() => {
-          addToCart(product, 1);
-        }}
-      >
-        Add to Cart
-      </button>
     </div>
   );
 }

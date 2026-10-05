@@ -248,7 +248,7 @@ export default function ProfilePage() {
                         <div key={step} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1, position: 'relative', width: '33%' }}>
                           <div style={{ 
                             width: '24px', height: '24px', borderRadius: '50%', 
-                            backgroundColor: isActive ? '#53131e' : '#f9fafb',
+                            backgroundColor: isActive ? '#f01385ff' : '#f9fafb',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                             border: isActive ? 'none' : '2px solid #d1d5db',
                             marginBottom: '8px'

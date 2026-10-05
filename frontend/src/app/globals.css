@@ -755,12 +755,13 @@ img {
 }
 
 .product-card {
-  background: #FFFFFF;
-  border: 1px solid #E5E5E5;
+  background: transparent;
+  border: none;
   border-radius: 0;
   text-align: left;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .product-card__image-wrapper {
@@ -770,10 +771,10 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FFFFFF;
+  background-color: #f7f7f5;
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid #E5E5E5;
+  border: none;
 }
 
 .product-card__image {
@@ -781,12 +782,12 @@ img {
   height: 100%;
   object-fit: cover;
   padding: 0;
-  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.4s ease;
 }
 
 .product-card__info {
   background-color: transparent;
-  padding: 16px;
+  padding: 12px 0 0 0;
   text-align: left;
   flex-grow: 1;
   display: flex;
@@ -796,9 +797,11 @@ img {
 
 .product-card__title {
   font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  color: #333;
-  margin-bottom: 8px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4b5563;
+  margin-bottom: 4px;
   font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
@@ -806,29 +809,57 @@ img {
 }
 
 .product-card__price {
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: #000;
   font-weight: 600;
+  margin-bottom: 4px;
 }
 
-.product-card__btn {
-  background-color: #000000;
+.product-card__material {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.dark-mode-card .product-card__price {
   color: #ffffff;
-  padding: 12px 24px;
-  border-radius: 0;
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: all 0.3s;
-  margin-top: 12px;
-  width: 100%;
-  border: 1px solid #000000;
-  cursor: pointer;
 }
 
-.product-card__btn:hover {
-  background-color: #ffffff;
+.dark-mode-card .product-card__title {
+  color: #D9D9D9;
+}
+
+.dark-mode-card .product-card__material {
+  color: #A3A3A3;
+}
+
+.product-card__add-btn {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
   color: #000000;
+  border: 1px solid #e5e5e5;
+  padding: 6px 16px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 10;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.product-card:hover .product-card__add-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-card__add-btn:hover {
+  background: #f7f7f5;
 }
 
 /* ---------- CATEGORY SECTION ---------- */

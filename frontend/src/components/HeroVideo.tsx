@@ -34,8 +34,7 @@ export default function HeroVideo() {
             style={{ 
               objectFit: 'cover',
               opacity: index === currentImageIndex ? 1 : 0,
-              transition: 'opacity 1.2s ease-in-out',
-              filter: 'grayscale(100%) contrast(1.1) brightness(1.05)'
+              transition: 'opacity 1.2s ease-in-out'
             }}
             sizes="100vw"
           />

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useCart } from '@/context/CartContext';
-import CartSavingsProgress from '@/components/CartSavingsProgress';
+
 import OffersBlock from '@/components/OffersBlock';
 import { ShoppingBag } from 'lucide-react';
 import { trackEvent } from '@/components/Analytics';
@@ -50,7 +50,7 @@ export default function CartPage() {
             </div>
           ) : (
             <>
-              <CartSavingsProgress />
+
               <div className="cart-layout">
               {/* Cart Items List */}
               <div className="cart-items-container">

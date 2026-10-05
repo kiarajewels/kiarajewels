@@ -38,7 +38,7 @@ export default function ProductCarousel({ products, title }: { products: any[], 
           className="no-scrollbar"
         >
           {products.map(product => (
-            <div key={product._id} className="carousel-item">
+            <div key={product._id} className="carousel-item dark-mode-card">
               <ProductCard product={product} />
             </div>
           ))}

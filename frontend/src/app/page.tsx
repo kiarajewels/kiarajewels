@@ -116,6 +116,11 @@ export default async function Home() {
 
       {/* Categories */}
       <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ background: '#000000', color: '#FFFFFF', padding: '60px 40px', textAlign: 'center', marginBottom: '24px' }}>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', margin: 0, fontWeight: 400, letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'var(--font-cormorant), serif' }}>
+            SHOP BY CATEGORY
+          </h2>
+        </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2px', background: '#E5E5E5', border: '1px solid #E5E5E5' }}>
           {[
             { name: 'Rings', image: '/images/herorings-v2.png', link: '/rings' },
@@ -130,7 +135,7 @@ export default async function Home() {
             return (
             <Link key={cat.name} href={cat.link} style={{ display: 'block', position: 'relative', aspectRatio: isFullWidth ? '21/9' : '3/4', background: '#FFFFFF', overflow: 'hidden', gridColumn: isFullWidth ? '1 / -1' : 'auto' }} className="category-card">
               {cat.image !== '/images/setsplaceholder.png' ? (
-                <Image src={cat.image} alt={cat.name} fill sizes={isFullWidth ? "100vw" : "(max-width: 768px) 50vw, 33vw"} style={{ objectFit: 'cover', filter: 'grayscale(100%) contrast(1.1) brightness(1.05)' }} className="hover-scale" priority={cat.name === 'Rings'} />
+                <Image src={cat.image} alt={cat.name} fill sizes={isFullWidth ? "100vw" : "(max-width: 768px) 50vw, 33vw"} style={{ objectFit: 'cover' }} className="hover-scale" priority={cat.name === 'Rings'} />
               ) : (
                 <div style={{ position: 'absolute', inset: 0, background: '#F7F7F5' }}></div>
               )}
