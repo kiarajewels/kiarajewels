@@ -74,8 +74,8 @@ export default function CompleteProfilePage() {
               fontSize: '1.1rem', fontWeight: 'bold', cursor: loading ? 'not-allowed' : 'pointer',
               opacity: loading ? 0.7 : 1, transition: 'background 0.2s'
             }}
-            onMouseOver={(e) => { if (!loading) e.currentTarget.style.backgroundColor = '#8ebcbc'; }}
-            onMouseOut={(e) => { if (!loading) e.currentTarget.style.backgroundColor = '#000000'; }}
+            onMouseOver={(e) => { if (!loading) e.currentTarget.style.backgroundColor = '#000000ff'; }}
+            onMouseOut={(e) => { if (!loading) e.currentTarget.style.backgroundColor = '#000000ff'; }}
           >
             {loading ? 'Saving...' : 'Complete Registration'}
           </button>
