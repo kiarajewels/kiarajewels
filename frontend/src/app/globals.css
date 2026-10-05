@@ -88,6 +88,28 @@ img {
   }
 }
 
+/* ---------- SPLIT SECTION ---------- */
+.split-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.split-section__image,
+.split-section__content {
+  flex: 1 1 100%;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .split-section {
+    flex-direction: row;
+  }
+  .split-section__image,
+  .split-section__content {
+    flex: 1 1 50%;
+  }
+}
+
 /* ---------- ANNOUNCEMENT MARQUEE ---------- */
 .announcement-bar {
   width: 100%;

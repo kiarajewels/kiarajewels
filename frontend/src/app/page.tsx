@@ -101,7 +101,7 @@ export default async function Home() {
         <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', padding: '0 24px', flexWrap: 'wrap', gap: '32px' }} className="trust-strip-container">
           {[
             { top: '925', bottom: 'STERLING SILVER' },
-            { top: 'RHODIUM', bottom: 'FINISH' },
+            { top: 'ANTI-TARISH', bottom: 'FINISH' },
             { top: 'PREMIUM', bottom: 'CZ' },
             { top: 'FREE', bottom: 'SHIPPING' },
             { top: '3-DAY', bottom: 'RETURNS' }
@@ -170,11 +170,11 @@ export default async function Home() {
       </section>
 
       {/* Craft and Made to order */}
-      <section style={{ display: 'flex', flexWrap: 'wrap', background: '#000000', color: '#FFFFFF' }}>
-        <div style={{ flex: '1 1 50%', minHeight: '500px', position: 'relative' }}>
+      <section className="split-section" style={{ background: '#000000', color: '#FFFFFF' }}>
+        <div className="split-section__image" style={{ minHeight: '500px' }}>
           <Image src="/images/hero_videos/heroimage2.png" alt="Craftsmanship" fill style={{ objectFit: 'cover', filter: 'grayscale(100%) contrast(1.2)' }} sizes="(max-width: 768px) 100vw, 50vw" />
         </div>
-        <div style={{ flex: '1 1 50%', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10vw 5vw' }}>
+        <div className="split-section__content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10vw 5vw' }}>
           <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', margin: '0 0 24px', fontWeight: 400, fontFamily: 'var(--font-cormorant), serif', textTransform: 'uppercase', lineHeight: 1.1 }}>MADE BY HAND,<br/>TO ORDER.</h2>
           <p style={{ fontSize: '1rem', lineHeight: 1.8, margin: '0 0 16px', color: '#D9D9D9' }}>
             Every piece is made in our own unit by artisans with over a decade of experience.
