@@ -42,7 +42,7 @@ export default function CompleteProfilePage() {
           <Phone size={48} color="var(--pure-black)" />
           <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', marginTop: '16px', marginBottom: '8px' }}>Almost there!</h1>
           <p style={{ color: '#4b5563', lineHeight: '1.5' }}>
-            Hi {session?.user?.name?.split(' ')[0]}! Google doesn't share your phone number with us for privacy reasons. We need it to send delivery updates for your orders.
+            Hi {session?.user?.name?.split(' ')[0]}! Provide phone number with us for the order & delivery updates.
           </p>
         </div>
 
