@@ -117,7 +117,7 @@ export default async function Home() {
       {/* Categories */}
       <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ background: '#000000', color: '#FFFFFF', padding: '60px 40px', textAlign: 'center', marginBottom: '24px' }}>
-          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', margin: 0, fontWeight: 400, letterSpacing: '0.1em', textTransform: 'uppercase', fontFamily: 'var(--font-cormorant), serif' }}>
+          <h2 style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', margin: 0, fontWeight: 500, letterSpacing: '0.05em', textTransform: 'uppercase', fontFamily: "'Inter', sans-serif" }}>
             SHOP BY CATEGORY
           </h2>
         </div>

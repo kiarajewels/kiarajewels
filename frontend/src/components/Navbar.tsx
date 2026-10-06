@@ -28,6 +28,7 @@ export default function Navbar() {
           <li className="navbar__item"><Link href="/pendants" className="navbar__link" onClick={() => setIsMenuOpen(false)}>PENDANTS</Link></li>
           <li className="navbar__item"><Link href="/bracelets" className="navbar__link" onClick={() => setIsMenuOpen(false)}>BRACELETS</Link></li>
           <li className="navbar__item"><Link href="/sets" className="navbar__link" onClick={() => setIsMenuOpen(false)}>SETS</Link></li>
+          <li className="navbar__item"><Link href="/gifting" className="navbar__link" onClick={() => setIsMenuOpen(false)}>GIFTING</Link></li>
           <li className="navbar__item"><Link href="/about" className="navbar__link" onClick={() => setIsMenuOpen(false)}>ABOUT</Link></li>
           <li className="navbar__item"><Link href="/custom-order" className="navbar__link" onClick={() => setIsMenuOpen(false)}>CUSTOM</Link></li>
         </ul>
