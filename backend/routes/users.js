@@ -180,7 +180,7 @@ router.put('/:email/phone', async (req, res) => {
     const user = await User.findOneAndUpdate(
       { email: req.params.email }, 
       { phoneNumber }, 
-      { returnDocument: 'after' }
+      { new: true }
     );
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
@@ -195,13 +195,17 @@ router.put('/:email/phone', async (req, res) => {
 router.put('/:email/sync', async (req, res) => {
   try {
     const { cart, wishlist } = req.body;
-    const user = await User.findOne({ email: req.params.email });
+    let updateFields = {};
+    if (cart) updateFields.cart = cart;
+    if (wishlist) updateFields.wishlist = wishlist;
+    
+    const user = await User.findOneAndUpdate(
+      { email: req.params.email },
+      { $set: updateFields },
+      { new: true }
+    );
+    
     if (!user) return res.status(404).json({ message: 'User not found' });
-    
-    if (cart) user.cart = cart;
-    if (wishlist) user.wishlist = wishlist;
-    await user.save();
-    
     res.json(user);
   } catch (error) {
     console.error(error);
