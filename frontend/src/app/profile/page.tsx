@@ -16,6 +16,7 @@ export default function ProfilePage() {
   const [error, setError] = useState('');
   const [addresses, setAddresses] = useState<any[]>([]);
   const [loadingAddresses, setLoadingAddresses] = useState(true);
+  const [returns, setReturns] = useState<any[]>([]);
 
   useEffect(() => {
     if (status === 'authenticated' && session?.user?.email) {
@@ -38,6 +39,14 @@ export default function ProfilePage() {
         .catch(err => {
           console.error(err);
           setLoadingAddresses(false);
+        });
+
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/returns/customer/${session.user.email}`)
+        .then(res => {
+          setReturns(res.data);
+        })
+        .catch(err => {
+          console.error(err);
         });
     }
   }, [status, session]);
@@ -259,6 +268,44 @@ export default function ProfilePage() {
                         </div>
                       )
                     })}
+                  </div>
+
+                  {/* Return Eligibility / Return Status */}
+                  <div style={{ marginTop: '24px', borderTop: '1px solid #f3f4f6', paddingTop: '16px' }}>
+                    {(() => {
+                      const returnReq = returns.find(r => r.order === order._id || (r.order && r.order._id === order._id));
+                      
+                      if (returnReq) {
+                        return (
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                            <p style={{ fontWeight: 'bold', color: '#374151', fontSize: '0.9rem' }}>Return Status: <span style={{ color: '#53131e' }}>{returnReq.returnStatus}</span></p>
+                            <Link href={`/returns/${returnReq.returnId}`} style={{ fontSize: '0.875rem', color: '#53131e', textDecoration: 'underline' }}>View Return Details</Link>
+                          </div>
+                        );
+                      }
+                      
+                      if (order.status === 'Delivered' && order.deliveredAt) {
+                        const deliveredDate = new Date(order.deliveredAt);
+                        const now = new Date();
+                        const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
+                        const expiryDate = new Date(deliveredDate.getTime() + threeDaysInMs);
+                        
+                        if (now <= expiryDate) {
+                          return (
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                              <p style={{ color: '#10b981', fontWeight: '500', fontSize: '0.9rem' }}>✓ Return Eligible until {expiryDate.toLocaleDateString()}</p>
+                              <Link href={`/return-request?orderId=${order._id}`} style={{ padding: '8px 16px', backgroundColor: '#000000', color: 'white', textDecoration: 'none', borderRadius: '4px', fontSize: '0.875rem', fontWeight: '500' }}>
+                                REQUEST RETURN
+                              </Link>
+                            </div>
+                          );
+                        } else {
+                          return <p style={{ color: '#6b7280', fontSize: '0.9rem', fontStyle: 'italic' }}>Return window expired</p>;
+                        }
+                      }
+                      
+                      return null;
+                    })()}
                   </div>
                 </div>
               ))}

@@ -15,6 +15,7 @@ import Carts from './pages/Carts';
 import Dashboard from './pages/Dashboard';
 import OrdersReport from './pages/OrdersReport';
 import Reviews from './pages/Reviews';
+import Returns from './pages/Returns';
 
 // Placeholder components for other routes
 const Settings = () => <div><h2>Settings</h2></div>;
@@ -35,12 +36,14 @@ function App() {
           <Route path="orders" element={<Orders />} />
           <Route path="custom-orders" element={<CustomOrders />} />
           <Route path="orders-report" element={<OrdersReport />} />
+          <Route path="returns" element={<Returns />} />
           <Route path="users" element={<Users />} />
           <Route path="customers" element={<Customers />} />
           <Route path="carts" element={<Carts />} />
           <Route path="reviews" element={<Reviews />} />
           <Route path="settings" element={<Settings />} />
           </Route>
+
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
