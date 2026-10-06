@@ -61,6 +61,27 @@ router.get('/myorders', async (req, res) => {
   }
 });
 
+// @route   GET /api/orders/check-first-order
+// @desc    Check if email or mobile is a first-time buyer
+router.get('/check-first-order', async (req, res) => {
+  try {
+    const { email, mobile } = req.query;
+    if (!email && !mobile) {
+      return res.json({ isFirstOrder: true });
+    }
+    
+    let query = { $or: [] };
+    if (email) query.$or.push({ 'shippingAddress.email': email });
+    if (mobile) query.$or.push({ 'shippingAddress.mobile': mobile });
+    
+    const count = await Order.countDocuments(query);
+    res.json({ isFirstOrder: count === 0 });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
 // @route   GET /api/orders/:id
 // @desc    Get order by ID
 router.get('/:id', async (req, res) => {
@@ -106,27 +127,6 @@ router.put('/:id/status', async (req, res) => {
     } else {
       res.status(404).json({ message: 'Order not found' });
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server Error' });
-  }
-});
-
-// @route   GET /api/orders/check-first-order
-// @desc    Check if email or mobile is a first-time buyer
-router.get('/check-first-order', async (req, res) => {
-  try {
-    const { email, mobile } = req.query;
-    if (!email && !mobile) {
-      return res.json({ isFirstOrder: true });
-    }
-    
-    let query = { $or: [] };
-    if (email) query.$or.push({ 'shippingAddress.email': email });
-    if (mobile) query.$or.push({ 'shippingAddress.mobile': mobile });
-    
-    const count = await Order.countDocuments(query);
-    res.json({ isFirstOrder: count === 0 });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
