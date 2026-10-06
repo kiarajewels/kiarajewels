@@ -43,9 +43,10 @@ app.get('/', (req, res) => {
   res.send('Kiara Jewels API is running...');
 });
 
-// Start Cron Jobs
-require('./jobs/reviewEmailJob');
-
+// Start local cron jobs only if not deployed on Vercel (Vercel uses /api/cron endpoint instead)
+if (!process.env.VERCEL && !process.env.VERCEL_ENV) {
+  require('./jobs/reviewEmailJob');
+}
 // Database Connection
 mongoose
   .connect(process.env.MONGO_URI || 'mongodb://localhost:27017/kiarajewels')
