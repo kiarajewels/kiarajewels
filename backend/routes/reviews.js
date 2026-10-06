@@ -16,17 +16,36 @@ router.post('/', async (req, res) => {
       return res.status(404).json({ message: 'Product not found' });
     }
 
+    let verifiedPurchase = false;
+
+    if (order) {
+      const Order = require('../models/Order');
+      // Look for the order matching this ID that also contains this product
+      const validOrder = await Order.findOne({ 
+        _id: order, 
+        'orderItems.product': product 
+      });
+      
+      if (!validOrder) {
+        return res.status(403).json({ message: 'You can only review products you have actually purchased.' });
+      }
+      verifiedPurchase = true;
+    } else {
+      // If no order is provided, they can't submit from the website organically unless we allow non-verified
+      return res.status(403).json({ message: 'Order reference is required to submit a verified review.' });
+    }
+
     const review = new Review({
       product,
-      order: order || null,
+      order,
       customerName,
       rating,
       title,
       body,
       photos: photos || [],
       source: 'website',
-      status: 'pending', // all website reviews start pending
-      verifiedPurchase: order ? true : false, // weak verification, could be improved
+      status: 'pending', 
+      verifiedPurchase,
     });
 
     const createdReview = await review.save();

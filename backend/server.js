@@ -42,6 +42,9 @@ app.get('/', (req, res) => {
   res.send('Kiara Jewels API is running...');
 });
 
+// Start Cron Jobs
+require('./jobs/reviewEmailJob');
+
 // Database Connection
 mongoose
   .connect(process.env.MONGO_URI || 'mongodb://localhost:27017/kiarajewels')

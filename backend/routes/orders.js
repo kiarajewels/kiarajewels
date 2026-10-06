@@ -66,11 +66,26 @@ router.get('/myorders', async (req, res) => {
 router.put('/:id/status', async (req, res) => {
   try {
     const { status } = req.body;
-    const order = await Order.findById(req.params.id);
+    const order = await Order.findById(req.params.id).populate('user');
     
     if (order) {
+      const oldStatus = order.status;
       order.status = status;
+      
+      // Update deliveredAt if transitioning to Delivered
+      if (status === 'Delivered' && oldStatus !== 'Delivered') {
+         order.deliveredAt = Date.now();
+      }
+
       const updatedOrder = await order.save();
+      
+      // Send Email ONLY on real status change
+      if (oldStatus !== status) {
+        const { sendOrderStatusEmail } = require('../utils/emailService');
+        // Do not await if you want to respond faster, but awaiting is safer for logging
+        sendOrderStatusEmail(updatedOrder, status).catch(console.error);
+      }
+
       res.json(updatedOrder);
     } else {
       res.status(404).json({ message: 'Order not found' });
