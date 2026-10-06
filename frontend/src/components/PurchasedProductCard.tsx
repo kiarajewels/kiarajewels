@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 
+
 export default function PurchasedProductCard({ product }: { product: any }) {
   const { addToCart } = useCart();
   
