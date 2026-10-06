@@ -61,6 +61,22 @@ router.get('/myorders', async (req, res) => {
   }
 });
 
+// @route   GET /api/orders/:id
+// @desc    Get order by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id).populate('user', 'name email');
+    if (order) {
+      res.json(order);
+    } else {
+      res.status(404).json({ message: 'Order not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
 // @route   PUT /api/orders/:id/status
 // @desc    Update order status (Admin)
 router.put('/:id/status', async (req, res) => {

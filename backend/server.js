@@ -37,6 +37,7 @@ app.use('/api/dashboard', require('./routes/dashboard'));
 app.use('/api/custom-orders', require('./routes/customOrders'));
 app.use('/api/reviews', require('./routes/reviews'));
 app.use('/api/returns', require('./routes/returns'));
+app.use('/api/cron', require('./routes/cron'));
 
 app.get('/', (req, res) => {
   res.send('Kiara Jewels API is running...');
