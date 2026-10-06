@@ -66,8 +66,8 @@ export default function CheckoutPage() {
 
   const saveAddress = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!address.firstName || !address.mobile || !address.house || !address.pincode || !address.city || !address.state) {
-      toast.error('Please fill all required fields');
+    if (!address.firstName || !address.mobile || !address.house || !address.area || !address.pincode || !address.city || !address.state) {
+      toast.error('Please fill all required fields, including Area and State');
       return;
     }
     setAddressSaved(true);
@@ -546,8 +546,8 @@ export default function CheckoutPage() {
 
             <button 
               onClick={loadRazorpay} 
-              disabled={loading || (showNewAddressForm && !addressSaved) || (!showNewAddressForm && !selectedAddressId) || cartItems.length === 0}
-              className={`btn-proceed-payment ${((showNewAddressForm && !addressSaved) || (!showNewAddressForm && !selectedAddressId) || cartItems.length === 0) ? 'btn-disabled' : ''}`}
+              disabled={loading || cartItems.length === 0}
+              className={`btn-proceed-payment ${loading || cartItems.length === 0 ? 'btn-disabled' : ''}`}
             >
               {loading ? 'Processing...' : 'Proceed to Payment'}
             </button>
