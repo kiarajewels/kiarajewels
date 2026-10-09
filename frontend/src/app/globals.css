@@ -166,7 +166,24 @@ img {
   min-height: 75px;
   background: var(--off-white);
   border-bottom: 1px solid var(--light-grey);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar--transparent {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
+}
+
+.navbar--transparent .navbar__link,
+.navbar--transparent .logo-text,
+.navbar--transparent .navbar__icon-link svg,
+.navbar--transparent .navbar__hamburger svg,
+.navbar--transparent .header-search-icon svg {
+  color: #FFFFFF !important;
+}
+
+.navbar--transparent .navbar__link::after {
+  background: #FFFFFF !important;
 }
 
 .navbar.scrolled {
@@ -336,12 +353,13 @@ img {
   position: relative;
   width: 100%;
   background: #F7F7F5;
+  margin-top: -92px; /* Pull up behind the navbar */
 }
 
 .hero-video-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 90px);
+  height: 100vh; /* Full screen height */
   min-height: 600px;
   overflow: hidden;
   background: #000000;
@@ -355,14 +373,7 @@ img {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 0;
-  transition: opacity 1.2s ease-in-out;
   z-index: 1;
-}
-
-.hero-video-layer.active {
-  opacity: 1;
-  z-index: 2;
 }
 
 .hero-video-gradient {
@@ -385,22 +396,25 @@ img {
   z-index: 4;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 24px;
+  justify-content: flex-end; /* Align right */
+  padding: 0 48px;
   pointer-events: none;
 }
 
-.hero-text-wrapper {
-  max-width: 600px;
-  text-align: center;
+.hero-right-aligned {
+  max-width: 500px;
+  text-align: right;
   color: #ffffff;
   pointer-events: auto;
-  margin-top: 10vh;
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .hero-headline {
   font-family: var(--font-cormorant), serif;
-  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-size: clamp(3rem, 5vw, 4.5rem);
   font-weight: 500;
   line-height: 1.1;
   margin: 0 0 16px 0;
@@ -415,25 +429,49 @@ img {
   color: #ffffff;
 }
 
-.hero-cta-btn {
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+.hero-cta-btn-primary {
   display: inline-block;
   background-color: #ffffff;
   color: #000000;
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  padding: 16px 32px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 14px 32px;
   text-decoration: none;
-  border-radius: 2px;
+  text-transform: uppercase;
   transition: background-color 0.3s ease, color 0.3s ease;
-  margin-bottom: 32px;
 }
 
-.hero-cta-btn:hover {
+.hero-cta-btn-primary:hover {
   background-color: #e5e5e5;
 }
 
+.hero-cta-btn-secondary {
+  display: inline-block;
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 14px 32px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hero-cta-btn-secondary:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
 .hero-trust-line {
   font-family: 'Inter', sans-serif;
   font-size: 0.75rem;
@@ -446,52 +484,29 @@ img {
 /* Mobile Adjustments for Hero */
 @media (max-width: 768px) {
   .hero-section {
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    min-height: 0;
+    margin-top: -92px;
   }
-
-  .hero-video-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4/5;
-    height: auto;
-    min-height: unset;
-  }
-
-  .hero-video-gradient {
-    display: none;
-  }
-
+  
   .hero-content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    padding: 0 24px;
+    justify-content: center; /* Center on mobile instead of right align? Let's just keep it flex-end if they want it on the right, or center it for mobile */
     align-items: center;
-    justify-content: flex-start;
-    padding: 24px 24px 70px;
-    height: auto;
-    background: #ffffff;
   }
 
-  .hero-text-wrapper {
-    max-width: 100%;
+  .hero-right-aligned {
+    align-items: center;
     text-align: center;
-    color: #000000;
-    margin-top: 0;
   }
+
 
   .hero-headline {
     font-size: 2.5rem;
     margin-bottom: 12px;
-    color: #000000;
   }
 
   .hero-subheadline {
     font-size: 1rem;
     margin-bottom: 24px;
-    color: #333333;
   }
 
   .hero-buttons {
