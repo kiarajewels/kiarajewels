@@ -6,7 +6,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { trackEvent } from '@/components/Analytics';
 
-export default function HeaderSearch() {
+export default function HeaderSearch({ isHome = false }: { isHome?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<any[]>([]);
@@ -66,7 +66,7 @@ export default function HeaderSearch() {
         onClick={() => setIsOpen(!isOpen)}
         style={{ position: 'relative', zIndex: 1001 }}
       >
-        {isOpen ? <X size={22} strokeWidth={1.5} color="var(--pure-black)" /> : <Search size={22} strokeWidth={1.5} color="var(--pure-black)" />}
+        {isOpen ? <X size={22} strokeWidth={1.5} color="var(--pure-black)" /> : <Search size={22} strokeWidth={1.5} color={isHome ? "#FFFFFF" : "var(--pure-black)"} />}
       </button>
 
       {isOpen && (
