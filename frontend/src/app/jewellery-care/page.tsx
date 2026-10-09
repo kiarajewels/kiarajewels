@@ -3,8 +3,8 @@ import React from 'react';
 export default function JewelleryCare() {
   return (
     <div style={{ minHeight: '80vh', backgroundColor: '#F7F7F5', padding: '60px 20px' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto', backgroundColor: '#fff', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
-        <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', fontSize: '2.5rem', marginBottom: '32px', textAlign: 'center' }}>Jewellery Care Guide</h1>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', fontSize: '2.5rem', marginBottom: '32px', textAlign: 'left' }}>Jewellery Care Guide</h1>
         <div style={{ color: '#4b5563', lineHeight: '1.8', fontSize: '1.05rem' }}>
           <p style={{ marginBottom: '1.25rem' }}>Every Kiara Jewels piece is crafted from 925 Sterling Silver and designed to accompany you through everyday moments.</p>
           

@@ -3,8 +3,8 @@ import React from 'react';
 export default function TermsAndConditions() {
   return (
     <div style={{ minHeight: '80vh', backgroundColor: '#F7F7F5', padding: '60px 20px' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto', backgroundColor: '#fff', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
-        <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', fontSize: '2.5rem', marginBottom: '32px', textAlign: 'center' }}>Terms & Conditions</h1>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', fontSize: '2.5rem', marginBottom: '32px', textAlign: 'left' }}>Terms & Conditions</h1>
         <div style={{ color: '#4b5563', lineHeight: '1.8', fontSize: '1.05rem' }}>
           <p style={{ marginBottom: '1.25rem' }}>Welcome to Kiara Jewels. By accessing and using this website, you agree to comply with and be bound by the following terms and conditions.</p>
           <h3 style={{ color: '#000000', fontFamily: 'Times New Roman, serif', fontSize: '1.5rem', marginTop: '2rem', marginBottom: '1rem' }}>General Conditions</h3>

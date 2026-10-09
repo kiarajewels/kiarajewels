@@ -8,8 +8,8 @@ export const metadata = {
 export default function PrivacyPolicy() {
   return (
     <div style={{ minHeight: '80vh', backgroundColor: '#F7F7F5', padding: '60px 20px' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto', backgroundColor: '#fff', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
-        <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', fontSize: '2.5rem', marginBottom: '32px', textAlign: 'center' }}>Privacy Policy</h1>
+      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <h1 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', fontSize: '2.5rem', marginBottom: '32px', textAlign: 'left' }}>Privacy Policy</h1>
         <div style={{ color: '#4b5563', lineHeight: '1.8', fontSize: '1.05rem' }}>
           <p style={{ marginBottom: '1.25rem' }}>At Kiara Jewels, we respect your privacy and are committed to protecting your personal information.</p>
           <p style={{ marginBottom: '1.25rem' }}>This Privacy Policy explains how we collect, use, store, and protect information when you visit or make a purchase through our website.</p>

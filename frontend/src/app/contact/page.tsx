@@ -36,11 +36,13 @@ export default function ContactPage() {
   return (
     <main style={{ minHeight: '80vh', backgroundColor: '#F7F7F5' }}>
       {/* Header */}
-      <section style={{ backgroundColor: '#000000', color: '#777777', padding: '60px 24px', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: 'Times New Roman, serif', fontSize: '3rem', margin: '0 0 16px 0', fontWeight: 'normal' }}>Contact Us</h1>
-        <p style={{ fontSize: '1.1rem', maxWidth: '600px', margin: '0 auto', color: '#f3f4f6' }}>
-          We would love to hear from you. Whether you have a question about our jewelry, an existing order, or a custom request, our team is ready to answer all your questions.
-        </p>
+      <section style={{ backgroundColor: '#000000', color: '#777777', padding: '60px 24px', textAlign: 'left' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <h1 style={{ fontFamily: 'Times New Roman, serif', fontSize: '3rem', margin: '0 0 16px 0', fontWeight: 'normal' }}>Contact Us</h1>
+          <p style={{ fontSize: '1.1rem', maxWidth: '600px', margin: '0', color: '#f3f4f6' }}>
+            We would love to hear from you. Whether you have a question about our jewelry, an existing order, or a custom request, our team is ready to answer all your questions.
+          </p>
+        </div>
       </section>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 24px', display: 'flex', flexWrap: 'wrap', gap: '60px' }}>
@@ -82,7 +84,7 @@ export default function ContactPage() {
         </div>
 
         {/* Right Side: Contact Form */}
-        <div style={{ flex: '2 1 500px', backgroundColor: '#ffffff', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.03)' }}>
+        <div style={{ flex: '2 1 500px' }}>
           <h2 style={{ fontFamily: 'Times New Roman, serif', fontSize: '1.8rem', color: '#000000', marginBottom: '24px' }}>Send a Message</h2>
           
           {status === 'success' ? (
