@@ -353,7 +353,7 @@ img {
   position: relative;
   width: 100%;
   background: #F7F7F5;
-  margin-top: -92px; /* Pull up behind the navbar */
+  margin-top: -76px; /* Pull up behind the navbar exactly (75px + 1px border) */
 }
 
 .hero-video-container {
