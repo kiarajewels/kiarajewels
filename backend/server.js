@@ -57,7 +57,8 @@ mongoose
 module.exports = app;
 
 if (process.env.NODE_ENV !== 'production' || process.env.RENDER) {
-  app.listen(PORT, '0.0.0.0', () => {
+  const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
+    console.log(`Actually listening on:`, server.address());
   });
 }

@@ -15,7 +15,7 @@ const Reviews = () => {
   const fetchReviews = async () => {
     try {
       const url = statusFilter ? `/api/reviews/admin?status=${statusFilter}` : '/api/reviews/admin';
-      const res = await axios.get(`http://localhost:5000${url}`);
+      const res = await axios.get(`http://localhost:5500${url}`);
       setReviews(res.data);
     } catch (error) {
       toast.error('Failed to load reviews');
@@ -26,7 +26,7 @@ const Reviews = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/products');
+      const res = await axios.get('http://localhost:5500/api/products');
       setProducts(res.data);
     } catch (error) {
       toast.error('Failed to load products');
@@ -43,7 +43,7 @@ const Reviews = () => {
 
   const updateStatus = async (id, newStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/reviews/${id}/status`, { status: newStatus });
+      await axios.put(`http://localhost:5500/api/reviews/${id}/status`, { status: newStatus });
       toast.success(`Review ${newStatus}`);
       fetchReviews();
     } catch (error) {
@@ -57,7 +57,7 @@ const Reviews = () => {
       return toast.error('Product, Name, and Review text are required');
     }
     try {
-      await axios.post('http://localhost:5000/api/reviews/admin', newReview);
+      await axios.post('http://localhost:5500/api/reviews/admin', newReview);
       toast.success('Review added successfully');
       setShowAddForm(false);
       setNewReview({ product: '', customerName: '', rating: 5, body: '', title: '' });
