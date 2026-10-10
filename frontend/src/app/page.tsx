@@ -5,6 +5,7 @@ import HeroVideo from '@/components/HeroVideo';
 import ProductCarousel from '@/components/ProductCarousel';
 import FAQSection from '@/components/FAQSection';
 import EmailCapture from '@/components/EmailCapture';
+import TrustStrip from '@/components/TrustStrip';
 
 export const metadata = {
   title: 'Kiara Jewels | Silver CZ Jewellery, Made to Order',
@@ -106,23 +107,7 @@ export default async function Home() {
       />
       <HeroVideo />
 
-      {/* Trust Strip */}
-      <section style={{ background: '#FFFFFF', padding: '40px 0', borderBottom: '1px solid #E5E5E5' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', padding: '0 24px', flexWrap: 'wrap', gap: '32px' }} className="trust-strip-container">
-          {[
-            { top: '925', bottom: 'STERLING SILVER' },
-            { top: 'ANTI-TARISH', bottom: 'FINISH' },
-            { top: 'PREMIUM', bottom: 'CZ' },
-            { top: 'FREE', bottom: 'SHIPPING' },
-            { top: '3-DAY', bottom: 'RETURNS' }
-          ].map((item, idx) => (
-            <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', color: '#000000', flex: '1 1 120px' }}>
-              <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em' }}>{item.top}</span>
-              <span style={{ fontSize: '0.75rem', letterSpacing: '0.1em', opacity: 0.7, textTransform: 'uppercase' }}>{item.bottom}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+      <TrustStrip />
 
       {/* Categories */}
       <section style={{ padding: '80px 24px', maxWidth: '1200px', margin: '0 auto' }}>
