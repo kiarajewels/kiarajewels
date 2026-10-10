@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import ProductCard from '@/components/ProductCard';
 import { Search as SearchIcon } from 'lucide-react';
+import ProductSkeletonGrid from '@/components/ProductSkeletonGrid';
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -45,9 +46,7 @@ function SearchResults() {
         )}
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '60px 0', color: '#6b7280' }}>
-            <p>Searching...</p>
-          </div>
+          <ProductSkeletonGrid count={4} />
         ) : products.length > 0 ? (
           <div className="best-seller__grid">
             {products.map((product) => (
@@ -70,7 +69,11 @@ function SearchResults() {
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={<div style={{ padding: '120px 24px', textAlign: 'center' }}>Loading...</div>}>
+    <Suspense fallback={
+      <div style={{ padding: '120px 24px', maxWidth: '1200px', margin: '0 auto' }}>
+        <ProductSkeletonGrid count={8} />
+      </div>
+    }>
       <SearchResults />
     </Suspense>
   );

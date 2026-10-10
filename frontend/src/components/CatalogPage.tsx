@@ -5,6 +5,7 @@ import ProductCard from '@/components/ProductCard';
 import { Filter, X, ChevronDown } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { trackEvent } from '@/components/Analytics';
+import ProductSkeletonGrid from '@/components/ProductSkeletonGrid';
 
 interface CatalogPageProps {
   category?: string;
@@ -301,8 +302,8 @@ function CatalogPageContent({ category, title, apiQuery }: CatalogPageProps) {
 
         <div className="best-seller__grid">
           {loading ? (
-            <div style={{ textAlign: 'center', width: '100%', gridColumn: '1 / -1', padding: '60px', color: '#6b7280' }}>
-              <p>Loading...</p>
+            <div style={{ gridColumn: '1 / -1' }}>
+              <ProductSkeletonGrid count={8} />
             </div>
           ) : paginatedProducts.length > 0 ? (
             paginatedProducts.map((product) => (
@@ -346,7 +347,13 @@ function CatalogPageContent({ category, title, apiQuery }: CatalogPageProps) {
 
 export default function CatalogPage({ category, title, apiQuery }: CatalogPageProps) {
   return (
-    <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>}>
+    <Suspense fallback={
+      <main>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '120px 24px' }}>
+          <ProductSkeletonGrid count={8} />
+        </div>
+      </main>
+    }>
       <CatalogPageContent category={category} title={title} apiQuery={apiQuery} />
     </Suspense>
   );
