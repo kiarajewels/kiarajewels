@@ -1418,7 +1418,8 @@ img {
 }
 @media (max-width: 480px) {
   .best-seller__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 }
 
@@ -1764,7 +1765,8 @@ img {
   }
 
   .product-card__image-wrapper {
-    height: 200px;
+    height: auto;
+    aspect-ratio: 1;
   }
 
   .product-card__info {
@@ -1920,13 +1922,14 @@ img {
   }
 
   .best-seller__grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    max-width: 360px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 100%;
   }
 
   .product-card__image-wrapper {
-    height: 220px;
+    height: auto;
+    aspect-ratio: 1;
   }
 
   /* Reviews */
