@@ -2,7 +2,19 @@
 import React from 'react';
 import Link from 'next/link';
 
+const videos = [
+  '/images/hero_videos/model_with_ring.mp4',
+  '/images/hero_videos/model_with_pendant.mp4',
+  '/images/hero_videos/only_pendant.mp4'
+];
+
 export default function HeroVideo() {
+  const [currentVideoIndex, setCurrentVideoIndex] = React.useState(0);
+
+  const handleVideoEnd = () => {
+    setCurrentVideoIndex((prevIndex) => (prevIndex + 1) % videos.length);
+  };
+
   return (
     <section className="hero-section">
       <div className="hero-video-container">
@@ -19,12 +31,13 @@ export default function HeroVideo() {
         }}></div>
 
         <video
+          key={videos[currentVideoIndex]} // Forces React to remount video so it autoPlays the new src
           autoPlay
-          loop
           muted
           playsInline
+          onEnded={handleVideoEnd}
           className="hero-video-layer active"
-          src="/images/hero_videos/model_with_ring.mp4"
+          src={videos[currentVideoIndex]}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
         
