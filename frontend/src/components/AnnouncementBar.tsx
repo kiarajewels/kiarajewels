@@ -13,7 +13,7 @@ export default function AnnouncementBar() {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % messages.length);
-    }, 3000);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
