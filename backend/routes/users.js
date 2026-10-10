@@ -113,7 +113,7 @@ router.post('/contact', async (req, res) => {
 // @desc    Verify OTP for login
 router.post('/verify-otp', async (req, res) => {
   try {
-    const { email, otp } = req.body;
+    const { email, otp, phoneNumber } = req.body;
     
     if (!email || !otp) {
       return res.status(400).json({ message: 'Email and OTP are required' });
@@ -133,7 +133,11 @@ router.post('/verify-otp', async (req, res) => {
     if (!user) {
       // Create a basic user from the email address
       const name = email.split('@')[0];
-      user = await User.create({ email, name });
+      user = await User.create({ email, name, phoneNumber });
+    } else if (phoneNumber) {
+      // Always update phone number if provided during login
+      user.phoneNumber = phoneNumber;
+      await user.save();
     }
 
     res.json({

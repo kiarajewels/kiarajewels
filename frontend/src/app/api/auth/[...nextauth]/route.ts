@@ -13,7 +13,8 @@ const handler = NextAuth({
       name: 'Credentials',
       credentials: {
         email: { label: "Email", type: "email" },
-        otp: { label: "OTP", type: "text" }
+        otp: { label: "OTP", type: "text" },
+        phoneNumber: { label: "Phone Number", type: "text" }
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.otp) return null;
@@ -21,6 +22,7 @@ const handler = NextAuth({
           const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/users/verify-otp`, {
             email: credentials.email,
             otp: credentials.otp,
+            phoneNumber: credentials.phoneNumber,
           });
           
           if (res.data) {

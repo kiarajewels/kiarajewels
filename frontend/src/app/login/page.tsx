@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -17,6 +18,10 @@ export default function LoginPage() {
     e.preventDefault();
     if (!email) {
       setError('Please enter your email address');
+      return;
+    }
+    if (!phone || phone.length < 10) {
+      setError('Please enter a valid phone number');
       return;
     }
     
@@ -46,6 +51,7 @@ export default function LoginPage() {
       redirect: false,
       email,
       otp,
+      phoneNumber: phone,
     });
 
     setLoading(false);
@@ -81,6 +87,18 @@ export default function LoginPage() {
                 required
               />
             </div>
+            
+            <div>
+              <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: '500', color: '#000000', marginBottom: '8px' }}>Phone Number</label>
+              <input 
+                type="tel" 
+                placeholder="Enter your mobile number" 
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                style={{ width: '100%', padding: '14px 16px', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '1rem', boxSizing: 'border-box', outline: 'none' }}
+                required
+              />
+            </div>
 
             <button 
               type="submit"
@@ -92,7 +110,7 @@ export default function LoginPage() {
               onMouseOver={(e) => !loading && (e.currentTarget.style.backgroundColor = '#374151')}
               onMouseOut={(e) => !loading && (e.currentTarget.style.backgroundColor = '#000000')}
             >
-              {loading ? 'Sending...' : 'Continue with Email'}
+              {loading ? 'Sending...' : 'Continue'}
             </button>
           </form>
         ) : (
@@ -128,31 +146,10 @@ export default function LoginPage() {
               onClick={() => { setOtpSent(false); setOtp(''); setError(''); }}
               style={{ background: 'none', border: 'none', color: '#6b7280', fontSize: '0.9rem', cursor: 'pointer', textDecoration: 'underline', width: 'fit-content', alignSelf: 'center' }}
             >
-              Use a different email
+              Edit email or phone
             </button>
           </form>
         )}
-
-        <div style={{ display: 'flex', alignItems: 'center', margin: '32px 0' }}>
-          <div style={{ flex: 1, height: '1px', backgroundColor: '#e5e7eb' }} />
-          <span style={{ padding: '0 16px', color: '#9ca3af', fontSize: '0.875rem' }}>OR</span>
-          <div style={{ flex: 1, height: '1px', backgroundColor: '#e5e7eb' }} />
-        </div>
-
-        <button 
-          onClick={() => signIn('google', { callbackUrl: '/' })}
-          style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
-            width: '100%', padding: '14px', backgroundColor: '#fff', color: '#374151',
-            border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '1rem', fontWeight: '500',
-            cursor: 'pointer', transition: 'background 0.2s'
-          }}
-          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
-          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fff'}
-        >
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style={{ width: '24px', height: '24px' }} />
-          Continue with Google
-        </button>
       </div>
     </div>
   );
