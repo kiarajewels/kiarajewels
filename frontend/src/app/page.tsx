@@ -35,25 +35,31 @@ export const metadata = {
 }
 
 async function getBestSellers() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?isBestSeller=true`, {
-    cache: 'no-store'
-  });
-  if (!res.ok) {
-    console.error("Failed to fetch best sellers, status:", res.status);
-    return []; // Fallback to empty only if not throwing
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?isBestSeller=true`, {
+      cache: 'no-store'
+    });
+    if (!res.ok) {
+      console.error("Failed to fetch best sellers, status:", res.status);
+      return [];
+    }
+    return res.json();
+  } catch (error) {
+    console.error("Fetch failed for best sellers:", error);
+    return [];
   }
-  return res.json();
 }
 
 async function getCategoryMinPrices() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
-    cache: 'no-store'
-  });
-  if (!res.ok) {
-    console.error("Failed to fetch min prices, status:", res.status);
-    return {};
-  }
-  const products = await res.json();
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
+      cache: 'no-store'
+    });
+    if (!res.ok) {
+      console.error("Failed to fetch min prices, status:", res.status);
+      return {};
+    }
+    const products = await res.json();
     const minPrices: Record<string, number> = {};
     products.forEach((p: any) => {
       const cat = (p.category || '').toLowerCase();
@@ -62,6 +68,10 @@ async function getCategoryMinPrices() {
       }
     });
     return minPrices;
+  } catch (error) {
+    console.error("Fetch failed for min prices:", error);
+    return {};
+  }
 }
 
 export default async function Home() {
