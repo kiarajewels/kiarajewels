@@ -34,9 +34,9 @@ function SearchResults() {
   }, [q]);
 
   return (
-    <main style={{ backgroundColor: '#F7F7F5', minHeight: '100vh', padding: '120px 24px 80px' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '2.5rem', fontFamily: 'Times New Roman, serif', marginBottom: '8px', color: '#000000' }}>
+    <main className="catalog-page-wrapper" style={{ backgroundColor: '#F7F7F5', minHeight: '100vh' }}>
+      <div className="catalog-page-container">
+        <h1 className="catalog-page-title">
           Search Results
         </h1>
         {q && (

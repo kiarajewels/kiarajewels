@@ -1,22 +1,8 @@
 const express = require('express');
 const User = require('../models/User');
 const OTP = require('../models/OTP');
-const nodemailer = require('nodemailer');
+const { transporter } = require('../utils/emailService');
 const router = express.Router();
-
-// Setup Nodemailer transporter
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
 
 // @route   POST /api/users/send-otp
 // @desc    Generate and send OTP for passwordless login

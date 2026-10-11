@@ -154,23 +154,23 @@ function CatalogPageContent({ category, title, apiQuery }: CatalogPageProps) {
   );
 
   return (
-    <main style={{ backgroundColor: '#F7F7F5', minHeight: '100vh', padding: '120px 24px 80px' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '2.5rem', fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '24px', textAlign: 'center' }}>
+    <main className="catalog-page-wrapper" style={{ backgroundColor: '#F7F7F5', minHeight: '100vh' }}>
+      <div className="catalog-page-container">
+        <h1 className="catalog-page-title">
           {title}
         </h1>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
+        <div className="catalog-controls-bar">
           <button 
             onClick={() => setIsFilterOpen(true)}
-            style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', backgroundColor: 'white', border: '1px solid #d1d5db', borderRadius: '8px', cursor: 'pointer', fontSize: '1rem', fontWeight: 500, color: '#374151' }}
+            className="catalog-filter-btn"
           >
-            <Filter size={20} />
+            <Filter size={18} />
             Filter & Sort
           </button>
           
-          <div style={{ color: '#6b7280', fontSize: '0.95rem' }}>
-            {filteredAndSortedProducts.length} products
+          <div className="catalog-count-text">
+            {filteredAndSortedProducts.length} {filteredAndSortedProducts.length === 1 ? 'product' : 'products'}
           </div>
         </div>
 

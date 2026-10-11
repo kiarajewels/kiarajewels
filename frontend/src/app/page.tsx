@@ -7,6 +7,8 @@ import FAQSection from '@/components/FAQSection';
 import EmailCapture from '@/components/EmailCapture';
 import TrustStrip from '@/components/TrustStrip';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Kiara Jewels | Silver CZ Jewellery, Made to Order',
   description: '925 silver jewellery with premium CZ/American Diamond style stones. Made to order with free shipping across India.',

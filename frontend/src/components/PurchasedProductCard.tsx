@@ -38,19 +38,21 @@ export default function PurchasedProductCard({ product }: { product: any }) {
               addToCart(product, 1);
             }}
             style={{ 
-              backgroundColor: '#53131e', 
+              backgroundColor: '#000000', 
               color: 'white',
               width: '100%',
               padding: '10px',
               border: 'none',
+              borderRadius: '1px',
               cursor: 'pointer',
-              fontWeight: 'bold',
+              fontWeight: '500',
               textTransform: 'uppercase',
-              fontSize: '14px',
+              fontSize: '12px',
+              letterSpacing: '0.05em',
               transition: 'background-color 0.2s ease',
             }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#fc128bff')}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#f01385ff')}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#262626')}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#000000')}
           >
             Buy Again
           </button>

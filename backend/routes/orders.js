@@ -4,21 +4,8 @@ const crypto = require('crypto');
 const Order = require('../models/Order');
 const User = require('../models/User');
 const Product = require('../models/Product');
-const nodemailer = require('nodemailer');
+const { transporter } = require('../utils/emailService');
 const router = express.Router();
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-});
 
 // @route   GET /api/orders
 // @desc    Get all orders (Admin)

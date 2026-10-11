@@ -158,6 +158,8 @@ const sendReviewRequestEmail = async (order) => {
 };
 
 module.exports = {
+  transporter,
+  sendEmailSafely,
   sendOrderStatusEmail,
   sendReviewRequestEmail
 };

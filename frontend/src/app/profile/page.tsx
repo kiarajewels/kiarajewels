@@ -207,8 +207,8 @@ export default function ProfilePage() {
         </div>
 
         {/* Order Status Section */}
-        <div style={{ marginBottom: '48px', backgroundColor: 'white', padding: '24px 16px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-          <h2 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>ORDER STATUS</h2>
+        <div style={{ marginBottom: '48px', backgroundColor: 'white', padding: '24px 16px', borderRadius: '1px', border: '1px solid #e5e7eb', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+          <h2 style={{ fontFamily: 'var(--font-cormorant), serif', color: '#000000', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>ORDER STATUS</h2>
           
           {loadingOrders ? (
             <div style={{ textAlign: 'center', padding: '20px', color: '#6b7280' }}>Loading orders...</div>
@@ -217,12 +217,12 @@ export default function ProfilePage() {
           ) : orders.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '40px 20px' }}>
               <p style={{ color: '#6b7280', marginBottom: '16px', fontSize: '1.1rem' }}>No orders yet.</p>
-              <Link href="/" style={{ padding: '10px 20px', backgroundColor: '#53131e', color: 'white', textDecoration: 'none', borderRadius: '4px', fontWeight: 'bold' }}>EXPLORE JEWELLERY</Link>
+              <Link href="/" style={{ padding: '10px 24px', backgroundColor: '#000000', color: 'white', textDecoration: 'none', borderRadius: '1px', fontSize: '0.85rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>EXPLORE JEWELLERY</Link>
             </div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               {orders.map((order) => (
-                <div key={order._id} style={{ border: '1px solid #e5e7eb', borderRadius: '8px', padding: '16px' }}>
+                <div key={order._id} style={{ border: '1px solid #e5e7eb', borderRadius: '1px', padding: '16px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px', borderBottom: '1px solid #f3f4f6', paddingBottom: '12px' }}>
                     <div>
                       <p style={{ fontWeight: 'bold', color: '#374151', fontSize: '0.9rem' }}>Order #{order._id.substring(0, 8).toUpperCase()}</p>
@@ -236,7 +236,7 @@ export default function ProfilePage() {
                   <div style={{ marginBottom: '24px' }}>
                     {order.orderItems.map((item: any, idx: number) => (
                       <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
-                        <img src={item.image} alt={item.name} style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #f3f4f6' }} />
+                        <img src={item.image} alt={item.name} style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '1px', border: '1px solid #f3f4f6' }} />
                         <div>
                           <p style={{ fontSize: '0.95rem', color: '#374151' }}>{item.name} × {item.qty}</p>
                         </div>
@@ -260,14 +260,14 @@ export default function ProfilePage() {
                         <div key={step} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 1, position: 'relative', width: '33%' }}>
                           <div style={{ 
                             width: '24px', height: '24px', borderRadius: '50%', 
-                            backgroundColor: isActive ? '#f01385ff' : '#f9fafb',
+                            backgroundColor: isActive ? '#000000' : '#f9fafb',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                             border: isActive ? 'none' : '2px solid #d1d5db',
                             marginBottom: '8px'
                           }}>
                             {isActive && <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'white' }}></div>}
                           </div>
-                          <span style={{ fontSize: '0.75rem', fontWeight: isCurrent ? 'bold' : 'normal', color: isCurrent ? '#53131e' : '#6b7280', textAlign: 'center' }}>{displayStep}</span>
+                          <span style={{ fontSize: '0.75rem', fontWeight: isCurrent ? 'bold' : 'normal', color: isCurrent ? '#000000' : '#6b7280', textAlign: 'center' }}>{displayStep}</span>
                         </div>
                       )
                     })}
@@ -281,8 +281,8 @@ export default function ProfilePage() {
                       if (returnReq) {
                         return (
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-                            <p style={{ fontWeight: 'bold', color: '#374151', fontSize: '0.9rem' }}>Return Status: <span style={{ color: '#53131e' }}>{returnReq.returnStatus}</span></p>
-                            <Link href={`/returns/${returnReq.returnId}`} style={{ fontSize: '0.875rem', color: '#53131e', textDecoration: 'underline' }}>View Return Details</Link>
+                            <p style={{ fontWeight: 'bold', color: '#374151', fontSize: '0.9rem' }}>Return Status: <span style={{ color: '#000000', fontWeight: '600' }}>{returnReq.returnStatus}</span></p>
+                            <Link href={`/returns/${returnReq.returnId}`} style={{ fontSize: '0.875rem', color: '#000000', textDecoration: 'underline' }}>View Return Details</Link>
                           </div>
                         );
                       }
@@ -297,7 +297,7 @@ export default function ProfilePage() {
                           return (
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
                               <p style={{ color: '#10b981', fontWeight: '500', fontSize: '0.9rem' }}>✓ Return Eligible until {expiryDate.toLocaleDateString()}</p>
-                              <Link href={`/return-request?orderId=${order._id}`} style={{ padding: '8px 16px', backgroundColor: '#000000', color: 'white', textDecoration: 'none', borderRadius: '4px', fontSize: '0.875rem', fontWeight: '500' }}>
+                              <Link href={`/return-request?orderId=${order._id}`} style={{ padding: '8px 16px', backgroundColor: '#000000', color: 'white', textDecoration: 'none', borderRadius: '1px', fontSize: '0.875rem', fontWeight: '500' }}>
                                 REQUEST RETURN
                               </Link>
                             </div>
@@ -318,8 +318,8 @@ export default function ProfilePage() {
 
         {/* Purchased Products Section */}
         {orders.length > 0 && purchasedProducts.length > 0 && (
-          <div style={{ backgroundColor: 'white', padding: '24px 16px', borderRadius: '12px', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-            <h2 style={{ fontFamily: 'Times New Roman, serif', color: '#000000', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>MY ORDERS</h2>
+          <div style={{ backgroundColor: 'white', padding: '24px 16px', borderRadius: '1px', border: '1px solid #e5e7eb', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
+            <h2 style={{ fontFamily: 'var(--font-cormorant), serif', color: '#000000', marginBottom: '24px', borderBottom: '1px solid #e5e7eb', paddingBottom: '12px', fontSize: '1.25rem', letterSpacing: '1px' }}>MY ORDERS</h2>
             
             <div style={{ 
               display: 'grid', 

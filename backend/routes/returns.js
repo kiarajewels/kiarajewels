@@ -3,13 +3,7 @@ const router = express.Router();
 const ReturnRequest = require('../models/ReturnRequest');
 const Order = require('../models/Order');
 const crypto = require('crypto');
-const Razorpay = require('razorpay');
-
-// Configure Razorpay
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
+const razorpay = require('../config/razorpay');
 
 const generateReturnId = () => {
   return 'RET-' + crypto.randomBytes(4).toString('hex').toUpperCase();

@@ -16,9 +16,7 @@ import Dashboard from './pages/Dashboard';
 import OrdersReport from './pages/OrdersReport';
 import Reviews from './pages/Reviews';
 import Returns from './pages/Returns';
-
-// Placeholder components for other routes
-const Settings = () => <div><h2>Settings</h2></div>;
+import Settings from './pages/Settings';
 
 function App() {
   return (
