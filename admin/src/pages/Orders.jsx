@@ -225,8 +225,8 @@ const Orders = () => {
               {/* Bottom Products List */}
               <div style={{ borderTop: '1px solid #e5e7eb', paddingTop: '20px' }}>
                 <h3 style={{ fontSize: '1rem', fontWeight: '600', color: '#111827', marginBottom: '12px' }}>Ordered Products</h3>
-                <div className="admin-table-wrapper" style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
-                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem', minWidth: '550px' }}>
+                <div className="admin-table-wrapper" style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.875rem', minWidth: '550px', whiteSpace: 'nowrap' }}>
                     <thead style={{ backgroundColor: '#f9fafb' }}>
                       <tr>
                         <th style={{ padding: '10px 12px', borderBottom: '1px solid #e5e7eb', color: '#4b5563' }}>Product</th>
@@ -254,7 +254,7 @@ const Orders = () => {
                                   navigator.clipboard.writeText(reviewLink);
                                   toast.success('Review link copied!');
                                 }}
-                                style={{ padding: '4px 8px', fontSize: '0.75rem', backgroundColor: '#f3f4f6', border: '1px solid #d1d5db', borderRadius: '4px', cursor: 'pointer' }}
+                                style={{ padding: '4px 8px', fontSize: '0.75rem', backgroundColor: '#000000ff', border: '1px solid #d1d5db', borderRadius: '4px', cursor: 'pointer' }}
                               >
                                 Copy Link
                               </button>

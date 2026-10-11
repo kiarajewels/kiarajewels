@@ -80,7 +80,7 @@ const Reviews = () => {
           <select 
             value={statusFilter} 
             onChange={(e) => setStatusFilter(e.target.value)}
-            style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #d1d5db', backgroundColor: 'white' }}
+            style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #d1d5db', backgroundColor: 'black' }}
           >
             <option value="">All Statuses</option>
             <option value="pending">Pending</option>
@@ -180,14 +180,14 @@ const Reviews = () => {
           <tbody>
             {reviews.map(review => (
               <tr key={review._id} style={{ borderBottom: '1px solid #e5e7eb' }}>
-                <td style={{ padding: '16px', maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <td style={{ color: "black", padding: '16px', maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {review.product?.name || 'Unknown Product'}
                 </td>
-                <td style={{ padding: '16px' }}>{review.customerName}</td>
-                <td style={{ padding: '16px' }}>{review.rating}/5</td>
-                <td style={{ padding: '16px', maxWidth: '300px' }}>
+                <td style={{ color: "black",padding: '16px' }}>{review.customerName}</td>
+                <td style={{ color: "black",padding: '16px' }}>{review.rating}/5</td>
+                <td style={{ color: "black", padding: '16px', maxWidth: '300px' }}>
                   <p style={{ margin: 0, fontWeight: 'bold', fontSize: '0.9rem' }}>{review.title}</p>
-                  <p style={{ margin: 0, fontSize: '0.85rem', color: '#4b5563' }}>{review.body}</p>
+                  <p style={{ margin: 0, fontSize: '0.85rem', color: '#000000ff' }}>{review.body}</p>
                 </td>
                 <td style={{ padding: '16px' }}>
                   <span style={{ 

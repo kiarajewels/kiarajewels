@@ -106,7 +106,7 @@ const Returns = () => {
           <select 
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
-            style={{ padding: '8px 16px', border: '1px solid #d1d5db', borderRadius: '6px', backgroundColor: 'white' }}
+            style={{ padding: '8px 16px', border: '1px solid #d1d5db', borderRadius: '1px', backgroundColor: '#000000ff' }}
           >
             <option value="All">All Returns</option>
             <option value="Requested">Requested</option>

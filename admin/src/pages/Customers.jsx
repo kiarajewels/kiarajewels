@@ -172,8 +172,8 @@ const Customers = () => {
             <div className="admin-modal-body" style={{ backgroundColor: 'white' }}>
               <h4 style={{ fontSize: '1.05rem', fontWeight: 'bold', color: '#111827', marginBottom: '14px' }}>Order History</h4>
               
-              <div className="admin-table-wrapper" style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '550px' }}>
+              <div className="admin-table-wrapper" style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px', whiteSpace: 'nowrap' }}>
                   <thead>
                     <tr style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb', textAlign: 'left' }}>
                       <th style={{ padding: '12px 16px', fontWeight: '600', color: '#4b5563', fontSize: '0.875rem' }}>Invoice No.</th>
