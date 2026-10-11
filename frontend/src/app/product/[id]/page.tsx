@@ -695,7 +695,13 @@ function ProductDetailsContent() {
 
 export default function ProductDetailsPage() {
   return (
-    <Suspense fallback={<div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>}>
+    <Suspense fallback={
+      <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '2.5rem', letterSpacing: '0.25em', paddingLeft: '0.25em', color: '#9ca3af', textTransform: 'uppercase' }}>
+          KIARA
+        </span>
+      </div>
+    }>
       <ProductDetailsContent />
     </Suspense>
   );

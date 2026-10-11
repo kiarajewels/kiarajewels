@@ -149,7 +149,13 @@ function ReturnRequestForm() {
     }
   };
 
-  if (loading) return <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>;
+  if (loading) return (
+    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <span style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '2rem', letterSpacing: '0.25em', paddingLeft: '0.25em', color: '#9ca3af', textTransform: 'uppercase' }}>
+        KIARA
+      </span>
+    </div>
+  );
   if (!order) return null;
 
   const deliveredDate = new Date(order.deliveredAt);
@@ -303,7 +309,13 @@ function ReturnRequestForm() {
 
 export default function ReturnRequestPage() {
   return (
-    <Suspense fallback={<div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>}>
+    <Suspense fallback={
+      <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '2rem', letterSpacing: '0.25em', paddingLeft: '0.25em', color: '#9ca3af', textTransform: 'uppercase' }}>
+          KIARA
+        </span>
+      </div>
+    }>
       <ReturnRequestForm />
     </Suspense>
   );

@@ -101,7 +101,7 @@ code,
 .counter {
   font-family: var(--mono);
   display: inline-flex;
-  border-radius: 4px;
+  border-radius: 1px;
   color: var(--text-h);
 }
 
@@ -110,6 +110,11 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-radius: 1px !important;
 }
 
 /* ==========================================================================
@@ -220,7 +225,7 @@ code {
   justify-content: center;
   background: transparent;
   border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  border-radius: 1px;
   padding: 8px;
   color: #374151;
   cursor: pointer;
@@ -247,7 +252,7 @@ code {
   cursor: pointer;
   color: #6b7280;
   padding: 6px;
-  border-radius: 6px;
+  border-radius: 1px;
   transition: all 0.15s ease;
 }
 
@@ -326,7 +331,7 @@ code {
 
 .admin-table-card {
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 1px;
   border: 1px solid #e5e7eb;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -400,7 +405,7 @@ code {
 
 .admin-pills-scroll::-webkit-scrollbar-thumb {
   background: #e5e7eb;
-  border-radius: 4px;
+  border-radius: 1px;
 }
 
 /* Table Scroll Wrapper */
@@ -420,7 +425,7 @@ code {
 
 .admin-table-wrapper::-webkit-scrollbar-thumb {
   background: #d1d5db;
-  border-radius: 4px;
+  border-radius: 1px;
 }
 
 .admin-table-wrapper::-webkit-scrollbar-thumb:hover {
@@ -455,7 +460,7 @@ code {
 .admin-form-card {
   background-color: #ffffff;
   padding: 24px;
-  border-radius: 8px;
+  border-radius: 1px;
   border: 1px solid #e5e7eb;
 }
 
@@ -559,7 +564,7 @@ code {
 
 .admin-modal-dialog {
   background-color: #ffffff;
-  border-radius: 12px;
+  border-radius: 1px;
   width: 100%;
   max-width: 800px;
   max-height: 90vh;
@@ -572,7 +577,7 @@ code {
 @media (max-width: 640px) {
   .admin-modal-dialog {
     max-height: 94vh;
-    border-radius: 12px;
+    border-radius: 1px;
   }
 }
 
@@ -667,7 +672,7 @@ code {
 .admin-metric-card {
   background-color: #ffffff;
   padding: 24px;
-  border-radius: 10px;
+  border-radius: 1px;
   border: 1px solid #e5e7eb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -676,7 +681,7 @@ code {
 @media (max-width: 640px) {
   .admin-metric-card {
     padding: 18px 16px;
-    border-radius: 8px;
+    border-radius: 1px;
   }
 }
 
@@ -696,7 +701,7 @@ code {
 .admin-login-card {
   background-color: #ffffff;
   padding: 40px;
-  border-radius: 12px;
+  border-radius: 1px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   width: 100%;
   max-width: 420px;
@@ -707,7 +712,7 @@ code {
 @media (max-width: 640px) {
   .admin-login-card {
     padding: 28px 20px;
-    border-radius: 10px;
+    border-radius: 1px;
   }
 }
 

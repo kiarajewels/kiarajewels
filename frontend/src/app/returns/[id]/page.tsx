@@ -35,7 +35,13 @@ export default function ReturnDetailsPage({ params }: { params: { id: string } }
     }
   }, [status, session, params.id, router]);
 
-  if (loading) return <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>;
+  if (loading) return (
+    <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <span style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '2rem', letterSpacing: '0.25em', paddingLeft: '0.25em', color: '#9ca3af', textTransform: 'uppercase' }}>
+        KIARA
+      </span>
+    </div>
+  );
   if (!returnReq) return null;
 
   const timelineSteps = [

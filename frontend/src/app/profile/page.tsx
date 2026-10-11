@@ -84,7 +84,13 @@ export default function ProfilePage() {
   };
 
   if (status === 'loading') {
-    return <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading...</div>;
+    return (
+      <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <span style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '2rem', letterSpacing: '0.25em', paddingLeft: '0.25em', color: '#9ca3af', textTransform: 'uppercase' }}>
+          KIARA
+        </span>
+      </div>
+    );
   }
 
   if (status === 'unauthenticated' || !session?.user) {
@@ -140,10 +146,7 @@ export default function ProfilePage() {
             
             <div style={{ marginBottom: '32px' }}>
               <label style={{ color: '#4b5563', fontSize: '0.875rem', fontWeight: 'bold' }}>Phone Number</label>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px', flexWrap: 'wrap', gap: '8px' }}>
-                <p style={{ color: '#000000', fontSize: '1.125rem', wordBreak: 'break-all' }}>{user.phoneNumber || 'Not provided'}</p>
-                <Link href="/complete-profile" style={{ color: '#000000', textDecoration: 'none', fontWeight: '500', padding: '6px 12px', border: '1px solid #000', borderRadius: '4px' }}>Edit</Link>
-              </div>
+              <p style={{ color: '#000000', fontSize: '1.125rem', marginTop: '4px', wordBreak: 'break-all' }}>{user.phoneNumber || 'Not provided'}</p>
             </div>
           </div>
 
