@@ -167,7 +167,7 @@ export default async function Home() {
       {/* Craft and Made to order */}
       <section className="split-section" style={{ background: '#000000', color: '#FFFFFF' }}>
         <div className="split-section__image" style={{ minHeight: '500px' }}>
-          <Image src="/images/hero_videos/heroimage2.png" alt="Craftsmanship" fill style={{ objectFit: 'cover', filter: 'grayscale(100%) contrast(1.2)' }} sizes="(max-width: 768px) 100vw, 50vw" />
+          <Image src="/images/hero_videos/heroimage2.jpg" alt="Craftsmanship" fill style={{ objectFit: 'cover', filter: 'grayscale(100%) contrast(1.2)' }} sizes="(max-width: 768px) 100vw, 50vw" />
         </div>
         <div className="split-section__content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10vw 5vw' }}>
           <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', margin: '0 0 24px', fontWeight: 400, fontFamily: 'var(--font-cormorant), serif', textTransform: 'uppercase', lineHeight: 1.1 }}>MADE BY HAND,<br/>TO ORDER.</h2>

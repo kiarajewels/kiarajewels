@@ -37,18 +37,20 @@ const OrdersReport = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#374151', margin: 0 }}>Orders Report</h2>
-        <p style={{ color: '#6b7280', margin: '4px 0 0 0' }}>Date-wise breakdown of order volume.</p>
+      <div className="admin-page-header">
+        <div>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>Orders Report</h2>
+          <p style={{ color: '#6b7280', margin: '4px 0 0 0', fontSize: '0.875rem' }}>Date-wise breakdown of order volume across intervals.</p>
+        </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+      <div className="admin-metrics-grid">
         {orderStats.map((stat, idx) => (
-          <div key={idx} style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            <h3 style={{ color: '#27302E', fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '4px' }}>{stat.title}</h3>
+          <div key={idx} className="admin-metric-card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+            <h3 style={{ color: '#111827', fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '4px' }}>{stat.title}</h3>
             <p style={{ color: '#6b7280', fontSize: '0.8rem', marginBottom: '16px' }}>{stat.subtitle}</p>
-            <div style={{ backgroundColor: '#FBFAF7', border: '1px solid #d1d5db', borderRadius: '50%', width: '80px', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontSize: '2rem', fontWeight: 'bold', color: '#27302E' }}>{stat.value}</span>
+            <div style={{ backgroundColor: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '50%', width: '76px', height: '76px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ fontSize: '1.85rem', fontWeight: 'bold', color: '#111827' }}>{stat.value}</span>
             </div>
           </div>
         ))}

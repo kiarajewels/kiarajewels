@@ -64,11 +64,11 @@ const Login = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f9fafb' }}>
-      <div style={{ backgroundColor: 'white', padding: '40px', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)', width: '100%', maxWidth: '400px' }}>
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+    <div className="admin-login-wrapper">
+      <div className="admin-login-card">
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: '#111827', margin: 0 }}>Kiara Jewels Admin</h1>
-          <p style={{ color: '#6b7280', marginTop: '8px' }}>
+          <p style={{ color: '#6b7280', marginTop: '8px', fontSize: '14px', lineHeight: 1.5 }}>
             {mode === 'login' && 'Sign in to manage your store'}
             {mode === 'forgot' && 'Request an OTP to reset password'}
             {mode === 'reset' && 'Set your new password'}
@@ -76,7 +76,7 @@ const Login = () => {
         </div>
         
         {mode === 'login' && (
-          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '8px' }}>Email Address</label>
               <input 
@@ -85,7 +85,7 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="kiarajewels.co@gmail.com"
                 required
-                style={{ width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '16px' }}
+                style={{ width: '100%', boxSizing: 'border-box', padding: '12px 14px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '15px' }}
               />
             </div>
             <div>
@@ -95,20 +95,20 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                style={{ width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '16px' }}
+                style={{ width: '100%', boxSizing: 'border-box', padding: '12px 14px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '15px' }}
               />
             </div>
             <button 
               type="submit" 
               disabled={loading}
-              style={{ width: '100%', padding: '12px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '6px', fontSize: '16px', fontWeight: '600', cursor: loading ? 'not-allowed' : 'pointer', marginTop: '8px' }}
+              style={{ width: '100%', padding: '12px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '6px', fontSize: '15px', fontWeight: '600', cursor: loading ? 'not-allowed' : 'pointer', marginTop: '4px' }}
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
             <button 
               type="button"
               onClick={() => setMode('forgot')}
-              style={{ background: 'none', border: 'none', color: '#4b5563', fontSize: '14px', cursor: 'pointer', textDecoration: 'underline', marginTop: '8px' }}
+              style={{ background: 'none', border: 'none', color: '#4b5563', fontSize: '13px', cursor: 'pointer', textDecoration: 'underline', marginTop: '4px' }}
             >
               First time setup / Forgot Password?
             </button>
@@ -116,21 +116,21 @@ const Login = () => {
         )}
 
         {mode === 'forgot' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', textAlign: 'center' }}>
-            <p style={{ color: '#4b5563', fontSize: '14px', margin: 0 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '18px', textAlign: 'center' }}>
+            <p style={{ color: '#4b5563', fontSize: '14px', margin: 0, lineHeight: 1.5 }}>
               Clicking below will send a secure 6-digit OTP to <strong>kiarajewels.co@gmail.com</strong>.
             </p>
             <button 
               onClick={handleRequestReset}
               disabled={loading}
-              style={{ width: '100%', padding: '12px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '6px', fontSize: '16px', fontWeight: '600', cursor: loading ? 'not-allowed' : 'pointer' }}
+              style={{ width: '100%', padding: '12px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '6px', fontSize: '15px', fontWeight: '600', cursor: loading ? 'not-allowed' : 'pointer' }}
             >
               {loading ? 'Sending...' : 'Send OTP'}
             </button>
             <button 
               type="button"
               onClick={() => setMode('login')}
-              style={{ background: 'none', border: 'none', color: '#4b5563', fontSize: '14px', cursor: 'pointer', textDecoration: 'underline', marginTop: '8px' }}
+              style={{ background: 'none', border: 'none', color: '#4b5563', fontSize: '13px', cursor: 'pointer', textDecoration: 'underline', marginTop: '4px' }}
             >
               Back to Login
             </button>
@@ -138,7 +138,7 @@ const Login = () => {
         )}
 
         {mode === 'reset' && (
-          <form onSubmit={handleSetPassword} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <form onSubmit={handleSetPassword} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '8px' }}>6-Digit OTP</label>
               <input 
@@ -148,7 +148,7 @@ const Login = () => {
                 required
                 maxLength={6}
                 placeholder="000000"
-                style={{ width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '20px', letterSpacing: '4px', textAlign: 'center' }}
+                style={{ width: '100%', boxSizing: 'border-box', padding: '12px 14px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '20px', letterSpacing: '4px', textAlign: 'center' }}
               />
             </div>
             <div>
@@ -158,20 +158,20 @@ const Login = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
-                style={{ width: '100%', padding: '10px 12px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '16px' }}
+                style={{ width: '100%', boxSizing: 'border-box', padding: '12px 14px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '15px' }}
               />
             </div>
             <button 
               type="submit" 
               disabled={loading}
-              style={{ width: '100%', padding: '12px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '6px', fontSize: '16px', fontWeight: '600', cursor: loading ? 'not-allowed' : 'pointer', marginTop: '8px' }}
+              style={{ width: '100%', padding: '12px', backgroundColor: '#000000', color: 'white', border: 'none', borderRadius: '6px', fontSize: '15px', fontWeight: '600', cursor: loading ? 'not-allowed' : 'pointer', marginTop: '4px' }}
             >
               {loading ? 'Saving...' : 'Set Password & Login'}
             </button>
             <button 
               type="button"
               onClick={() => setMode('login')}
-              style={{ background: 'none', border: 'none', color: '#4b5563', fontSize: '14px', cursor: 'pointer', textDecoration: 'underline', marginTop: '8px' }}
+              style={{ background: 'none', border: 'none', color: '#4b5563', fontSize: '13px', cursor: 'pointer', textDecoration: 'underline', marginTop: '4px' }}
             >
               Cancel
             </button>

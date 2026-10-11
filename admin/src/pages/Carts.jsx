@@ -41,33 +41,35 @@ const Carts = () => {
 
   return (
     <div>
-      <div style={{ marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#374151', margin: 0 }}>Active Shopping Carts</h2>
-        <p style={{ color: '#6b7280', margin: '4px 0 0 0' }}>View users who have items in their cart but haven't checked out.</p>
+      <div className="admin-page-header">
+        <div>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#374151', margin: 0 }}>Active Shopping Carts</h2>
+          <p style={{ color: '#6b7280', margin: '4px 0 0 0' }}>View users who have items in their cart but haven't checked out.</p>
+        </div>
       </div>
 
-      <div style={{ backgroundColor: 'white', borderRadius: '8px', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
+      <div className="admin-table-card">
         {/* Toolbar */}
-        <div style={{ padding: '16px', borderBottom: '1px solid #e5e7eb', display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <div style={{ position: 'relative' }}>
+        <div className="admin-toolbar">
+          <div className="admin-search-box" style={{ flex: 1, minWidth: '220px' }}>
             <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} size={18} />
             <input 
               type="text" 
               placeholder="Search by customer name or email..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              style={{ padding: '8px 12px 8px 36px', border: '1px solid #e5e7eb', borderRadius: '6px', outline: 'none', width: '300px' }}
+              style={{ padding: '8px 12px 8px 36px', border: '1px solid #e5e7eb', borderRadius: '6px', outline: 'none', width: '100%' }}
             />
           </div>
-          <div style={{ marginLeft: 'auto', color: '#6b7280', fontSize: '0.875rem' }}>
+          <div style={{ color: '#6b7280', fontSize: '0.875rem', whiteSpace: 'nowrap' }}>
             <ShoppingCart size={16} style={{ display: 'inline', marginRight: '6px', verticalAlign: 'text-bottom' }} />
             Total Active Carts: <strong>{usersWithCarts.length}</strong>
           </div>
         </div>
 
         {/* Table */}
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
+        <div className="admin-table-wrapper">
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '750px' }}>
             <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
               <tr>
                 <th style={{ padding: '12px 16px', fontWeight: '500', color: '#4b5563', fontSize: '0.875rem', width: '30%' }}>Customer Details</th>

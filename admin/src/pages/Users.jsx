@@ -26,12 +26,16 @@ const Users = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 , color: 'black'}}>Registered Users</h2>
+      <div className="admin-page-header">
+        <div>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0 , color: 'black'}}>Registered Users</h2>
+          <p style={{ color: '#6b7280', margin: '4px 0 0 0' }}>View all registered account holders.</p>
+        </div>
       </div>
 
-      <div style={{ backgroundColor: 'white', borderRadius: '8px', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+      <div className="admin-table-card">
+        <div className="admin-table-wrapper">
+          <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '700px' }}>
           <thead>
             <tr style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb', textAlign: 'left' }}>
               <th style={{ padding: '12px 16px', fontWeight: '600', color: '#4b5563' }}>Image</th>
@@ -67,6 +71,7 @@ const Users = () => {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

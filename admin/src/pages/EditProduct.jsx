@@ -121,21 +121,23 @@ const EditProduct = () => {
   };
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-        <Link to="/products" style={{ color: '#4b5563', display: 'flex', alignItems: 'center' }}>
-          <ArrowLeft size={24} />
-        </Link>
-        <div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#374151', margin: 0 }}>Edit Product</h2>
-          <p style={{ color: '#6b7280', margin: '4px 0 0 0' }}>Update product details and media.</p>
+    <div className="admin-form-container">
+      <div className="admin-page-header">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <Link to="/products" style={{ color: '#4b5563', display: 'flex', alignItems: 'center', padding: '6px', borderRadius: '6px', border: '1px solid #e5e7eb', backgroundColor: 'white' }}>
+            <ArrowLeft size={20} />
+          </Link>
+          <div>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#374151', margin: 0 }}>Edit Product</h2>
+            <p style={{ color: '#6b7280', margin: '4px 0 0 0', fontSize: '0.875rem' }}>Update product details and media.</p>
+          </div>
         </div>
       </div>
 
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         
         {/* Basic Info */}
-        <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+        <div className="admin-form-card">
           <h3 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '16px', color: '#374151' }}>Basic Information</h3>
           
           <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px', marginBottom: '16px' }}>
@@ -145,7 +147,7 @@ const EditProduct = () => {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+          <div className="admin-form-grid-4">
             <div>
               <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '8px' }}>Category</label>
               <select name="category" value={formData.category} onChange={handleInputChange} style={{ width: '100%', padding: '10px', border: '1px solid #d1d5db', borderRadius: '6px' }}>
@@ -177,13 +179,13 @@ const EditProduct = () => {
         </div>
 
         {/* Media Upload */}
-        <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+        <div className="admin-form-card">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#374151', margin: 0 }}>Media (Images & Videos)</h3>
             <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>{media.length} / 7 uploaded</span>
           </div>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '16px' }}>
+          <div className="admin-media-grid">
             {media.map((item, idx) => (
               <div key={idx} style={{ position: 'relative', aspectRatio: '1', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
                 {item.type === 'image' ? (
@@ -219,11 +221,11 @@ const EditProduct = () => {
         </div>
 
         {/* Submit */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '16px' }}>
-          <Link to="/products" style={{ padding: '10px 20px', border: '1px solid #d1d5db', borderRadius: '6px', backgroundColor: 'white', color: '#4b5563', textDecoration: 'none', fontWeight: '500' }}>
+        <div className="admin-form-actions">
+          <Link to="/products" style={{ padding: '10px 20px', border: '1px solid #d1d5db', borderRadius: '6px', backgroundColor: 'white', color: '#4b5563', textDecoration: 'none', fontWeight: '500', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
             Cancel
           </Link>
-          <button type="submit" disabled={isUploading} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px', border: 'none', borderRadius: '6px', backgroundColor: isUploading ? '#6b7280' : '#000000', color: 'white', fontWeight: '500', cursor: isUploading ? 'not-allowed' : 'pointer' }}>
+          <button type="submit" disabled={isUploading} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px 20px', border: 'none', borderRadius: '6px', backgroundColor: isUploading ? '#6b7280' : '#000000', color: 'white', fontWeight: '500', cursor: isUploading ? 'not-allowed' : 'pointer' }}>
             <Save size={20} />
             {isUploading ? 'Uploading...' : 'Update Product'}
           </button>

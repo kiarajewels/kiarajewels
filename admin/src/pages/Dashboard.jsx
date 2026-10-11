@@ -37,38 +37,47 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
-      <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
-        <h3 style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '8px' }}>Total Revenue</h3>
-        <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#27302E' }}>Rs. {stats.totalRevenue.toLocaleString()}</p>
-      </div>
-      
-      <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb', position: 'relative' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-          <h3 style={{ color: '#6b7280', fontSize: '0.875rem', margin: 0 }}>Orders</h3>
-          <select 
-            value={orderPeriod} 
-            onChange={(e) => setOrderPeriod(e.target.value)}
-            style={{ fontSize: '0.75rem', padding: '4px', borderRadius: '4px', border: '1px solid #d1d5db', cursor: 'pointer', outline: 'none' }}
-          >
-            <option value="Daily">Today</option>
-            <option value="Weekly">This Week</option>
-            <option value="Monthly">This Month</option>
-            <option value="Quarterly">This Quarter</option>
-            <option value="Yearly">This Year</option>
-          </select>
+    <div>
+      <div className="admin-page-header">
+        <div>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>Dashboard Overview</h2>
+          <p style={{ color: '#6b7280', margin: '4px 0 0 0', fontSize: '0.875rem' }}>Welcome to Kiara Jewels Admin Portal.</p>
         </div>
-        <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#27302E' }}>{stats.orders[orderPeriod]}</p>
       </div>
-      
-      <Link to="/products" style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb', textDecoration: 'none', display: 'block', transition: 'box-shadow 0.2s', cursor: 'pointer' }} onMouseOver={(e) => e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)'} onMouseOut={(e) => e.currentTarget.style.boxShadow = 'none'}>
-        <h3 style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '8px' }}>Active Products</h3>
-        <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#27302E', margin: 0 }}>{stats.activeProducts.toLocaleString()}</p>
-      </Link>
-      
-      <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
-        <h3 style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '8px' }}>Total Customers</h3>
-        <p style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#27302E' }}>{stats.totalCustomers.toLocaleString()}</p>
+
+      <div className="admin-metrics-grid">
+        <div className="admin-metric-card">
+          <h3 style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '8px', fontWeight: 500 }}>Total Revenue</h3>
+          <p style={{ fontSize: '1.65rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>Rs. {stats.totalRevenue.toLocaleString()}</p>
+        </div>
+        
+        <div className="admin-metric-card" style={{ position: 'relative' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', gap: '8px' }}>
+            <h3 style={{ color: '#6b7280', fontSize: '0.875rem', margin: 0, fontWeight: 500 }}>Orders</h3>
+            <select 
+              value={orderPeriod} 
+              onChange={(e) => setOrderPeriod(e.target.value)}
+              style={{ fontSize: '0.8rem', padding: '4px 8px', borderRadius: '6px', border: '1px solid #d1d5db', cursor: 'pointer', outline: 'none', backgroundColor: '#f9fafb' }}
+            >
+              <option value="Daily">Today</option>
+              <option value="Weekly">This Week</option>
+              <option value="Monthly">This Month</option>
+              <option value="Quarterly">This Quarter</option>
+              <option value="Yearly">This Year</option>
+            </select>
+          </div>
+          <p style={{ fontSize: '1.65rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>{stats.orders[orderPeriod]}</p>
+        </div>
+        
+        <Link to="/products" className="admin-metric-card" style={{ textDecoration: 'none', display: 'block', cursor: 'pointer' }}>
+          <h3 style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '8px', fontWeight: 500 }}>Active Products</h3>
+          <p style={{ fontSize: '1.65rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>{stats.activeProducts.toLocaleString()}</p>
+        </Link>
+        
+        <div className="admin-metric-card">
+          <h3 style={{ color: '#6b7280', fontSize: '0.875rem', marginBottom: '8px', fontWeight: 500 }}>Total Customers</h3>
+          <p style={{ fontSize: '1.65rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>{stats.totalCustomers.toLocaleString()}</p>
+        </div>
       </div>
     </div>
   );

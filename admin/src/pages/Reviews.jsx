@@ -71,13 +71,16 @@ const Reviews = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
-        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-          <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>Reviews</h1>
+      <div className="admin-page-header">
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div>
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: 0, color: '#111827' }}>Customer Reviews</h1>
+            <p style={{ color: '#6b7280', margin: '4px 0 0 0', fontSize: '0.875rem' }}>Moderate, approve, and import verified customer reviews.</p>
+          </div>
           <select 
             value={statusFilter} 
             onChange={(e) => setStatusFilter(e.target.value)}
-            style={{ padding: '8px', borderRadius: '4px', border: '1px solid #d1d5db' }}
+            style={{ padding: '8px 12px', borderRadius: '6px', border: '1px solid #d1d5db', backgroundColor: 'white' }}
           >
             <option value="">All Statuses</option>
             <option value="pending">Pending</option>
@@ -88,20 +91,20 @@ const Reviews = () => {
         
         <button 
           onClick={() => setShowAddForm(!showAddForm)}
-          style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: '#000', color: '#fff', padding: '10px 16px', borderRadius: '6px', border: 'none', cursor: 'pointer' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: '#000', color: '#fff', padding: '10px 16px', borderRadius: '6px', border: 'none', cursor: 'pointer', fontWeight: '500' }}
         >
           <Plus size={18} />
-          Add Review (Imported)
+          {showAddForm ? 'Close Form' : 'Add Review (Imported)'}
         </button>
       </div>
 
       {showAddForm && (
-        <div style={{ backgroundColor: '#fff', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb', marginBottom: '24px' }}>
-          <h2 style={{ fontSize: '1.2rem', marginBottom: '16px' }}>Import Customer Review</h2>
+        <div className="admin-form-card" style={{ marginBottom: '24px' }}>
+          <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', color: '#111827' }}>Import Customer Review</h2>
           <form onSubmit={handleAddReview}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+            <div className="admin-form-grid-2">
               <div>
-                <label style={{ display: 'block', marginBottom: '8px' }}>Product *</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: '500' }}>Product *</label>
                 <select 
                   value={newReview.product}
                   onChange={(e) => setNewReview({...newReview, product: e.target.value})}
@@ -114,7 +117,7 @@ const Reviews = () => {
                 </select>
               </div>
               <div>
-                <label style={{ display: 'block', marginBottom: '8px' }}>Customer Name *</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: '500' }}>Customer Name *</label>
                 <input 
                   type="text" 
                   value={newReview.customerName}
@@ -123,7 +126,7 @@ const Reviews = () => {
                 />
               </div>
               <div>
-                <label style={{ display: 'block', marginBottom: '8px' }}>Rating *</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: '500' }}>Rating *</label>
                 <select 
                   value={newReview.rating}
                   onChange={(e) => setNewReview({...newReview, rating: Number(e.target.value)})}
@@ -133,7 +136,7 @@ const Reviews = () => {
                 </select>
               </div>
               <div>
-                <label style={{ display: 'block', marginBottom: '8px' }}>Title (Optional)</label>
+                <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: '500' }}>Title (Optional)</label>
                 <input 
                   type="text" 
                   value={newReview.title}
@@ -143,7 +146,7 @@ const Reviews = () => {
               </div>
             </div>
             <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', marginBottom: '8px' }}>Review Body *</label>
+              <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.875rem', fontWeight: '500' }}>Review Body *</label>
               <textarea 
                 value={newReview.body}
                 onChange={(e) => setNewReview({...newReview, body: e.target.value})}
@@ -151,15 +154,18 @@ const Reviews = () => {
                 style={{ width: '100%', padding: '8px', border: '1px solid #d1d5db', borderRadius: '4px' }}
               />
             </div>
-            <button type="submit" style={{ backgroundColor: '#10b981', color: '#fff', padding: '8px 16px', borderRadius: '4px', border: 'none', cursor: 'pointer' }}>
-              Save Imported Review
-            </button>
+            <div className="admin-form-actions">
+              <button type="submit" style={{ backgroundColor: '#10b981', color: '#fff', padding: '10px 20px', borderRadius: '6px', border: 'none', cursor: 'pointer', fontWeight: '500' }}>
+                Save Imported Review
+              </button>
+            </div>
           </form>
         </div>
       )}
 
-      <div style={{ backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+      <div className="admin-table-card">
+        <div className="admin-table-wrapper">
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '850px' }}>
           <thead>
             <tr style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
               <th style={{ padding: '16px', fontWeight: '500', color: '#6b7280' }}>Product</th>
@@ -226,6 +232,7 @@ const Reviews = () => {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

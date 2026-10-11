@@ -85,40 +85,48 @@ const Returns = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>Return Management</h2>
+      <div className="admin-page-header">
+        <div>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#111827', margin: 0 }}>Return Management</h2>
+          <p style={{ color: '#6b7280', margin: '4px 0 0 0' }}>Track customer return requests and inspect refund status.</p>
+        </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexWrap: 'wrap' }}>
-        <input 
-          type="text"
-          placeholder="Search by ID, Name or Email"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ padding: '8px 16px', border: '1px solid #d1d5db', borderRadius: '6px', minWidth: '300px' }}
-        />
-        <select 
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          style={{ padding: '8px 16px', border: '1px solid #d1d5db', borderRadius: '6px' }}
-        >
-          <option value="All">All Returns</option>
-          <option value="Requested">Requested</option>
-          <option value="Approved">Approved</option>
-          <option value="Rejected">Rejected</option>
-          <option value="In Transit">In Transit</option>
-          <option value="Received">Received</option>
-          <option value="Inspection Complete">Inspection Complete</option>
-          <option value="Refund Processing">Refund Processing</option>
-          <option value="Refund Completed">Refund Completed</option>
-        </select>
+      <div className="admin-toolbar" style={{ backgroundColor: 'white', borderRadius: '8px', border: '1px solid #e5e7eb', marginBottom: '24px' }}>
+        <div className="admin-search-box" style={{ flex: 1, minWidth: '240px' }}>
+          <input 
+            type="text"
+            placeholder="Search by ID, Name or Email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ width: '100%', padding: '8px 16px', border: '1px solid #d1d5db', borderRadius: '6px' }}
+          />
+        </div>
+        <div className="admin-toolbar-row">
+          <select 
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            style={{ padding: '8px 16px', border: '1px solid #d1d5db', borderRadius: '6px', backgroundColor: 'white' }}
+          >
+            <option value="All">All Returns</option>
+            <option value="Requested">Requested</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="In Transit">In Transit</option>
+            <option value="Received">Received</option>
+            <option value="Inspection Complete">Inspection Complete</option>
+            <option value="Refund Processing">Refund Processing</option>
+            <option value="Refund Completed">Refund Completed</option>
+          </select>
+        </div>
       </div>
 
       {loading ? (
         <div style={{ textAlign: 'center', padding: '40px' }}>Loading...</div>
       ) : (
-        <div style={{ backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div className="admin-table-card">
+          <div className="admin-table-wrapper">
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '850px' }}>
             <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
               <tr>
                 <th style={{ padding: '12px 24px', color: '#6b7280', fontSize: '0.875rem', fontWeight: '500' }}>Return ID</th>
@@ -174,30 +182,31 @@ const Returns = () => {
               )}
             </tbody>
           </table>
+          </div>
         </div>
       )}
 
       {/* Return Details Modal */}
       {selectedReturn && (
-        <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '24px' }}>
-          <div style={{ backgroundColor: 'white', borderRadius: '12px', width: '100%', maxWidth: '800px', maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)' }}>
+        <div className="admin-modal-overlay" onClick={() => setSelectedReturn(null)}>
+          <div className="admin-modal-dialog" onClick={(e) => e.stopPropagation()}>
             
-            <div style={{ padding: '24px', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'sticky', top: 0, backgroundColor: 'white', zIndex: 10 }}>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', margin: 0 }}>Return Details: {selectedReturn.returnId}</h2>
-              <button onClick={() => setSelectedReturn(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={24} color="#6b7280" /></button>
+            <div className="admin-modal-header">
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', margin: 0, color: '#111827', wordBreak: 'break-all' }}>Return Details: {selectedReturn.returnId}</h2>
+              <button onClick={() => setSelectedReturn(null)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}><X size={22} color="#6b7280" /></button>
             </div>
 
-            <div style={{ padding: '24px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '32px' }}>
-                <div>
-                  <h3 style={{ fontSize: '0.875rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase', marginBottom: '8px' }}>Customer Info</h3>
-                  <p style={{ margin: '0 0 4px', fontWeight: '500' }}>{selectedReturn.customerName}</p>
-                  <p style={{ margin: 0, color: '#4b5563' }}>{selectedReturn.customerEmail}</p>
+            <div className="admin-modal-body">
+              <div className="admin-modal-grid-2" style={{ marginBottom: '24px' }}>
+                <div style={{ backgroundColor: '#f9fafb', padding: '16px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+                  <h3 style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase', marginBottom: '8px' }}>Customer Info</h3>
+                  <p style={{ margin: '0 0 4px', fontWeight: '600', color: '#111827' }}>{selectedReturn.customerName}</p>
+                  <p style={{ margin: 0, color: '#4b5563', fontSize: '0.875rem' }}>{selectedReturn.customerEmail}</p>
                 </div>
-                <div>
-                  <h3 style={{ fontSize: '0.875rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase', marginBottom: '8px' }}>Return Info</h3>
-                  <p style={{ margin: '0 0 4px' }}>Requested: {new Date(selectedReturn.requestedAt).toLocaleString()}</p>
-                  <p style={{ margin: 0 }}>Status: <strong>{selectedReturn.returnStatus}</strong></p>
+                <div style={{ backgroundColor: '#f9fafb', padding: '16px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
+                  <h3 style={{ fontSize: '0.85rem', fontWeight: 'bold', color: '#6b7280', textTransform: 'uppercase', marginBottom: '8px' }}>Return Info</h3>
+                  <p style={{ margin: '0 0 4px', fontSize: '0.875rem' }}>Requested: {new Date(selectedReturn.requestedAt).toLocaleString()}</p>
+                  <p style={{ margin: 0, fontSize: '0.875rem' }}>Status: <strong>{selectedReturn.returnStatus}</strong></p>
                 </div>
               </div>
 
@@ -255,13 +264,13 @@ const Returns = () => {
                       >
                         Approve Return
                       </button>
-                      <div style={{ display: 'flex', gap: '8px' }}>
+                      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', flex: 1, minWidth: '220px' }}>
                         <input 
                           type="text" 
                           placeholder="Rejection Reason" 
                           value={rejectionReason} 
                           onChange={(e) => setRejectionReason(e.target.value)}
-                          style={{ padding: '8px', border: '1px solid #d1d5db', borderRadius: '6px' }}
+                          style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '6px', flex: 1, minWidth: '140px' }}
                         />
                         <button 
                           disabled={statusUpdating || !rejectionReason}
@@ -276,13 +285,13 @@ const Returns = () => {
 
                   {selectedReturn.returnStatus === 'Approved' && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
-                      <div style={{ display: 'flex', gap: '12px' }}>
-                        <input type="text" placeholder="Courier Name" value={courier} onChange={(e) => setCourier(e.target.value)} style={{ padding: '8px', border: '1px solid #d1d5db', borderRadius: '6px', flex: 1 }} />
-                        <input type="text" placeholder="Tracking Number" value={trackingNumber} onChange={(e) => setTrackingNumber(e.target.value)} style={{ padding: '8px', border: '1px solid #d1d5db', borderRadius: '6px', flex: 1 }} />
+                      <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                        <input type="text" placeholder="Courier Name" value={courier} onChange={(e) => setCourier(e.target.value)} style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '6px', flex: 1, minWidth: '150px' }} />
+                        <input type="text" placeholder="Tracking Number" value={trackingNumber} onChange={(e) => setTrackingNumber(e.target.value)} style={{ padding: '8px 12px', border: '1px solid #d1d5db', borderRadius: '6px', flex: 1, minWidth: '150px' }} />
                         <button 
                           disabled={statusUpdating || !trackingNumber || !courier}
                           onClick={() => handleStatusUpdate(selectedReturn._id, 'In Transit', { trackingNumber, courier })}
-                          style={{ padding: '8px 16px', backgroundColor: '#3b82f6', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '500', cursor: 'pointer' }}
+                          style={{ padding: '8px 16px', backgroundColor: '#3b82f6', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '500', cursor: 'pointer', whiteSpace: 'nowrap' }}
                         >
                           Mark In Transit
                         </button>

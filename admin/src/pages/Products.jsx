@@ -117,7 +117,7 @@ const Products = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
+      <div className="admin-page-header">
         <div>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#374151', margin: 0 }}>Inventory Management</h2>
           <p style={{ color: '#6b7280', margin: '4px 0 0 0' }}>Manage your product listings and available stock.</p>
@@ -135,41 +135,44 @@ const Products = () => {
         </Link>
       </div>
 
-      <div style={{ backgroundColor: 'white', borderRadius: '8px', border: '1px solid #e5e7eb', overflow: 'hidden' }}>
+      <div className="admin-table-card">
         {/* Toolbar */}
-        <div style={{ padding: '16px', borderBottom: '1px solid #e5e7eb', display: 'flex', gap: '16px', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="admin-toolbar">
+          <div className="admin-pills-scroll">
             {categories.map(cat => (
               <button 
                 key={cat}
                 onClick={() => setFilter(cat)}
                 style={{
-                  padding: '6px 12px',
+                  padding: '6px 14px',
                   borderRadius: '999px',
                   border: '1px solid',
                   borderColor: filter === cat ? '#000000' : '#e5e7eb',
                   backgroundColor: filter === cat ? '#f3f4f6' : 'white',
                   color: filter === cat ? '#000000' : '#4b5563',
                   fontWeight: '500',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  fontSize: '0.875rem'
                 }}
               >
                 {cat}
               </button>
             ))}
           </div>
-          <div style={{ position: 'relative' }}>
+          <div className="admin-search-box">
             <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} size={18} />
             <input 
               type="text" 
               placeholder="Search products..." 
-              style={{ padding: '8px 12px 8px 36px', border: '1px solid #e5e7eb', borderRadius: '6px', outline: 'none' }}
+              style={{ padding: '8px 12px 8px 36px', border: '1px solid #e5e7eb', borderRadius: '6px', outline: 'none', width: '220px' }}
             />
           </div>
         </div>
 
         {/* Table */}
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div className="admin-table-wrapper">
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '850px' }}>
           <thead style={{ backgroundColor: '#f9fafb', borderBottom: '1px solid #e5e7eb' }}>
             <tr>
               <th style={{ padding: '12px 16px', fontWeight: '500', color: '#4b5563', fontSize: '0.875rem' }}>Product Info</th>
@@ -275,18 +278,26 @@ const Products = () => {
             )}
           </tbody>
         </table>
+        </div>
       </div>
 
       {/* Stock Popup Modal */}
       {showStockPopup && (
-        <div style={{ 
-          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, 
-          backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', 
-          justifyContent: 'center', zIndex: 1000 
-        }}>
-          <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', width: '320px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-            <h3 style={{ marginTop: 0, marginBottom: '16px', color: '#374151' }}>Add Stock</h3>
-            <p style={{ fontSize: '0.875rem', color: '#6b7280', marginBottom: '16px' }}>
+        <div className="admin-modal-overlay" onClick={closeStockPopup}>
+          <div 
+            style={{ 
+              backgroundColor: 'white', 
+              padding: '24px', 
+              borderRadius: '12px', 
+              width: '100%', 
+              maxWidth: '380px', 
+              boxShadow: '0 20px 25px -5px rgba(0,0,0,0.15)',
+              margin: 'auto'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 style={{ marginTop: 0, marginBottom: '14px', fontSize: '18px', fontWeight: 600, color: '#1f2937' }}>Add Stock</h3>
+            <p style={{ fontSize: '0.875rem', color: '#4b5563', marginBottom: '16px', lineHeight: 1.5 }}>
               How much stock to add for <strong>{activeProduct?.name}</strong>?
             </p>
             <form onSubmit={handleStockUpdate}>
@@ -297,19 +308,19 @@ const Products = () => {
                 value={stockAddAmount}
                 onChange={(e) => setStockAddAmount(e.target.value)}
                 placeholder="e.g. 5"
-                style={{ width: '100%', boxSizing: 'border-box', padding: '10px', border: '1px solid #d1d5db', borderRadius: '6px', marginBottom: '16px' }}
+                style={{ width: '100%', boxSizing: 'border-box', padding: '10px 14px', border: '1px solid #d1d5db', borderRadius: '6px', marginBottom: '20px', fontSize: '14px' }}
               />
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
                 <button 
                   type="button" 
                   onClick={closeStockPopup}
-                  style={{ padding: '8px 16px', background: 'white', border: '1px solid #d1d5db', borderRadius: '6px', cursor: 'pointer', color: '#4b5563' }}
+                  style={{ padding: '8px 16px', background: 'white', border: '1px solid #d1d5db', borderRadius: '6px', cursor: 'pointer', color: '#4b5563', fontWeight: 500 }}
                 >
                   Cancel
                 </button>
                 <button 
                   type="submit"
-                  style={{ padding: '8px 16px', background: '#000000', border: 'none', color: 'white', borderRadius: '6px', cursor: 'pointer' }}
+                  style={{ padding: '8px 18px', background: '#000000', border: 'none', color: 'white', borderRadius: '6px', cursor: 'pointer', fontWeight: 500 }}
                 >
                   Add Stock
                 </button>
@@ -321,10 +332,27 @@ const Products = () => {
 
       {/* Delete Confirmation Popup */}
       {showDeletePopup && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div style={{ background: 'white', padding: '24px', borderRadius: '12px', width: '90%', maxWidth: '400px', boxShadow: '0 4px 20px rgba(0,0,0,0.15)' }}>
+        <div 
+          className="admin-modal-overlay" 
+          onClick={() => {
+            setShowDeletePopup(false);
+            setProductToDelete(null);
+          }}
+        >
+          <div 
+            style={{ 
+              backgroundColor: 'white', 
+              padding: '24px', 
+              borderRadius: '12px', 
+              width: '100%', 
+              maxWidth: '400px', 
+              boxShadow: '0 20px 25px -5px rgba(0,0,0,0.15)',
+              margin: 'auto'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <h3 style={{ marginTop: 0, fontSize: '18px', fontWeight: 600, color: '#1f2937' }}>Delete Product</h3>
-            <p style={{ color: '#4b5563', marginBottom: '24px' }}>
+            <p style={{ color: '#4b5563', marginBottom: '24px', fontSize: '14px', lineHeight: 1.5 }}>
               Are you sure you want to permanently delete this product? This action cannot be undone.
             </p>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
