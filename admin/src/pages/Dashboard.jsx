@@ -57,7 +57,7 @@ const Dashboard = () => {
             <select 
               value={orderPeriod} 
               onChange={(e) => setOrderPeriod(e.target.value)}
-              style={{ fontSize: '0.8rem', padding: '4px 8px', borderRadius: '6px', border: '1px solid #d1d5db', cursor: 'pointer', outline: 'none', backgroundColor: '#f9fafb' }}
+              style={{ fontSize: '0.8rem', padding: '4px 8px', borderRadius: '6px', border: '1px solid #d1d5db', cursor: 'pointer', outline: 'none', backgroundColor: '#000000ff' }}
             >
               <option value="Daily">Today</option>
               <option value="Weekly">This Week</option>
