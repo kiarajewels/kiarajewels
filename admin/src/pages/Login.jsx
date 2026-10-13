@@ -94,7 +94,6 @@ const Login = () => {
                 type="email" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="kiarajewels.co@gmail.com"
                 required
                 style={{ width: '100%', boxSizing: 'border-box', padding: '12px 14px', border: '1px solid #d1d5db', borderRadius: '6px', fontSize: '15px' }}
               />
