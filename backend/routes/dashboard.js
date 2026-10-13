@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
 
     if (await adminUser.matchPassword(password)) {
       const token = jwt.sign({ role: 'admin', id: adminUser._id }, process.env.JWT_SECRET || 'secret', {
-        expiresIn: '30d',
+        expiresIn: '24h',
       });
       res.json({ token, email: adminUser.email });
     } else {
@@ -97,7 +97,7 @@ router.post('/set-password', async (req, res) => {
     await adminUser.save(); // Hashed automatically by pre-save hook
 
     const token = jwt.sign({ role: 'admin', id: adminUser._id }, process.env.JWT_SECRET || 'secret', {
-      expiresIn: '30d',
+      expiresIn: '24h',
     });
 
     res.json({ token, email: adminUser.email, message: 'Password set successfully!' });

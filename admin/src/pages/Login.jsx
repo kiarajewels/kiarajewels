@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { setAdminSession } from '../utils/auth';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [mode, setMode] = useState('login'); // 'login', 'forgot', 'reset'
   
   const [email, setEmail] = useState('');
@@ -14,6 +16,15 @@ const Login = () => {
   
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (location.state?.expired) {
+      toast('Session locked after 24 hours. Please log in.', {
+        icon: '🔒',
+        duration: 5000,
+      });
+    }
+  }, [location.state]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -22,9 +33,9 @@ const Login = () => {
         email,
         password
       });
-      localStorage.setItem('adminToken', data.token);
+      setAdminSession(data.token);
       toast.success('Logged in successfully');
-      navigate('/');
+      navigate(location.state?.from || '/');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Invalid credentials');
     } finally {
@@ -53,7 +64,7 @@ const Login = () => {
         otp,
         newPassword
       });
-      localStorage.setItem('adminToken', data.token);
+      setAdminSession(data.token);
       toast.success(data.message || 'Password updated and logged in');
       navigate('/');
     } catch (error) {

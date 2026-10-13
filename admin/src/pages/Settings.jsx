@@ -106,10 +106,13 @@ const Settings = () => {
             <div className="flex items-center justify-between p-3 bg-neutral-50 border border-neutral-200">
               <div className="flex items-center gap-2.5">
                 <ShieldCheck className="w-4 h-4 text-neutral-700" />
-                <span className="text-sm font-medium text-neutral-800">JWT Admin Auth & Security</span>
+                <div>
+                  <span className="text-sm font-medium text-neutral-800 block">JWT Admin Auth & Security</span>
+                  <span className="text-xs text-neutral-500">24-hour automatic session lock policy</span>
+                </div>
               </div>
               <span className="inline-flex items-center gap-1 text-xs text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 border border-emerald-200">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Enforced
+                <CheckCircle2 className="w-3.5 h-3.5" /> 24h Lock Active
               </span>
             </div>
           </div>

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { isTokenValid } from '../utils/auth';
 
 const ProtectedRoute = () => {
-  const token = localStorage.getItem('adminToken');
-  
-  if (!token) {
-    return <Navigate to="/login" replace />;
+  const location = useLocation();
+
+  if (!isTokenValid()) {
+    return <Navigate to="/login" replace state={{ from: location.pathname, expired: true }} />;
   }
 
   return <Outlet />;

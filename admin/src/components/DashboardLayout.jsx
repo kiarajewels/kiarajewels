@@ -2,11 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { LayoutDashboard, Package, ShoppingCart, Users, Settings, LogOut, BarChart, Menu, X } from 'lucide-react';
+import { isTokenValid, clearAdminSession } from '../utils/auth';
 
 const DashboardLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  // Auto-lock monitor: check every 30 seconds and on window focus
+  useEffect(() => {
+    const checkSession = () => {
+      if (!isTokenValid()) {
+        clearAdminSession();
+        toast('Admin session locked after 24 hours. Please log in.', { icon: '🔒' });
+        navigate('/login', { replace: true, state: { expired: true } });
+      }
+    };
+
+    // Check immediately on mount/route change
+    checkSession();
+
+    const interval = setInterval(checkSession, 30000);
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        checkSession();
+      }
+    };
+
+    window.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('focus', checkSession);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('focus', checkSession);
+    };
+  }, [navigate, location.pathname]);
 
   // Auto-close sidebar on route change
   useEffect(() => {
@@ -25,7 +56,7 @@ const DashboardLayout = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
+    clearAdminSession();
     toast.success('Logged out');
     navigate('/login');
   };
