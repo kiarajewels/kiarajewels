@@ -157,9 +157,108 @@ const sendReviewRequestEmail = async (order) => {
   await sendEmailSafely(orderIdStr, customerEmail, emailType, subject, htmlContent);
 };
 
+const sendAdminNewOrderAlertEmail = async (order) => {
+  const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL || process.env.EMAIL_USER || 'kiarajewels.co@gmail.com';
+  if (!adminEmail) return;
+
+  const orderIdStr = order._id.toString();
+  const orderShortId = orderIdStr.slice(-8).toUpperCase();
+  const customerName = [order.shippingAddress?.firstName, order.shippingAddress?.lastName].filter(Boolean).join(' ') || (order.user && order.user.name) || 'Customer';
+  const customerEmail = order.shippingAddress?.email || (order.user && order.user.email) || 'N/A';
+  const customerMobile = order.shippingAddress?.mobile || order.shippingAddress?.phone || 'N/A';
+  const shippingAddressText = [
+    order.shippingAddress?.address,
+    order.shippingAddress?.city,
+    order.shippingAddress?.postalCode,
+    order.shippingAddress?.country || 'India'
+  ].filter(Boolean).join(', ');
+
+  const subject = `🚨 New Order Alert: #${orderShortId} (₹${order.totalPrice ? order.totalPrice.toFixed(2) : '0.00'}) - ${customerName}`;
+  const emailType = 'ADMIN_NEW_ORDER_ALERT';
+
+  let itemsHtml = '';
+  if (Array.isArray(order.orderItems)) {
+    for (const item of order.orderItems) {
+      itemsHtml += `
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; vertical-align: middle;">
+            ${item.image ? `<img src="${item.image}" alt="${item.name}" style="width: 48px; height: 48px; object-fit: cover; border-radius: 6px; display: block;" />` : ''}
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; font-weight: 500; color: #111827;">${item.name}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; text-align: center; color: #4b5563;">x${item.qty}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #e5e7eb; text-align: right; font-weight: 600; color: #111827;">₹${item.price ? item.price.toFixed(2) : '0.00'}</td>
+        </tr>
+      `;
+    }
+  }
+
+  const adminUrl = process.env.NODE_ENV === 'production' 
+    ? 'https://admin.kiarajewels.co/orders' 
+    : 'http://localhost:5173/orders';
+
+  const htmlContent = `
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 620px; margin: 0 auto; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden;">
+      <div style="background-color: #000000; color: #ffffff; padding: 24px; text-align: center;">
+        <h1 style="margin: 0; font-size: 1.5rem; letter-spacing: 2px;">KIARA JEWELS</h1>
+        <p style="margin: 6px 0 0 0; font-size: 0.9rem; color: #d1d5db;">Admin Order Alert</p>
+      </div>
+
+      <div style="padding: 24px;">
+        <div style="background-color: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 14px 16px; margin-bottom: 20px;">
+          <h2 style="margin: 0 0 4px 0; font-size: 1.1rem; color: #15803d;">🎉 A new order has been placed!</h2>
+          <p style="margin: 0; font-size: 0.875rem; color: #166534;">Order <strong>#${orderShortId}</strong> is waiting for fulfillment.</p>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+          <div style="background-color: #f9fafb; padding: 14px; border-radius: 6px; border: 1px solid #f3f4f6; margin-bottom: 16px;">
+            <h3 style="margin: 0 0 8px 0; font-size: 0.85rem; text-transform: uppercase; color: #6b7280; letter-spacing: 0.05em;">Customer Information</h3>
+            <p style="margin: 4px 0; font-size: 0.9rem; color: #111827;"><strong>Name:</strong> ${customerName}</p>
+            <p style="margin: 4px 0; font-size: 0.9rem; color: #111827;"><strong>Email:</strong> <a href="mailto:${customerEmail}" style="color: #2563eb; text-decoration: none;">${customerEmail}</a></p>
+            <p style="margin: 4px 0; font-size: 0.9rem; color: #111827;"><strong>Phone:</strong> ${customerMobile}</p>
+            <p style="margin: 4px 0; font-size: 0.9rem; color: #111827;"><strong>Shipping Address:</strong> ${shippingAddressText || 'N/A'}</p>
+          </div>
+        </div>
+
+        <h3 style="margin: 16px 0 8px 0; font-size: 0.85rem; text-transform: uppercase; color: #6b7280; letter-spacing: 0.05em;">Ordered Items</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 0.875rem;">
+          <thead>
+            <tr style="background-color: #f9fafb; text-align: left; color: #6b7280;">
+              <th style="padding: 8px 10px; border-bottom: 1px solid #e5e7eb;">Item</th>
+              <th style="padding: 8px 10px; border-bottom: 1px solid #e5e7eb;">Product</th>
+              <th style="padding: 8px 10px; border-bottom: 1px solid #e5e7eb; text-align: center;">Qty</th>
+              <th style="padding: 8px 10px; border-bottom: 1px solid #e5e7eb; text-align: right;">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${itemsHtml}
+          </tbody>
+        </table>
+
+        <div style="background-color: #f9fafb; padding: 14px; border-radius: 6px; margin-bottom: 24px; text-align: right;">
+          <p style="margin: 4px 0; font-size: 0.9rem; color: #4b5563;">Payment Method: <strong>${order.paymentMethod || 'Razorpay'}</strong></p>
+          <p style="margin: 6px 0 0 0; font-size: 1.25rem; font-weight: bold; color: #111827;">Total Amount: ₹${order.totalPrice ? order.totalPrice.toFixed(2) : '0.00'}</p>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0 10px 0;">
+          <a href="${adminUrl}" style="background-color: #000000; color: #ffffff; padding: 14px 32px; font-size: 0.95rem; font-weight: 600; text-decoration: none; border-radius: 6px; display: inline-block;">
+            Open Orders in Admin Panel →
+          </a>
+        </div>
+      </div>
+
+      <div style="background-color: #f9fafb; border-top: 1px solid #e5e7eb; padding: 16px; text-align: center; font-size: 0.75rem; color: #9ca3af;">
+        Kiara Jewels Store Management • Automatic System Notification
+      </div>
+    </div>
+  `;
+
+  await sendEmailSafely(orderIdStr, adminEmail, emailType, subject, htmlContent);
+};
+
 module.exports = {
   transporter,
   sendEmailSafely,
   sendOrderStatusEmail,
-  sendReviewRequestEmail
+  sendReviewRequestEmail,
+  sendAdminNewOrderAlertEmail
 };

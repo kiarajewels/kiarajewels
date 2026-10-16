@@ -15,6 +15,14 @@ const Orders = () => {
     fetchOrders();
   }, [filter]);
 
+  useEffect(() => {
+    const handleNewOrder = () => {
+      fetchOrders();
+    };
+    window.addEventListener('kiara_new_order', handleNewOrder);
+    return () => window.removeEventListener('kiara_new_order', handleNewOrder);
+  }, []);
+
   const fetchOrders = async () => {
     try {
       setLoading(true);
@@ -32,11 +40,41 @@ const Orders = () => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'Pending': return { bg: '#fef3c7', text: '#d97706' }; // Yellow
-      case 'Processing': return { bg: '#dbeafe', text: '#2563eb' }; // Blue
-      case 'In-Transit': return { bg: '#f3e8ff', text: '#9333ea' }; // Purple
-      case 'Delivered': return { bg: '#dcfce3', text: '#16a34a' }; // Green
-      default: return { bg: '#f3f4f6', text: '#4b5563' }; // Gray
+      case 'Pending': 
+        return { 
+          bg: '#fee2e2', 
+          text: '#b91c1c', 
+          rowBg: 'rgba(239, 68, 68, 0.05)', 
+          rowBorder: '#ef4444' 
+        }; // Red
+      case 'Processing': 
+        return { 
+          bg: '#dbeafe', 
+          text: '#1d4ed8', 
+          rowBg: 'rgba(37, 99, 235, 0.05)', 
+          rowBorder: '#3b82f6' 
+        }; // Blue
+      case 'In-Transit': 
+        return { 
+          bg: '#f3e8ff', 
+          text: '#7e22ce', 
+          rowBg: 'rgba(147, 51, 234, 0.05)', 
+          rowBorder: '#9333ea' 
+        }; // Purple
+      case 'Delivered': 
+        return { 
+          bg: '#dcfce3', 
+          text: '#15803d', 
+          rowBg: 'rgba(22, 163, 74, 0.05)', 
+          rowBorder: '#16a34a' 
+        }; // Green
+      default: 
+        return { 
+          bg: '#f3f4f6', 
+          text: '#4b5563', 
+          rowBg: 'transparent', 
+          rowBorder: 'transparent' 
+        }; // Gray
     }
   };
 
@@ -110,8 +148,18 @@ const Orders = () => {
                   <td colSpan="7" style={{ padding: '32px', textAlign: 'center', color: '#6b7280' }}>No orders found.</td>
                 </tr>
               ) : (
-                orders.map(order => (
-                  <tr key={order._id} style={{ borderBottom: '1px solid #e5e7eb' }}>
+                orders.map(order => {
+                  const statusStyle = getStatusColor(order.status);
+                  return (
+                    <tr 
+                      key={order._id} 
+                      style={{ 
+                        borderBottom: '1px solid #e5e7eb',
+                        backgroundColor: statusStyle.rowBg,
+                        borderLeft: `4px solid ${statusStyle.rowBorder}`,
+                        transition: 'background-color 0.3s ease, border-color 0.3s ease'
+                      }}
+                    >
                     <td style={{ padding: '16px', fontWeight: '600', color: '#374151', fontSize: '0.875rem' }}>
                       {order._id.substring(order._id.length - 8).toUpperCase()}
                     </td>
@@ -169,8 +217,8 @@ const Orders = () => {
                       </button>
                     </td>
                   </tr>
-                ))
-              )}
+                );
+              }))}
             </tbody>
           </table>
         </div>

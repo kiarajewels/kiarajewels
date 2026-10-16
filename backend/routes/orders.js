@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const Order = require('../models/Order');
 const User = require('../models/User');
 const Product = require('../models/Product');
-const { transporter } = require('../utils/emailService');
+const { transporter, sendAdminNewOrderAlertEmail } = require('../utils/emailService');
 const router = express.Router();
 
 // @route   GET /api/orders
@@ -66,6 +66,41 @@ router.get('/check-first-order', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+// @route   GET /api/orders/latest-check
+// @desc    Fast check for newest order ID and count (for Admin real-time notifications)
+router.get('/latest-check', async (req, res) => {
+  try {
+    const latestOrder = await Order.findOne()
+      .sort({ createdAt: -1 })
+      .select('_id createdAt totalPrice status shippingAddress user')
+      .populate('user', 'name email');
+
+    const totalOrders = await Order.countDocuments();
+
+    if (!latestOrder) {
+      return res.json({ latestOrder: null, totalOrders: 0 });
+    }
+
+    const customerName = latestOrder.shippingAddress?.firstName 
+      ? `${latestOrder.shippingAddress.firstName} ${latestOrder.shippingAddress.lastName || ''}`.trim()
+      : (latestOrder.user?.name || 'Customer');
+
+    res.json({
+      latestOrder: {
+        _id: latestOrder._id,
+        createdAt: latestOrder.createdAt,
+        totalPrice: latestOrder.totalPrice,
+        customerName,
+        status: latestOrder.status
+      },
+      totalOrders
+    });
+  } catch (error) {
+    console.error('Error in latest-check:', error);
+    res.status(500).json({ message: error.message });
   }
 });
 
@@ -266,6 +301,15 @@ router.post('/', async (req, res) => {
       }
     } catch (emailError) {
       console.error("Failed to send order confirmation email:", emailError);
+    }
+
+    // Send Admin Notification Email
+    try {
+      sendAdminNewOrderAlertEmail(createdOrder).catch(err => {
+        console.error("Failed to send admin order alert email:", err);
+      });
+    } catch (adminEmailErr) {
+      console.error("Admin order alert trigger error:", adminEmailErr);
     }
 
     // Meta Conversions API

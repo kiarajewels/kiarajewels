@@ -1,13 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { LayoutDashboard, Package, ShoppingCart, Users, Settings, LogOut, BarChart, Menu, X } from 'lucide-react';
+import axios from 'axios';
+import { LayoutDashboard, Package, ShoppingCart, Users, Settings, LogOut, BarChart, Menu, X, Bell } from 'lucide-react';
 import { isTokenValid, clearAdminSession } from '../utils/auth';
+import { 
+  initAudioContext, 
+  playOrderAlertSound, 
+  showOrderNotification, 
+  requestNotificationPermission, 
+  getNotificationPermission 
+} from '../utils/notifications';
 
 const DashboardLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [hasNewOrders, setHasNewOrders] = useState(false);
+  const [notifPermission, setNotifPermission] = useState(getNotificationPermission());
+  const latestOrderIdRef = useRef(null);
+  const isInitializedRef = useRef(false);
 
   // Auto-lock monitor: check every 30 seconds and on window focus
   useEffect(() => {
@@ -38,6 +50,129 @@ const DashboardLayout = () => {
       window.removeEventListener('focus', checkSession);
     };
   }, [navigate, location.pathname]);
+
+  // Warm up audio context on any user touch/click for Chrome autoplay policy
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      initAudioContext();
+    };
+    window.addEventListener('click', handleFirstInteraction, { once: true });
+    window.addEventListener('touchstart', handleFirstInteraction, { once: true });
+    return () => {
+      window.removeEventListener('click', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+    };
+  }, []);
+
+  // Poll for newest orders in real-time across laptop Chrome & mobile Chrome
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkLatestOrder = async () => {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/orders/latest-check`);
+        const { latestOrder } = res.data || {};
+
+        if (!latestOrder || !isMounted) return;
+
+        // On initial mount: record the latest order ID without false-alerting on existing orders
+        if (!isInitializedRef.current) {
+          latestOrderIdRef.current = latestOrder._id;
+          isInitializedRef.current = true;
+          return;
+        }
+
+        // When a genuinely new order has arrived!
+        if (latestOrderIdRef.current && latestOrder._id !== latestOrderIdRef.current) {
+          latestOrderIdRef.current = latestOrder._id;
+          setHasNewOrders(true);
+
+          // 1. Play luxury audio chime
+          playOrderAlertSound();
+
+          // 2. Trigger native Chrome notification banner
+          const shortId = latestOrder._id.slice(-8).toUpperCase();
+          const amountStr = latestOrder.totalPrice ? latestOrder.totalPrice.toFixed(2) : '0';
+          showOrderNotification({
+            title: `🛍️ New Order #${shortId} (₹${amountStr})`,
+            body: `${latestOrder.customerName || 'A customer'} placed a new order.`,
+            onClick: () => navigate('/orders')
+          });
+
+          // 3. Interactive in-app toast
+          toast((t) => (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', gap: '12px' }}>
+              <div>
+                <p style={{ margin: 0, fontWeight: '600', fontSize: '0.9rem' }}>🛍️ New Order Received!</p>
+                <p style={{ margin: '2px 0 0 0', fontSize: '0.8rem', color: '#d1d5db' }}>
+                  #{shortId} • ₹{amountStr} • {latestOrder.customerName}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  toast.dismiss(t.id);
+                  navigate('/orders');
+                }}
+                style={{
+                  backgroundColor: '#ffffff',
+                  color: '#000000',
+                  border: 'none',
+                  padding: '6px 12px',
+                  borderRadius: '6px',
+                  fontSize: '0.8rem',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  flexShrink: 0
+                }}
+              >
+                View
+              </button>
+            </div>
+          ), { duration: 9000 });
+
+          // 4. Dispatch event for Orders page auto-refresh
+          window.dispatchEvent(new CustomEvent('kiara_new_order', { detail: latestOrder }));
+        }
+      } catch (err) {
+        // Silently catch background network polling errors
+        console.warn('Order polling notice:', err?.message);
+      }
+    };
+
+    checkLatestOrder();
+    const interval = setInterval(checkLatestOrder, 15000); // Check every 15s
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        checkLatestOrder();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, [navigate]);
+
+  // Clear new order indicator when visiting /orders
+  useEffect(() => {
+    if (location.pathname === '/orders') {
+      setHasNewOrders(false);
+    }
+  }, [location.pathname]);
+
+  const handleEnableAlerts = async () => {
+    const permission = await requestNotificationPermission();
+    setNotifPermission(permission);
+    if (permission === 'granted') {
+      playOrderAlertSound();
+      toast.success('Real-time order alerts enabled on this device!');
+    } else if (permission === 'denied') {
+      toast.error('Notifications are blocked in your browser settings.');
+    }
+  };
 
   // Auto-close sidebar on route change
   useEffect(() => {
@@ -129,6 +264,23 @@ const DashboardLayout = () => {
               >
                 <Icon size={19} />
                 <span>{item.name}</span>
+                {item.name === 'Orders' && hasNewOrders && (
+                  <span 
+                    style={{ 
+                      marginLeft: 'auto', 
+                      backgroundColor: '#ef4444', 
+                      color: '#ffffff', 
+                      fontSize: '0.65rem', 
+                      fontWeight: 'bold', 
+                      padding: '2px 7px', 
+                      borderRadius: '999px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em'
+                    }}
+                  >
+                    New
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -166,6 +318,52 @@ const DashboardLayout = () => {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+            {/* Real-time Order Alerts Toggle / Badge */}
+            {notifPermission === 'default' && (
+              <button
+                type="button"
+                onClick={handleEnableAlerts}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '6px 12px',
+                  backgroundColor: '#ffffff',
+                  color: '#1f2937',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '6px',
+                  fontSize: '0.8rem',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.05)'
+                }}
+                title="Enable browser alerts when new orders are placed"
+              >
+                <Bell size={15} color="#d97706" />
+                <span>Enable Alerts</span>
+              </button>
+            )}
+            {notifPermission === 'granted' && (
+              <div 
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '5px 10px',
+                  backgroundColor: '#f0fdf4',
+                  color: '#15803d',
+                  borderRadius: '6px',
+                  fontSize: '0.75rem',
+                  fontWeight: '600',
+                  border: '1px solid #bbf7d0'
+                }}
+                title="Order alerts active (audio chime + Chrome notifications)"
+              >
+                <span style={{ width: '7px', height: '7px', borderRadius: '50%', backgroundColor: '#22c55e' }} />
+                <span>Alerts On</span>
+              </div>
+            )}
+
             <div style={{ textAlign: 'right' }} className="admin-hide-mobile">
               <p style={{ fontSize: '0.875rem', fontWeight: '600', color: '#374151', margin: 0 }}>Super Admin</p>
               <p style={{ fontSize: '0.75rem', color: '#6b7280', margin: 0 }}>admin@kiarajewels.com</p>
